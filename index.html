@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>일랑 · Ivy — Brand → AI Product</title>
+<title>안녕하세요</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -143,7 +143,9 @@
     transform:translate(-50%,-50%);
     cursor:grab;
     display:flex; align-items:center; justify-content:center;
+    transition:left 0.9s ease;
   }
+  .spectrum-handle.no-transition{transition:none;}
   .spectrum-handle:active{cursor:grabbing;}
   .spectrum-handle::after{
     content:"";
@@ -213,11 +215,12 @@
 
   /* case */
   .case{
-    background:linear-gradient(160deg, rgba(110,123,255,0.14), rgba(124,245,208,0.06));
+    background:linear-gradient(rgba(11,12,14,0.8), rgba(11,12,14,0.8)), url('./rabbit-jump.jpg');
+    background-size:cover;
+    background-position:center;
     border:1px solid var(--line);
     border-radius:16px;
     padding:36px 28px;
-    backdrop-filter:blur(6px);
   }
   .case h2{
     font-family:'Space Grotesk', sans-serif; font-weight:600;
@@ -313,25 +316,25 @@
   <section class="builds reveal">
     <span class="label">Recently Built</span>
     <div class="build-grid" id="buildGrid">
-      <a class="build-card" href="https://github.com/ivyrarara/manuel" target="_blank" rel="noopener">
+      <a class="build-card" href="./pacemaker.html">
         <div class="build-top">
-          <span class="build-name">마늘</span>
+          <span class="build-name">Agent</span>
           <span class="build-arrow">↗</span>
         </div>
         <p class="build-desc">매일의 리듬을 지켜주는 텔레그램 AI 에이전트</p>
         <span class="build-tag">TELEGRAM · AI AGENT</span>
       </a>
-      <a class="build-card" href="https://ivyrarara.github.io/summer-schedule" target="_blank" rel="noopener">
+      <a class="build-card" href="./scheduler.html">
         <div class="build-top">
-          <span class="build-name">스케줄러</span>
+          <span class="build-name">Scheduler</span>
           <span class="build-arrow">↗</span>
         </div>
         <p class="build-desc">가족 일정의 반복 확인을 없애는 웹앱</p>
         <span class="build-tag">FIREBASE · WEB APP</span>
       </a>
-      <a class="build-card" href="#" target="_blank" rel="noopener">
+      <a class="build-card" href="./recipebook.html">
         <div class="build-top">
-          <span class="build-name">레시피북</span>
+          <span class="build-name">Recipe Book</span>
           <span class="build-arrow">↗</span>
         </div>
         <p class="build-desc">레시피를 정리하고 비율로 스케일링하는 앱</p>
@@ -439,18 +442,41 @@
   setPos(pos);
 
   let dragging = false;
+  let autoTimer = null;
+  const autoPositions = [10, 30, 50, 70, 90];
+  let autoIndex = 2;
+
+  function stopAuto(){
+    if(autoTimer){ clearInterval(autoTimer); autoTimer = null; }
+  }
+  function startAuto(){
+    stopAuto();
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    autoTimer = setInterval(()=>{
+      autoIndex = (autoIndex+1) % autoPositions.length;
+      setPos(autoPositions[autoIndex]);
+    }, 2000);
+  }
+  startAuto();
+
   function updateFromEvent(e){
     const rect = track.getBoundingClientRect();
     const x = (e.clientX ?? (e.touches && e.touches[0].clientX)) - rect.left;
     setPos((x/rect.width)*100);
   }
-  handle.addEventListener('pointerdown', e=>{ dragging=true; handle.setPointerCapture(e.pointerId); });
-  track.addEventListener('pointerdown', e=>{ dragging=true; updateFromEvent(e); });
+  handle.addEventListener('pointerdown', e=>{
+    dragging=true; stopAuto(); handle.classList.add('no-transition'); handle.setPointerCapture(e.pointerId);
+  });
+  track.addEventListener('pointerdown', e=>{
+    dragging=true; stopAuto(); handle.classList.add('no-transition'); updateFromEvent(e);
+  });
   window.addEventListener('pointermove', e=>{ if(dragging) updateFromEvent(e); });
-  window.addEventListener('pointerup', ()=> dragging=false);
+  window.addEventListener('pointerup', ()=>{
+    if(dragging){ dragging=false; handle.classList.remove('no-transition'); startAuto(); }
+  });
   handle.addEventListener('keydown', e=>{
-    if(e.key==='ArrowLeft') setPos(pos-4);
-    if(e.key==='ArrowRight') setPos(pos+4);
+    if(e.key==='ArrowLeft'){ stopAuto(); setPos(pos-4); }
+    if(e.key==='ArrowRight'){ stopAuto(); setPos(pos+4); }
   });
 
   // tilt on build cards
