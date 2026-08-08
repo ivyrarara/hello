@@ -38,22 +38,6 @@
 
   .wrap{max-width:760px; margin:0 auto; padding:0 28px;}
 
-  /* custom cursor (pointer:fine only) */
-  .cursor{
-    position:fixed; top:0; left:0;
-    width:22px; height:22px;
-    border:1px solid var(--a2);
-    border-radius:50%;
-    pointer-events:none;
-    z-index:9999;
-    transform:translate(-50%,-50%);
-    transition:width 0.2s ease, height 0.2s ease, background 0.2s ease, opacity 0.2s ease;
-    mix-blend-mode:difference;
-    opacity:0;
-  }
-  body.cursor-ready .cursor{opacity:1;}
-  .cursor.hover{width:48px; height:48px; background:var(--a2); border-color:transparent;}
-  body.cursor-ready, body.cursor-ready a, body.cursor-ready button{cursor:none;}
 
   /* marquee */
   .marquee-band{
@@ -268,7 +252,6 @@
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
 
 <div class="marquee-band">
   <div class="marquee-track" id="marquee">
@@ -374,24 +357,6 @@
   // reduced motion check
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = window.matchMedia('(pointer: fine)').matches;
-
-  // custom cursor
-  if(fine && !reduceMotion){
-    document.body.classList.add('cursor-ready');
-    const cursor = document.getElementById('cursor');
-    let cx=0, cy=0, tx=0, ty=0;
-    window.addEventListener('pointermove', e=>{ tx=e.clientX; ty=e.clientY; });
-    function loop(){
-      cx += (tx-cx)*0.2; cy += (ty-cy)*0.2;
-      cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
-      requestAnimationFrame(loop);
-    }
-    loop();
-    document.querySelectorAll('a, button, .spectrum-handle').forEach(el=>{
-      el.addEventListener('pointerenter', ()=>cursor.classList.add('hover'));
-      el.addEventListener('pointerleave', ()=>cursor.classList.remove('hover'));
-    });
-  }
 
   // magnetic hover on hero words
   const title = document.getElementById('heroTitle');
