@@ -146,8 +146,10 @@
   .spectrum-caption{
     margin-top:16px;
     font-size:15px;
-    min-height:24px;
+    min-height:28px;
     font-weight:500;
+    transform-origin:left center;
+    transition:font-size 0.3s ease, font-weight 0.3s ease, color 0.3s ease;
   }
 
   section{padding:54px 0; border-top:1px solid var(--line);}
@@ -403,6 +405,16 @@
     handle.setAttribute('aria-valuenow', Math.round(pos));
     const c = captions.find(c=>pos <= c.max);
     caption.textContent = c.text;
+
+    // emphasize caption toward each end: bigger, bolder, side-colored
+    const t = (pos - 50) / 50;            // -1 judgment .. +1 empathy
+    const mag = Math.min(1, Math.abs(t)); // 0 center .. 1 ends
+    const target = t >= 0 ? [124,245,208] : [110,123,255]; // --a2 empathy / --a1 judgment
+    const base = [237,237,237];
+    const mix = i => Math.round(base[i] + (target[i]-base[i]) * mag);
+    caption.style.fontSize = (15 * (1 + 0.2 * mag)).toFixed(1) + 'px'; // up to 120%
+    caption.style.fontWeight = 500 + Math.round(mag * 200);            // 500 .. 700
+    caption.style.color = `rgb(${mix(0)},${mix(1)},${mix(2)})`;
   }
   setPos(pos);
 
