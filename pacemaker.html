@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pacemaker Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0c0e; --bg-2:#16181c; --text:#ededed;
+    --muted: rgba(237,237,237,0.55); --line: rgba(237,237,237,0.12);
+    --a1:#6e7bff; --a2:#7cf5d0; --grad: linear-gradient(90deg, var(--a1), var(--a2)); --dim: rgba(237,237,237,0.28);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--text); font-family:'Inter', sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+  a{color:inherit; text-decoration:none;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--a2); outline-offset:3px;}
+  .wrap{max-width:760px; margin:0 auto; padding:0 28px;}
+
+  .back{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.05em;
+    color:var(--muted); padding:24px 0 0;
+  }
+  .back:hover{color:var(--a2);}
+
+  .marquee-band{border-top:1px solid var(--line); border-bottom:1px solid var(--line); overflow:hidden; padding:14px 0; white-space:nowrap; margin-top:24px;}
+  .marquee-track{display:inline-flex; animation:scroll 22s linear infinite;}
+  .marquee-track span{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.08em; color:var(--muted); padding:0 18px; text-transform:uppercase;}
+  .marquee-track span.dot{color:var(--a2);}
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  header.hero{padding:64px 0 40px;}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.08em; color:var(--a2); text-transform:uppercase; margin-bottom:18px; opacity:0; animation:rise 0.6s ease forwards;}
+  h1{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:clamp(34px,6.5vw,50px); line-height:1.12; letter-spacing:-0.02em; opacity:0; animation:rise 0.6s ease 0.08s forwards;}
+  .hero-sub{margin-top:16px; font-size:16.5px; color:var(--muted); max-width:50ch; opacity:0; animation:rise 0.6s ease 0.16s forwards;}
+  @keyframes rise{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+
+  section{padding:52px 0; border-top:1px solid var(--line);}
+  .label{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a2); margin-bottom:16px; display:block;}
+  p.body-text{font-size:16px; color:rgba(237,237,237,0.85); max-width:58ch;}
+  p.body-text + p.body-text{margin-top:12px;}
+
+  /* insight callout */
+  .insight{
+    background:var(--bg-2); border:1px solid var(--line); border-radius:14px;
+    padding:26px 26px; margin-top:18px;
+  }
+  .insight .num{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--a1);}
+  .insight p{font-family:'Space Grotesk', sans-serif; font-size:18px; font-weight:500; margin-top:8px; line-height:1.4;}
+
+  /* nested rings (signature interactive element) */
+  .nest-wrap{margin-top:24px; display:flex; justify-content:center;}
+  .nest-wrap circle{transition:stroke 1.4s ease, stroke-width 1.4s ease, stroke-opacity 1.4s ease, filter 1.4s ease;}
+  .nest-wrap text{transition:fill 1.4s ease;}
+  .nest-wrap line{transition:stroke 1.4s ease, stroke-opacity 1.4s ease;}
+  .stage-list{display:flex; flex-direction:column; gap:0; margin-top:20px;}
+  .stage-item{display:flex; gap:14px; padding:10px 0; border-top:1px solid var(--line); transition:opacity 1.4s ease;}
+  .stage-item:first-child{border-top:none;}
+  .stage-tag{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--dim); min-width:64px; transition:color 1.4s ease;}
+  .stage-desc{font-size:13.5px; color:var(--dim); transition:color 1.4s ease;}
+  .stage-item.active .stage-tag{color:var(--a2);}
+  .stage-item.active .stage-desc{color:rgba(237,237,237,0.92);}
+
+  /* feature list */
+  .feature-grid{display:grid; grid-template-columns:1fr; gap:0;}
+  .feature{display:grid; grid-template-columns:120px 1fr; gap:16px; padding:14px 0; border-top:1px solid var(--line);}
+  .feature:first-child{border-top:none;}
+  .feature-tag{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--a1); padding-top:2px;}
+  .feature-text{font-size:14.5px; color:rgba(237,237,237,0.82);}
+
+  .contact-links{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:20px;}
+  .magnetic a{display:inline-block; font-size:14.5px; padding:11px 20px; border:1px solid var(--line); border-radius:99px; transition:border-color 0.25s ease, background 0.25s ease;}
+  .magnetic a:hover{border-color:var(--a2); background:rgba(124,245,208,0.06);}
+
+  footer{padding:30px 0 60px; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted);}
+
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (min-width:560px){ .feature{grid-template-columns:150px 1fr;} }
+</style>
+</head>
+<body>
+
+<div class="marquee-band">
+  <div class="marquee-track">
+    <span>TELEGRAM</span><span class="dot">·</span><span>PYTHON</span><span class="dot">·</span><span>RAILWAY</span><span class="dot">·</span><span>JUDGMENT × EMPATHY</span><span class="dot">·</span><span>100 DAYS</span><span class="dot">·</span>
+    <span>TELEGRAM</span><span class="dot">·</span><span>PYTHON</span><span class="dot">·</span><span>RAILWAY</span><span class="dot">·</span><span>JUDGMENT × EMPATHY</span><span class="dot">·</span><span>100 DAYS</span><span class="dot">·</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <a class="back" href="./index.html">← Home</a>
+
+  <header class="hero">
+    <div class="eyebrow">Telegram · AI Agent</div>
+    <h1>Pacemaker Agent</h1>
+    <p class="hero-sub">100일 동안의 리듬을 지켜준 나만의 AI 에이전트. 매일 저녁 체크인하고, 일요일엔 한 주를 되짚고, 월요일엔 다음 액션을 짚어줍니다.</p>
+  </header>
+
+  <section class="reveal">
+    <span class="label">Why I Built It</span>
+    <p class="body-text">100일짜리 커리어 전환 프로젝트를 혼자 끌고 가려니 페이스메이커가 필요했어요. 매일 저녁 오늘 뭘 했는지 묻지 않고 정리하고, 그걸 기록해서 다음 걸음을 제안해주는 존재를 직접 만들었습니다. 자꾸 다그치는 코치가 아니라, 거리를 두고 지켜봐주는 존재여야 했어요.</p>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Key Insight</span>
+    <div class="insight">
+      <span class="num">01</span>
+      <p>에이전트의 발화는 판단(Judgment)과 공감(Empathy)으로 나뉜다 — 이 둘을 섞인 설계가 가장 흔한 실수.</p>
+    </div>
+    <div class="insight">
+      <span class="num">02</span>
+      <p>사용자는 자기가 직접 만들지 않은 에이전트를 훈련시키지 않는다 — 진짜 과제는 이미 알고 있는 걸 드러내는 것, 그리고 그 타이밍.</p>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">6-Rung Ladder</span>
+    <p class="body-text" style="margin-bottom:6px;">진행도는 커밋 수가 아니라 깊이로 측정했어요.</p>
+    <div class="nest-wrap">
+      <svg viewBox="0 0 340 330" width="100%" style="max-width:340px; display:block; margin:0 auto;">
+        <circle id="nest0" cx="170" cy="165" r="95" fill="none" stroke="var(--line)" stroke-width="2"/>
+        <circle id="nest1" cx="170" cy="165" r="78" fill="none" stroke="var(--line)" stroke-width="6"/>
+        <circle id="nest2" cx="170" cy="165" r="61" fill="none" stroke="var(--line)" stroke-width="11"/>
+        <circle id="nest3" cx="170" cy="165" r="44" fill="none" stroke="var(--line)" stroke-width="16"/>
+        <circle id="nest4" cx="170" cy="165" r="27" fill="none" stroke="var(--line)" stroke-width="21"/>
+        <circle id="nest5" cx="170" cy="165" r="10" fill="none" stroke="var(--line)" stroke-width="26"/>
+        <circle cx="170" cy="165" r="4" fill="var(--a2)" style="filter:drop-shadow(0 0 8px var(--a2))"/>
+
+        <line id="leader0" x1="170" y1="70" x2="170" y2="43" stroke="var(--line)" stroke-width="1"/>
+        <line id="leader1" x1="237.55" y1="126" x2="275.65" y2="104" stroke="var(--line)" stroke-width="1"/>
+        <line id="leader2" x1="222.83" y1="195.5" x2="275.65" y2="226" stroke="var(--line)" stroke-width="1"/>
+        <line id="leader3" x1="170" y1="209" x2="170" y2="287" stroke="var(--line)" stroke-width="1"/>
+        <line id="leader4" x1="146.62" y1="178.5" x2="64.35" y2="226" stroke="var(--line)" stroke-width="1"/>
+        <line id="leader5" x1="161.34" y1="160" x2="64.35" y2="104" stroke="var(--line)" stroke-width="1"/>
+
+        <text id="ringlabel0" x="170" y="43" text-anchor="middle" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--dim)">01 학습</text>
+        <text id="ringlabel1" x="280" y="104" text-anchor="start" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--dim)">02 활용</text>
+        <text id="ringlabel2" x="280" y="226" text-anchor="start" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--dim)">03 확장</text>
+        <text id="ringlabel3" x="170" y="292" text-anchor="middle" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--dim)">04 구현</text>
+        <text id="ringlabel4" x="60" y="226" text-anchor="end" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--dim)">05 개선</text>
+        <text id="ringlabel5" x="60" y="104" text-anchor="end" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--dim)">06 기록</text>
+      </svg>
+    </div>
+    <div class="stage-list" id="stageList">
+      <div class="stage-item" data-i="0"><span class="stage-tag">01 학습</span><span class="stage-desc">개념을 이해하고 정리하는 단계</span></div>
+      <div class="stage-item" data-i="1"><span class="stage-tag">02 활용</span><span class="stage-desc">배운 걸 실제로 써보는 단계</span></div>
+      <div class="stage-item" data-i="2"><span class="stage-tag">03 확장</span><span class="stage-desc">범위를 넓혀 다른 문제에 적용</span></div>
+      <div class="stage-item" data-i="3"><span class="stage-tag">04 구현</span><span class="stage-desc">실제로 동작하는 걸 만드는 단계</span></div>
+      <div class="stage-item" data-i="4"><span class="stage-tag">05 개선</span><span class="stage-desc">써보면서 다듬는 단계</span></div>
+      <div class="stage-item" data-i="5"><span class="stage-tag">06 기록</span><span class="stage-desc">인사이트로 남겨서 재사용 가능하게</span></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Features</span>
+    <div class="feature-grid">
+      <div class="feature"><span class="feature-tag">CHECK-IN</span><span class="feature-text">월–토요일 저녁 자율 체크인</span></div>
+      <div class="feature"><span class="feature-tag">REVIEW</span><span class="feature-text">일요일 저녁 주간 회고, 월요일 오전 액션 리마인더</span></div>
+      <div class="feature"><span class="feature-tag">MEMO</span><span class="feature-text">/memo #태그로 주제별 인사이트 기록, 쌓이면 액션으로 연결</span></div>
+      <div class="feature"><span class="feature-tag">RAW DATA</span><span class="feature-text">발화·침묵 로그별 판단 검증 데이터로 재사용</span></div>
+      <div class="feature"><span class="feature-tag">READING</span><span class="feature-text">블로그·깃허브 읽고 성과 자동 취합</span></div>
+      <div class="feature"><span class="feature-tag">BACKUP</span><span class="feature-text">매월 DB 자동 백업</span></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Links</span>
+    <div class="contact-links">
+      <div class="magnetic"><a href="https://github.com/ivyrarara/manuel" target="_blank" rel="noopener">GitHub Repo</a></div>
+      <div class="magnetic"><a href="https://t.me/garlic_kor_bot" target="_blank" rel="noopener">Telegram Bot</a></div>
+    </div>
+  </section>
+
+  <footer>© 2026</footer>
+</div>
+
+<script>
+  const stages = [
+    {name:'학습', desc:'개념을 이해하고 정리하는 단계'},
+    {name:'활용', desc:'배운 걸 실제로 써보는 단계'},
+    {name:'확장', desc:'범위를 넓혀 다른 문제에 적용'},
+    {name:'구현', desc:'실제로 동작하는 걸 만드는 단계'},
+    {name:'개선', desc:'써보면서 다듬는 단계'},
+    {name:'기록', desc:'인사이트로 남겨서 재사용 가능하게'}
+  ];
+  const stageItems = document.querySelectorAll('.stage-item');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let nestIndex = 0;
+  const ringWidths = [2,6,11,16,21,26];
+  function renderNest(i){
+    for(let n=0; n<6; n++){
+      const ring = document.getElementById('nest'+n);
+      const label = document.getElementById('ringlabel'+n);
+      const leader = document.getElementById('leader'+n);
+      const isActive = n===i;
+      ring.setAttribute('stroke', isActive ? 'var(--a2)' : 'var(--line)');
+      ring.setAttribute('stroke-width', isActive ? ringWidths[n]+3 : ringWidths[n]);
+      ring.setAttribute('stroke-opacity', isActive ? '1' : '0.5');
+      ring.style.filter = isActive ? 'drop-shadow(0 0 10px var(--a2)) drop-shadow(0 0 22px rgba(124,245,208,0.5))' : 'blur(1.1px)';
+      label.setAttribute('fill', isActive ? 'var(--a2)' : 'var(--dim)');
+      leader.setAttribute('stroke', isActive ? 'var(--a2)' : 'var(--line)');
+      leader.setAttribute('stroke-opacity', isActive ? '0.8' : '0.4');
+    }
+    stageItems.forEach(el=> el.classList.toggle('active', parseInt(el.dataset.i)===i));
+  }
+  renderNest(0);
+  if(!reduceMotion){
+    setInterval(()=>{
+      nestIndex = (nestIndex+1) % 6;
+      renderNest(nestIndex);
+    }, 2800);
+  }
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>

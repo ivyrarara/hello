@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>레시피북</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0c0e; --bg-2:#16181c; --text:#ededed;
+    --muted: rgba(237,237,237,0.55); --line: rgba(237,237,237,0.12);
+    --a1:#6e7bff; --a2:#7cf5d0; --grad: linear-gradient(90deg, var(--a1), var(--a2));
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--text); font-family:'Inter', sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+  a{color:inherit; text-decoration:none;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--a2); outline-offset:3px;}
+  .wrap{max-width:760px; margin:0 auto; padding:0 28px;}
+
+  .back{display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.05em; color:var(--muted); padding:24px 0 0;}
+  .back:hover{color:var(--a2);}
+
+  .marquee-band{border-top:1px solid var(--line); border-bottom:1px solid var(--line); overflow:hidden; padding:14px 0; white-space:nowrap; margin-top:24px;}
+  .marquee-track{display:inline-flex; animation:scroll 22s linear infinite;}
+  .marquee-track span{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.08em; color:var(--muted); padding:0 18px; text-transform:uppercase;}
+  .marquee-track span.dot{color:var(--a2);}
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  header.hero{padding:64px 0 40px;}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.08em; color:var(--a2); text-transform:uppercase; margin-bottom:18px; opacity:0; animation:rise 0.6s ease forwards;}
+  h1{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:clamp(34px,6.5vw,50px); line-height:1.12; letter-spacing:-0.02em; opacity:0; animation:rise 0.6s ease 0.08s forwards;}
+  .hero-sub{margin-top:16px; font-size:16.5px; color:var(--muted); max-width:50ch; opacity:0; animation:rise 0.6s ease 0.16s forwards;}
+  @keyframes rise{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+
+  section{padding:52px 0; border-top:1px solid var(--line);}
+  .label{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a2); margin-bottom:16px; display:block;}
+  p.body-text{font-size:16px; color:rgba(237,237,237,0.85); max-width:58ch;}
+
+  .insight{background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:26px; margin-top:18px;}
+  .insight .num{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--a1);}
+  .insight p{font-family:'Space Grotesk', sans-serif; font-size:18px; font-weight:500; margin-top:8px; line-height:1.4;}
+
+  /* live scaling demo */
+  .demo-panel{background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:26px; margin-top:18px;}
+  .servings-row{display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;}
+  .servings-label{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted);}
+  .servings-controls{display:flex; align-items:center; gap:14px;}
+  .servings-btn{
+    width:30px; height:30px; border-radius:50%; border:1px solid var(--line); background:transparent; color:var(--text);
+    font-family:'Space Grotesk', sans-serif; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition:border-color 0.2s ease;
+  }
+  .servings-btn:hover{border-color:var(--a2); color:var(--a2);}
+  .servings-num{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:20px; min-width:32px; text-align:center;}
+  .ingredient-row{display:flex; justify-content:space-between; padding:10px 0; border-top:1px solid var(--line); font-size:14.5px;}
+  .ingredient-row:first-of-type{border-top:none;}
+  .ingredient-row.anchor{align-items:center;}
+  .ingredient-row .servings-controls{gap:10px;}
+  .ingredient-row .servings-btn{width:24px; height:24px; font-size:14px;}
+  .ingredient-name{color:rgba(237,237,237,0.82);}
+  .ingredient-amt{font-family:'IBM Plex Mono', monospace; color:var(--a2); min-width:64px; text-align:right;}
+
+  .feature-grid{display:grid; grid-template-columns:1fr; gap:0;}
+  .feature{display:grid; grid-template-columns:120px 1fr; gap:16px; padding:14px 0; border-top:1px solid var(--line);}
+  .feature:first-child{border-top:none;}
+  .feature-tag{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--a1); padding-top:2px;}
+  .feature-text{font-size:14.5px; color:rgba(237,237,237,0.82);}
+
+  .contact-links{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:20px;}
+  .magnetic a{display:inline-block; font-size:14.5px; padding:11px 20px; border:1px solid var(--line); border-radius:99px; transition:border-color 0.25s ease, background 0.25s ease;}
+  .magnetic a:hover{border-color:var(--a2); background:rgba(124,245,208,0.06);}
+
+  footer{padding:30px 0 60px; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted);}
+
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (min-width:560px){ .feature{grid-template-columns:150px 1fr;} }
+</style>
+</head>
+<body>
+
+<div class="marquee-band">
+  <div class="marquee-track">
+    <span>CLAUDE API</span><span class="dot">·</span><span>FIRESTORE</span><span class="dot">·</span><span>PWA</span><span class="dot">·</span><span>RATIO SCALING</span><span class="dot">·</span>
+    <span>CLAUDE API</span><span class="dot">·</span><span>FIRESTORE</span><span class="dot">·</span><span>PWA</span><span class="dot">·</span><span>RATIO SCALING</span><span class="dot">·</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <a class="back" href="./index.html">← Home</a>
+
+  <header class="hero">
+    <div class="eyebrow">Claude API · PWA</div>
+    <h1>레시피북</h1>
+    <p class="hero-sub">레시피를 정리하고, 비율에 맞게 자동 계산되는 앱. 캡처만으로 AI가 재료와 순서를 파싱해줍니다.</p>
+  </header>
+
+  <section class="reveal">
+    <span class="label">Why I Built It</span>
+    <p class="body-text">인스타그램에서 마음에 드는 레시피를 만나면 저장해뒀는데, 막상 요리할 때 다시 찾는 게 쉽지 않았어요. 재료 하나를 기준으로 전체 양을 조절하려면 그것도 매번 GPT에 따로 물어봐야 했고요. 캡처 몇 장으로 정리되고, 재료 하나만 조절해도 나머지가 비율대로 자동 계산되게 만들었습니다.</p>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Key Insight</span>
+    <div class="insight">
+      <span class="num">01</span>
+      <p>성공 지표는 원본을 안 찾아도 되는가가 아니라, 원본으로 더 빠르게 돌아갈 수 있는가였다 — 영상은 글보다 이해가 빠르니, 원본 링크를 바로 연결해뒀다.</p>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Try the Ratio Scaling</span>
+    <p class="body-text" style="margin-bottom:0;">재료 하나만 조절해도 나머지가 비율대로 따라가요. 두부 양을 눌러보세요.</p>
+    <div class="demo-panel">
+      <div id="ingredientList">
+        <div class="ingredient-row anchor">
+          <span class="ingredient-name">두부</span>
+          <div class="servings-controls">
+            <button class="servings-btn" id="minus">−</button>
+            <span class="ingredient-amt" id="anchorAmt" data-base="150">150 g</span>
+            <button class="servings-btn" id="plus">+</button>
+          </div>
+        </div>
+        <div class="ingredient-row"><span class="ingredient-name">된장</span><span class="ingredient-amt" data-base="2" data-unit="tbsp">2 tbsp</span></div>
+        <div class="ingredient-row"><span class="ingredient-name">애호박</span><span class="ingredient-amt" data-base="0.5" data-unit="개">0.5 개</span></div>
+        <div class="ingredient-row"><span class="ingredient-name">물</span><span class="ingredient-amt" data-base="500" data-unit="ml">500 ml</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Features</span>
+    <div class="feature-grid">
+      <div class="feature"><span class="feature-tag">PARSING</span><span class="feature-text">사진/텍스트 업로드 시 Claude API가 재료·순서 자동 파싱</span></div>
+      <div class="feature"><span class="feature-tag">SCALING</span><span class="feature-text">비율 유지하며 모든 재료양 자동 조정</span></div>
+      <div class="feature"><span class="feature-tag">NOTES</span><span class="feature-text">"참기름 대신 들기름 쓰니 더 풍미 좋음" 같은 시도 메모를 날짜와 함께 추가</span></div>
+      <div class="feature"><span class="feature-tag">SYNC</span><span class="feature-text">Firebase Firestore 동기화, PWA로 홈 화면 설치 가능</span></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Links</span>
+    <div class="contact-links">
+      <div class="magnetic"><a href="https://github.com/ivyrarara" target="_blank" rel="noopener">GitHub</a></div>
+    </div>
+  </section>
+
+  <footer>© 2026</footer>
+</div>
+
+<script>
+  const anchorBase = 150;
+  let anchorVal = 150;
+  const anchorEl = document.getElementById('anchorAmt');
+  const others = document.querySelectorAll('#ingredientList .ingredient-row:not(.anchor) .ingredient-amt');
+
+  function render(){
+    anchorEl.textContent = `${anchorVal} g`;
+    const ratio = anchorVal / anchorBase;
+    others.forEach(el=>{
+      const base = parseFloat(el.dataset.base);
+      const unit = el.dataset.unit;
+      const scaled = Math.round(base * ratio * 10) / 10;
+      el.textContent = `${scaled} ${unit}`;
+    });
+  }
+  document.getElementById('plus').addEventListener('click', ()=>{ anchorVal += 25; render(); });
+  document.getElementById('minus').addEventListener('click', ()=>{ if(anchorVal>25){ anchorVal -= 25; render(); } });
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>

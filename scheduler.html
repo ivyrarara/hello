@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>스케줄러</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0c0e; --bg-2:#16181c; --text:#ededed;
+    --muted: rgba(237,237,237,0.55); --line: rgba(237,237,237,0.12);
+    --a1:#6e7bff; --a2:#7cf5d0; --grad: linear-gradient(90deg, var(--a1), var(--a2));
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--text); font-family:'Inter', sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+  a{color:inherit; text-decoration:none;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--a2); outline-offset:3px;}
+  .wrap{max-width:760px; margin:0 auto; padding:0 28px;}
+
+  .back{display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.05em; color:var(--muted); padding:24px 0 0;}
+  .back:hover{color:var(--a2);}
+
+  .marquee-band{border-top:1px solid var(--line); border-bottom:1px solid var(--line); overflow:hidden; padding:14px 0; white-space:nowrap; margin-top:24px;}
+  .marquee-track{display:inline-flex; animation:scroll 22s linear infinite;}
+  .marquee-track span{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.08em; color:var(--muted); padding:0 18px; text-transform:uppercase;}
+  .marquee-track span.dot{color:var(--a2);}
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  header.hero{padding:64px 0 40px;}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.08em; color:var(--a2); text-transform:uppercase; margin-bottom:18px; opacity:0; animation:rise 0.6s ease forwards;}
+  h1{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:clamp(34px,6.5vw,50px); line-height:1.12; letter-spacing:-0.02em; opacity:0; animation:rise 0.6s ease 0.08s forwards;}
+  .hero-sub{margin-top:16px; font-size:16.5px; color:var(--muted); max-width:50ch; opacity:0; animation:rise 0.6s ease 0.16s forwards;}
+  @keyframes rise{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+
+  section{padding:52px 0; border-top:1px solid var(--line);}
+  .label{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a2); margin-bottom:16px; display:block;}
+  p.body-text{font-size:16px; color:rgba(237,237,237,0.85); max-width:58ch;}
+
+  .insight{background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:26px; margin-top:18px;}
+  .insight .num{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--a1);}
+  .insight p{font-family:'Space Grotesk', sans-serif; font-size:18px; font-weight:500; margin-top:8px; line-height:1.4;}
+
+  /* before/after toggle demo */
+  .demo{margin-top:22px;}
+  .toggle-row{display:flex; align-items:center; gap:14px; margin-bottom:16px;}
+  .toggle{
+    position:relative; width:52px; height:28px; border-radius:99px;
+    background:var(--bg-2); border:1px solid var(--line); cursor:pointer;
+  }
+  .toggle::after{
+    content:""; position:absolute; top:3px; left:3px; width:20px; height:20px;
+    border-radius:50%; background:var(--text); transition:transform 0.25s ease, background 0.25s ease;
+  }
+  .toggle.on::after{transform:translateX(24px); background:var(--a2);}
+  .toggle-label{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted);}
+  .demo-panel{
+    background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:22px;
+    min-height:140px; display:flex; flex-direction:column; gap:8px; justify-content:center;
+  }
+  .demo-line{font-size:13.5px; color:var(--muted); padding:6px 10px; border-radius:8px; background:rgba(237,237,237,0.04);}
+  .demo-line.warn{color:#e8a87c;}
+  .demo-line.good{color:var(--a2); background:rgba(124,245,208,0.06);}
+
+  .feature-grid{display:grid; grid-template-columns:1fr; gap:0;}
+  .feature{display:grid; grid-template-columns:120px 1fr; gap:16px; padding:14px 0; border-top:1px solid var(--line);}
+  .feature:first-child{border-top:none;}
+  .feature-tag{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--a1); padding-top:2px;}
+  .feature-text{font-size:14.5px; color:rgba(237,237,237,0.82);}
+
+  .contact-links{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:20px;}
+  .magnetic a{display:inline-block; font-size:14.5px; padding:11px 20px; border:1px solid var(--line); border-radius:99px; transition:border-color 0.25s ease, background 0.25s ease;}
+  .magnetic a:hover{border-color:var(--a2); background:rgba(124,245,208,0.06);}
+
+  footer{padding:30px 0 60px; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted);}
+
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (min-width:560px){ .feature{grid-template-columns:150px 1fr;} }
+</style>
+</head>
+<body>
+
+<div class="marquee-band">
+  <div class="marquee-track">
+    <span>FIREBASE</span><span class="dot">·</span><span>FIRESTORE</span><span class="dot">·</span><span>GITHUB PAGES</span><span class="dot">·</span><span>FAMILY OPS</span><span class="dot">·</span>
+    <span>FIREBASE</span><span class="dot">·</span><span>FIRESTORE</span><span class="dot">·</span><span>GITHUB PAGES</span><span class="dot">·</span><span>FAMILY OPS</span><span class="dot">·</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <a class="back" href="./index.html">← Home</a>
+
+  <header class="hero">
+    <div class="eyebrow">Firebase · Web App</div>
+    <h1>스케줄러</h1>
+    <p class="hero-sub">여러 앱을 오가는 반복 확인을 없애는 웹앱. 아이의 활동 종류, 식단, 등하원 시간과 장소까지 주/월 단위로 한눈에 보고, 준비물·행사 메모를 추가하거나 식단을 위한 장보기 리스트까지 해결했어요.</p>
+  </header>
+
+  <section class="reveal">
+    <span class="label">Why I Built It</span>
+    <p class="body-text">두 달간의 긴 여름방학 동안 매주 다른 캠프, 삼시세끼 식단 계획, 등하교 일정을 캘린더 앱과 캠프에서 받은 메일, 냉장고 메모패드를 오가며 확인 또 재확인하는 게 불필요하게 느껴졌어요. 한 번 확인한 정보를 한 곳에 모아, 필요할 때 언제든 한눈에 다시 볼 수 있는 대시보드가 필요했습니다.</p>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Key Insight</span>
+    <div class="insight">
+      <span class="num">01</span>
+      <p>필요할 때 꺼내 쓸 수 없는 정보는, 없는 정보나 마찬가지였다.</p>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Before / After</span>
+    <p class="body-text" style="margin-bottom:0;">토글을 눌러 무엇이 바뀌었는지 봐주세요.</p>
+    <div class="demo">
+      <div class="toggle-row">
+        <div class="toggle" id="toggle"></div>
+        <span class="toggle-label" id="toggleLabel">BEFORE — 반복 확인</span>
+      </div>
+      <div class="demo-panel" id="demoPanel">
+        <div class="demo-line warn">"이번 주 캠프 몇 시까지였지?"</div>
+        <div class="demo-line warn">"캠프 끝나고 하는 수영이 무슨 요일이었더라?"</div>
+        <div class="demo-line warn">"가만보자 이 중에 한인마트에서 사야하는 건..."</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Features</span>
+    <div class="feature-grid">
+      <div class="feature"><span class="feature-tag">VIEW</span><span class="feature-text">월간/주간 뷰 토글 및 날짜별 카드로 하이라키 구성</span></div>
+      <div class="feature"><span class="feature-tag">MEALS</span><span class="feature-text">식단 + 한인마트·로컬마트 분리 장보기 리스트</span></div>
+      <div class="feature"><span class="feature-tag">SYNC</span><span class="feature-text">Firebase Firestore로 기기 간 실시간 동기화</span></div>
+      <div class="feature"><span class="feature-tag">MOBILE</span><span class="feature-text">폴더블폰 화면에 맞춘 모바일 퍼스트 레이아웃</span></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Links</span>
+    <div class="contact-links">
+      <div class="magnetic"><a href="https://github.com/ivyrarara/summer-schedule" target="_blank" rel="noopener">GitHub Repo</a></div>
+      <div class="magnetic"><a href="https://ivyrarara.github.io/summer-schedule" target="_blank" rel="noopener">Live App</a></div>
+    </div>
+  </section>
+
+  <footer>© 2026</footer>
+</div>
+
+<script>
+  const toggle = document.getElementById('toggle');
+  const label = document.getElementById('toggleLabel');
+  const panel = document.getElementById('demoPanel');
+  const before = [
+    {t:'"이번 주 캠프 몇 시까지였지?"', c:'warn'},
+    {t:'"캠프 끝나고 하는 수영이 무슨 요일이었더라?"', c:'warn'},
+    {t:'"가만보자 이 중에 한인마트에서 사야하는 건..."', c:'warn'}
+  ];
+  const after = [
+    {t:'✓ 주간뷰/월간뷰에서 모두 확인 가능', c:'good'},
+    {t:'✓ 날짜별 특별 준비물·특이사항 손쉬운 추가', c:'good'},
+    {t:'✓ 한인마트 / 로컬마트 분류 기록', c:'good'}
+  ];
+  toggle.addEventListener('click', ()=>{
+    const on = toggle.classList.toggle('on');
+    label.textContent = on ? 'AFTER — 한 번에 동기화' : 'BEFORE — 반복 확인';
+    const data = on ? after : before;
+    panel.innerHTML = data.map(d=>`<div class="demo-line ${d.c}">${d.t}</div>`).join('');
+  });
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
