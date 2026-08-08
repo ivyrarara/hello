@@ -38,22 +38,6 @@
 
   .wrap{max-width:760px; margin:0 auto; padding:0 28px;}
 
-  /* custom cursor (pointer:fine only) */
-  .cursor{
-    position:fixed; top:0; left:0;
-    width:22px; height:22px;
-    border:1px solid var(--a2);
-    border-radius:50%;
-    pointer-events:none;
-    z-index:9999;
-    transform:translate(-50%,-50%);
-    transition:width 0.2s ease, height 0.2s ease, background 0.2s ease, opacity 0.2s ease;
-    mix-blend-mode:difference;
-    opacity:0;
-  }
-  body.cursor-ready .cursor{opacity:1;}
-  .cursor.hover{width:48px; height:48px; background:var(--a2); border-color:transparent;}
-  body.cursor-ready, body.cursor-ready a, body.cursor-ready button{cursor:none;}
 
   /* marquee */
   .marquee-band{
@@ -177,7 +161,7 @@
   }
 
   .about-grid{display:grid; grid-template-columns:1fr; gap:16px;}
-  .about p{font-size:16px; max-width:56ch; color:rgba(237,237,237,0.88);}
+  .about p{font-size:16px; max-width:56ch; color:rgba(237,237,237,0.62);}
   .about strong{color:#fff; font-weight:600;}
 
   /* build cards */
@@ -215,7 +199,7 @@
 
   /* case */
   .case{
-    background:linear-gradient(rgba(11,12,14,0.8), rgba(11,12,14,0.8)), url('./rabbit-jump.jpg');
+    background:linear-gradient(rgba(11,12,14,0.7), rgba(11,12,14,0.7)), url('./rabbit-jump.jpg');
     background-size:cover;
     background-position:center;
     border:1px solid var(--line);
@@ -248,6 +232,8 @@
     transition:border-color 0.25s ease, background 0.25s ease;
   }
   .magnetic a:hover{border-color:var(--a2); background:rgba(124,245,208,0.06);}
+  .magnetic a.primary{border-color:var(--a2); color:var(--a2); background:rgba(124,245,208,0.06);}
+  .magnetic a.primary:hover{background:rgba(124,245,208,0.12);}
 
   footer{
     padding:30px 0 60px;
@@ -268,7 +254,6 @@
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
 
 <div class="marquee-band">
   <div class="marquee-track" id="marquee">
@@ -301,7 +286,6 @@
       <div class="spectrum-track" id="track">
         <div class="spectrum-handle" id="handle" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="58" tabindex="0"></div>
       </div>
-      <div class="spectrum-hint">← 드래그해서 저울질해보세요 →</div>
       <div class="spectrum-caption" id="caption">지금 이 지점에서 대부분의 프로덕트가 만들어집니다</div>
     </div>
   </header>
@@ -344,17 +328,16 @@
   </section>
 
   <section class="case-section reveal">
-    <span class="label">Recent Works</span>
+    <span class="label">Branding Works</span>
     <div class="case">
       <h2>The Rabbit Jump</h2>
-      <p>삼성 DAUX 팀의 사내 브랜딩 프로젝트입니다. 2023년 토끼해를 모티프로 팀 캐릭터를 만들고, 텀블러부터 굿즈까지 10여 종의 아이템을 기획·제작했어요. 진행 후 팀 SCI(조직 몰입도)가 19포인트 올랐습니다.</p>
-      <div class="magnetic" style="margin-top:20px;"><a href="./seungah-ra-portfolio.pdf" target="_blank" rel="noopener">최신 포트폴리오 PDF ↓</a></div>
+      <p>삼성 DAUX 팀의 사내 브랜딩 프로젝트입니다. 2023년 토끼해를 모티프로 팀 캐릭터를 만들고, 텀블러부터 굿즈까지 10여 종의 아이템을 기획·제작했어요. 팀 SCI(조직 몰입도)가 19포인트 올랐습니다.</p>
+      <div class="magnetic" style="margin-top:20px;"><a class="primary" href="./seungah-ra-portfolio.pdf" target="_blank" rel="noopener">최신 포트폴리오 PDF ↓</a></div>
     </div>
   </section>
 
   <section class="contact reveal">
-    <span class="label">Contact</span>
-    <h2>Let's connect</h2>
+    <span class="label">Let's connect</span>
     <div class="contact-links">
       <div class="magnetic"><a href="mailto:[email protected]">Email</a></div>
       <div class="magnetic"><a href="https://github.com/ivyrarara" target="_blank" rel="noopener">GitHub</a></div>
@@ -375,24 +358,6 @@
   // reduced motion check
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = window.matchMedia('(pointer: fine)').matches;
-
-  // custom cursor
-  if(fine && !reduceMotion){
-    document.body.classList.add('cursor-ready');
-    const cursor = document.getElementById('cursor');
-    let cx=0, cy=0, tx=0, ty=0;
-    window.addEventListener('pointermove', e=>{ tx=e.clientX; ty=e.clientY; });
-    function loop(){
-      cx += (tx-cx)*0.2; cy += (ty-cy)*0.2;
-      cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
-      requestAnimationFrame(loop);
-    }
-    loop();
-    document.querySelectorAll('a, button, .spectrum-handle').forEach(el=>{
-      el.addEventListener('pointerenter', ()=>cursor.classList.add('hover'));
-      el.addEventListener('pointerleave', ()=>cursor.classList.remove('hover'));
-    });
-  }
 
   // magnetic hover on hero words
   const title = document.getElementById('heroTitle');
@@ -455,7 +420,7 @@
     autoTimer = setInterval(()=>{
       autoIndex = (autoIndex+1) % autoPositions.length;
       setPos(autoPositions[autoIndex]);
-    }, 2000);
+    }, 3000);
   }
   startAuto();
 
