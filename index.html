@@ -258,13 +258,23 @@
   }
   .magnetic a:hover{border-color:var(--a2); background:rgba(124,245,208,0.10);}
   .magnetic a.primary{
+    position:relative; overflow:hidden; isolation:isolate;
     border-color:var(--a2); color:var(--a2);
-    background:linear-gradient(135deg, rgba(124,245,208,0.16), rgba(124,245,208,0.05) 62%);
-    backdrop-filter:blur(300px) saturate(180%) brightness(1.1);
-    -webkit-backdrop-filter:blur(300px) saturate(180%) brightness(1.1);
+    background:transparent;
     box-shadow:inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 1px rgba(0,0,0,0.15), 0 6px 20px rgba(0,0,0,0.3);
   }
-  .magnetic a.primary:hover{background:linear-gradient(135deg, rgba(124,245,208,0.24), rgba(124,245,208,0.09) 62%);}
+  /* actual blurred copy of the .case backdrop, clipped to the pill — real frosted glass */
+  .magnetic a.primary .frost{
+    position:absolute; z-index:-2; pointer-events:none;
+    background-image:linear-gradient(rgba(11,12,14,0.5), rgba(11,12,14,0.5)), url('./rabbit-jump.jpg');
+    background-size:cover; background-position:center;
+    filter:blur(18px) saturate(150%) brightness(1.05);
+  }
+  .magnetic a.primary::after{
+    content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+    background:linear-gradient(135deg, rgba(124,245,208,0.22), rgba(124,245,208,0.07) 62%);
+  }
+  .magnetic a.primary:hover::after{background:linear-gradient(135deg, rgba(124,245,208,0.30), rgba(124,245,208,0.12) 62%);}
   .contact-links .magnetic a{padding:7px 14px 6px;}
 
   footer{
@@ -364,7 +374,7 @@
     <div class="case">
       <h2>The Rabbit Jump</h2>
       <p>삼성 DAUX 팀의 사내 브랜딩 프로젝트입니다. 2023년 토끼해를 모티프로 팀 캐릭터를 만들고, 텀블러부터 굿즈까지 10여 종의 아이템을 기획·제작했어요. 팀 SCI(조직 몰입도)가 19포인트 올랐습니다.</p>
-      <div class="magnetic" style="margin-top:20px;"><a class="primary" href="./seungah-ra-portfolio.pdf" target="_blank" rel="noopener">최신 포트폴리오 PDF ↓</a></div>
+      <div class="magnetic" style="margin-top:20px;"><a class="primary" href="./seungah-ra-portfolio.pdf" target="_blank" rel="noopener"><span class="frost"></span>최신 포트폴리오 PDF ↓</a></div>
     </div>
   </section>
 
@@ -524,6 +534,25 @@
   }
   tick();
   setInterval(tick, 1000*30);
+
+  // align the portfolio button's blurred backdrop copy with the .case image behind it
+  function alignFrost(){
+    const btn = document.querySelector('.magnetic a.primary');
+    const frost = btn && btn.querySelector('.frost');
+    const caseEl = document.querySelector('.case');
+    if(!btn || !frost || !caseEl) return;
+    const b = btn.getBoundingClientRect();
+    const c = caseEl.getBoundingClientRect();
+    // size the frost to the whole .case, offset so its cover-image lines up 1:1 with the case bg
+    frost.style.width = c.width + 'px';
+    frost.style.height = c.height + 'px';
+    frost.style.left = (c.left - b.left) + 'px';
+    frost.style.top = (c.top - b.top) + 'px';
+  }
+  alignFrost();
+  window.addEventListener('resize', alignFrost);
+  window.addEventListener('load', alignFrost);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(alignFrost);
 </script>
 
 </body>
