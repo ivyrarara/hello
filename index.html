@@ -103,6 +103,7 @@
     text-transform:uppercase;
     margin-bottom:10px;
   }
+  .spectrum-labels span{transition:color 0.3s ease, font-weight 0.3s ease;}
   .spectrum-track{
     position:relative;
     height:44px;
@@ -146,10 +147,8 @@
   .spectrum-caption{
     margin-top:16px;
     font-size:15px;
-    min-height:28px;
+    min-height:24px;
     font-weight:500;
-    transform-origin:left center;
-    transition:font-size 0.3s ease, font-weight 0.3s ease, color 0.3s ease;
   }
 
   section{padding:54px 0; border-top:1px solid var(--line);}
@@ -288,7 +287,7 @@
     <p class="hero-sub">13년차 브랜드 디자이너. 최근엔 AI 프로덕트를 직접 만들며 판단과 공감의 경계를 실험 중입니다.</p>
 
     <div class="spectrum-block">
-      <div class="spectrum-labels"><span>Judgment</span><span>Empathy</span></div>
+      <div class="spectrum-labels"><span id="labelJ">Judgment</span><span id="labelE">Empathy</span></div>
       <div class="spectrum-track" id="track">
         <div class="spectrum-handle" id="handle" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="58" tabindex="0"></div>
       </div>
@@ -392,6 +391,8 @@
   const track = document.getElementById('track');
   const handle = document.getElementById('handle');
   const caption = document.getElementById('caption');
+  const labelJ = document.getElementById('labelJ');
+  const labelE = document.getElementById('labelE');
   let pos = 58;
 
   const captions = [
@@ -410,15 +411,20 @@
     const c = captions.find(c=>pos <= c.max);
     caption.textContent = c.text;
 
-    // emphasize caption toward each end: bigger, bolder, side-colored
-    const t = (pos - 50) / 50;            // -1 judgment .. +1 empathy
-    const mag = Math.min(1, Math.abs(t)); // 0 center .. 1 ends
-    const target = t >= 0 ? [124,245,208] : [110,123,255]; // --a2 empathy / --a1 judgment
+    // emphasize the JUDGMENT / EMPATHY label the handle approaches (color + bold)
+    const t = (pos - 50) / 50;              // -1 judgment .. +1 empathy
+    styleLabel(labelE, Math.max(0, t), [124,245,208]);  // --a2 empathy
+    styleLabel(labelJ, Math.max(0, -t), [110,123,255]); // --a1 judgment
+  }
+
+  function styleLabel(el, intensity, target){
     const base = [237,237,237];
-    const mix = i => Math.round(base[i] + (target[i]-base[i]) * mag);
-    caption.style.fontSize = (15 * (1 + 0.2 * mag)).toFixed(1) + 'px'; // up to 120%
-    caption.style.fontWeight = 500 + Math.round(mag * 200);            // 500 .. 700
-    caption.style.color = `rgb(${mix(0)},${mix(1)},${mix(2)})`;
+    const r = Math.round(base[0] + (target[0]-base[0]) * intensity);
+    const g = Math.round(base[1] + (target[1]-base[1]) * intensity);
+    const b = Math.round(base[2] + (target[2]-base[2]) * intensity);
+    const a = (0.55 + 0.45 * intensity).toFixed(2); // muted -> full
+    el.style.color = `rgba(${r},${g},${b},${a})`;
+    el.style.fontWeight = 400 + Math.round(intensity * 300); // up to 700 bold
   }
   setPos(pos);
 
