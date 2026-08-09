@@ -118,6 +118,8 @@
     border-radius:99px;
     background:var(--grad);
   }
+  /* animatable custom prop so the clipped bar copy tracks the knob during the glide */
+  @property --barx{ syntax:'<length>'; inherits:true; initial-value:0px; }
   .spectrum-handle{
     position:absolute;
     top:50%; left:var(--pos, 58%);
@@ -132,17 +134,19 @@
     transform:translate(-50%,-50%);
     cursor:grab;
     display:flex; align-items:center; justify-content:center;
-    transition:left 0.9s ease;
+    transition:left 0.9s ease, --barx 0.9s ease;
   }
+  /* a blurred copy of the real track bar, clipped to the knob and aligned to the
+     track so it stops exactly where the bar ends (no floating blur past the end) */
   .spectrum-handle::before{
     content:"";
     position:absolute;
-    top:50%; left:50%;
-    width:48px; height:6px;
+    top:50%; left:var(--barx, 0px);
+    width:var(--barw, 120px); height:5px;
     border-radius:99px;
-    background:var(--localc, var(--a2));
+    background:var(--grad);
     filter:blur(3px);
-    transform:translate(-50%,-50%);
+    transform:translateY(-50%);
   }
   .spectrum-handle.no-transition{transition:none;}
   .spectrum-handle:active{cursor:grabbing;}
@@ -269,7 +273,7 @@
     position:absolute; z-index:-2; pointer-events:none;
     background-image:linear-gradient(rgba(11,12,14,0.5), rgba(11,12,14,0.5)), url('./rabbit-jump.jpg');
     background-size:cover; background-position:center;
-    filter:blur(2px) saturate(150%) brightness(1.05);
+    filter:blur(2px) saturate(45%) brightness(1.0);
   }
   .magnetic a.primary::after{
     content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
@@ -445,10 +449,13 @@
     pos = Math.min(100, Math.max(0, p));
     track.style.setProperty('--pos', pos + '%');
     handle.style.setProperty('--pos', pos + '%');
-    // local bar color at the handle (for the frosted see-through bar)
-    const lt = pos / 100;
-    const lr = Math.round(110 + (124-110)*lt), lg = Math.round(123 + (245-123)*lt), lb = Math.round(255 + (208-255)*lt);
-    handle.style.setProperty('--localc', `rgb(${lr},${lg},${lb})`);
+    // clip a blurred copy of the full track bar inside the knob, aligned to the real
+    // bar so it ends exactly where the bar does (nothing floating past the knob end)
+    const tw = track.getBoundingClientRect().width;
+    const hw = handle.offsetWidth / 2;          // 14
+    const center = (pos / 100) * tw;            // knob center in track coords
+    handle.style.setProperty('--barw', tw + 'px');
+    handle.style.setProperty('--barx', (hw - 1.5 - center) + 'px'); // 1.5 = border
     handle.setAttribute('aria-valuenow', Math.round(pos));
     const c = captions.find(c=>pos <= c.max);
     caption.textContent = c.text;
@@ -554,6 +561,8 @@
   window.addEventListener('resize', alignFrost);
   window.addEventListener('load', alignFrost);
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(alignFrost);
+  // recompute the knob's px-based bar offset when the track width changes
+  window.addEventListener('resize', ()=>setPos(pos));
 </script>
 
 </body>
