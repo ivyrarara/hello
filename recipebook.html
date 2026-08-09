@@ -80,6 +80,12 @@
   .reveal.in{opacity:1; transform:translateY(0);}
 
   @media (min-width:560px){ .feature{grid-template-columns:120px 1fr;} }
+
+  /* walkthrough */
+  .demo-badge{display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--a2); border:1px solid var(--line); border-radius:99px; padding:4px 11px; margin-left:10px;}
+  .walk-frame{position:relative; max-width:300px; margin:22px auto 0; border-radius:26px; overflow:hidden; border:1px solid var(--line); box-shadow:0 20px 50px rgba(0,0,0,0.45); background:#000;}
+  .walk-frame video{display:block; width:100%; height:auto;}
+  .walk-cap{font-size:13px; color:var(--muted); text-align:center; margin-top:12px;}
 </style>
 </head>
 <body>
@@ -99,6 +105,15 @@
     <h1>레시피북</h1>
     <p class="hero-sub">레시피를 정리하고, 비율에 맞게 자동 계산되는 앱. 캡처만으로 AI가 재료와 순서를 파싱해줍니다.</p>
   </header>
+
+  <section class="reveal">
+    <span class="label">Walkthrough</span><span class="demo-badge">데모 · 목업 UI</span>
+    <p class="body-text" style="margin-top:14px;">인스타 릴에서 레시피를 발견하면 → 캡션 스크린샷 → 링크 복사 → 앱에서 New recipe로 스샷·링크를 첨부해 저장하는 흐름이에요.</p>
+    <div class="walk-frame">
+      <video src="./recipe-demo.webm" autoplay muted loop playsinline preload="metadata"></video>
+    </div>
+    <p class="walk-cap">실제 앱 UX를 재현한 목업 데모입니다.</p>
+  </section>
 
   <section class="reveal">
     <span class="label">Why I Built It</span>
