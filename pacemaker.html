@@ -144,19 +144,19 @@
         <circle id="nest5" cx="170" cy="165" r="10" fill="none" stroke="var(--line)" stroke-width="26"/>
         <circle cx="170" cy="165" r="4" fill="var(--a2)" style="filter:drop-shadow(0 0 8px var(--a2))"/>
 
-        <line id="leader0" x1="170" y1="70" x2="170" y2="43" stroke="var(--line)" stroke-width="1"/>
+        <line id="leader0" x1="170" y1="70" x2="170" y2="55" stroke="var(--line)" stroke-width="1"/>
         <line id="leader1" x1="237.55" y1="126" x2="275.65" y2="104" stroke="var(--line)" stroke-width="1"/>
         <line id="leader2" x1="222.83" y1="195.5" x2="275.65" y2="226" stroke="var(--line)" stroke-width="1"/>
         <line id="leader3" x1="170" y1="209" x2="170" y2="287" stroke="var(--line)" stroke-width="1"/>
         <line id="leader4" x1="146.62" y1="178.5" x2="64.35" y2="226" stroke="var(--line)" stroke-width="1"/>
         <line id="leader5" x1="161.34" y1="160" x2="64.35" y2="104" stroke="var(--line)" stroke-width="1"/>
 
-        <text id="ringlabel0" x="170" y="43" text-anchor="middle" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--dim)">01 학습</text>
-        <text id="ringlabel1" x="280" y="104" text-anchor="start" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--dim)">02 활용</text>
-        <text id="ringlabel2" x="280" y="226" text-anchor="start" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--dim)">03 확장</text>
-        <text id="ringlabel3" x="170" y="292" text-anchor="middle" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--dim)">04 구현</text>
-        <text id="ringlabel4" x="60" y="226" text-anchor="end" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--dim)">05 개선</text>
-        <text id="ringlabel5" x="60" y="104" text-anchor="end" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--dim)">06 기록</text>
+        <text id="ringlabel0" x="170" y="43" text-anchor="middle" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--dim)">01 학습</text>
+        <text id="ringlabel1" x="280" y="104" text-anchor="start" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--dim)">02 활용</text>
+        <text id="ringlabel2" x="280" y="226" text-anchor="start" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--dim)">03 확장</text>
+        <text id="ringlabel3" x="170" y="292" text-anchor="middle" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--dim)">04 구현</text>
+        <text id="ringlabel4" x="60" y="226" text-anchor="end" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--dim)">05 개선</text>
+        <text id="ringlabel5" x="60" y="104" text-anchor="end" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--dim)">06 기록</text>
       </svg>
     </div>
     <div class="stage-list" id="stageList">
@@ -223,8 +223,10 @@
       ring.setAttribute('stroke', isActive ? 'var(--a2)' : 'var(--line)');
       ring.setAttribute('stroke-width', isActive ? ringWidths[n]+3 : ringWidths[n]);
       ring.setAttribute('stroke-opacity', isActive ? '1' : '0.5');
-      ring.style.filter = isActive ? 'drop-shadow(0 0 10px var(--a2)) drop-shadow(0 0 22px rgba(124,245,208,0.5))' : 'blur(1.1px)';
+      ring.style.filter = isActive ? 'blur(1.7px) drop-shadow(0 0 13px var(--a2)) drop-shadow(0 0 30px rgba(124,245,208,0.5))' : 'blur(2.4px)';
       label.setAttribute('fill', isActive ? 'var(--a2)' : 'var(--dim)');
+      label.setAttribute('font-size', isActive ? '16' : '13');
+      label.setAttribute('font-weight', isActive ? '700' : '400');
       leader.setAttribute('stroke', isActive ? 'var(--a2)' : 'var(--line)');
       leader.setAttribute('stroke-opacity', isActive ? '0.8' : '0.4');
     }
