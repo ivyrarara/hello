@@ -6,7 +6,7 @@
 <title>Pacemaker Agent</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#0b0c0e; --bg-2:#16181c; --text:#ededed;
@@ -15,7 +15,7 @@
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
-  body{background:var(--bg); color:var(--text); font-family:'Inter', sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  body{background:var(--bg); color:var(--text); font-family:'Inter','Noto Sans KR', sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
   @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
   a{color:inherit; text-decoration:none;}
   a:focus-visible, button:focus-visible{outline:2px solid var(--a2); outline-offset:3px;}
@@ -51,7 +51,7 @@
     padding:26px 26px; margin-top:18px;
   }
   .insight .num{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--a1);}
-  .insight p{font-family:'Space Grotesk', sans-serif; font-size:18px; font-weight:500; margin-top:8px; line-height:1.4;}
+  .insight p{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-size:18px; font-weight:500; margin-top:8px; line-height:1.4;}
 
   /* nested rings (signature interactive element) */
   .nest-wrap{margin-top:24px; display:flex; justify-content:center;}
@@ -61,7 +61,7 @@
   .stage-list{display:flex; flex-direction:column; gap:0; margin-top:20px;}
   .stage-item{display:flex; gap:14px; padding:10px 0; border-top:1px solid var(--line); transition:opacity 1.4s ease;}
   .stage-item:first-child{border-top:none;}
-  .stage-tag{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--dim); min-width:64px; transition:color 1.4s ease;}
+  .stage-tag{font-family:'IBM Plex Mono','Noto Sans KR', sans-serif; font-size:12px; color:var(--dim); min-width:64px; transition:color 1.4s ease;}
   .stage-desc{font-size:13.5px; color:var(--dim); transition:color 1.4s ease;}
   .stage-item.active .stage-tag{color:var(--a2);}
   .stage-item.active .stage-desc{color:rgba(237,237,237,0.92);}
@@ -151,12 +151,12 @@
         <line id="leader4" x1="146.62" y1="178.5" x2="64.35" y2="226" stroke="var(--line)" stroke-width="1"/>
         <line id="leader5" x1="161.34" y1="160" x2="64.35" y2="104" stroke="var(--line)" stroke-width="1"/>
 
-        <text id="ringlabel0" x="170" y="43" text-anchor="middle" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--dim)">01 학습</text>
-        <text id="ringlabel1" x="280" y="104" text-anchor="start" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--dim)">02 활용</text>
-        <text id="ringlabel2" x="280" y="226" text-anchor="start" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--dim)">03 확장</text>
-        <text id="ringlabel3" x="170" y="292" text-anchor="middle" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--dim)">04 구현</text>
-        <text id="ringlabel4" x="60" y="226" text-anchor="end" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--dim)">05 개선</text>
-        <text id="ringlabel5" x="60" y="104" text-anchor="end" dominant-baseline="central" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--dim)">06 기록</text>
+        <text id="ringlabel0" x="170" y="43" text-anchor="middle" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)">01 학습</text>
+        <text id="ringlabel1" x="280" y="104" text-anchor="start" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)">02 활용</text>
+        <text id="ringlabel2" x="280" y="226" text-anchor="start" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)">03 확장</text>
+        <text id="ringlabel3" x="170" y="292" text-anchor="middle" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)">04 구현</text>
+        <text id="ringlabel4" x="60" y="226" text-anchor="end" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)">05 개선</text>
+        <text id="ringlabel5" x="60" y="104" text-anchor="end" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)">06 기록</text>
       </svg>
     </div>
     <div class="stage-list" id="stageList">
