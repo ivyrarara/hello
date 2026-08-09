@@ -194,7 +194,7 @@
   ];
   toggle.addEventListener('click', ()=>{
     const on = toggle.classList.toggle('on');
-    label.textContent = on ? 'AFTER — 한 번에 동기화' : 'BEFORE — 반복 확인';
+    label.textContent = on ? 'AFTER — 한 눈에 볼 정보와 구분이 필요한 정보의 적절한 배치' : 'BEFORE — 반복 확인';
     const data = on ? after : before;
     panel.innerHTML = data.map(d=>`<div class="demo-line ${d.c}">${d.t}</div>`).join('');
   });
