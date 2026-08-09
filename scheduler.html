@@ -81,6 +81,12 @@
   .reveal.in{opacity:1; transform:translateY(0);}
 
   @media (min-width:560px){ .feature{grid-template-columns:120px 1fr;} }
+
+  /* walkthrough */
+  .demo-badge{display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--a2); border:1px solid var(--line); border-radius:99px; padding:4px 11px; margin-left:10px;}
+  .walk-frame{position:relative; max-width:300px; margin:22px auto 0; border-radius:26px; overflow:hidden; border:1px solid var(--line); box-shadow:0 20px 50px rgba(0,0,0,0.45); background:#000;}
+  .walk-frame video{display:block; width:100%; height:auto;}
+  .walk-cap{font-size:13px; color:var(--muted); text-align:center; margin-top:12px;}
 </style>
 </head>
 <body>
@@ -100,6 +106,15 @@
     <h1>스케줄러</h1>
     <p class="hero-sub">여러 앱을 오가는 반복 확인을 없애는 웹앱. 아이의 활동 종류, 식단, 등하원 시간과 장소까지 주/월 단위로 한눈에 보고, 준비물·행사 메모를 추가하거나 식단을 위한 장보기 리스트까지 해결했어요.</p>
   </header>
+
+  <section class="reveal">
+    <span class="label">Walkthrough</span><span class="demo-badge">데모 · 목업 UI</span>
+    <p class="body-text" style="margin-top:14px;">주간 뷰에서 내일 캠프 카드를 확인하고 → 저녁 메뉴를 리프레시로 바꾸고 → 필드트립 태그·메모를 더한 뒤 → 장보기 리스트에서 구매완료 처리하는 흐름이에요.</p>
+    <div class="walk-frame">
+      <video src="./scheduler-demo.webm" autoplay muted loop playsinline preload="metadata"></video>
+    </div>
+    <p class="walk-cap">실제 앱 UX를 재현한 목업 데모입니다.</p>
+  </section>
 
   <section class="reveal">
     <span class="label">Why I Built It</span>
