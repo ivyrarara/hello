@@ -97,48 +97,54 @@
   .walk-phone .pw{position:absolute; right:-3px; top:150px; width:3px; height:58px; border-radius:2px; background:#33343a;}
   .walk-phone .vol{position:absolute; left:-3px; top:118px; width:3px; height:92px; border-radius:2px; background:#33343a;}
   .walk-cap{font-size:13px; color:var(--muted); text-align:center; margin-top:14px;}
+  /* language toggle */
+  .lang-toggle{position:fixed; top:16px; right:16px; z-index:200; display:inline-flex; align-items:center; gap:2px; background:rgba(22,24,28,0.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid var(--line); border-radius:99px; padding:3px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.04em;}
+  .lang-toggle button{background:none; border:none; color:var(--muted); padding:5px 11px; border-radius:99px; cursor:pointer; font:inherit; transition:background 0.2s ease, color 0.2s ease;}
+  .lang-toggle button.on{background:var(--a2); color:#0b0c0e; font-weight:700;}
 </style>
 </head>
 <body>
+
+<div class="lang-toggle" role="group" aria-label="Language"><button type="button" data-lang="en">EN</button><button type="button" data-lang="ko">KO</button></div>
 
 <div class="wrap">
   <a class="back" href="./index.html">← Home</a>
 
   <header class="hero">
     <div class="eyebrow">Claude API · PWA</div>
-    <h1>레시피북</h1>
-    <p class="hero-sub">레시피를 정리하고, 비율에 맞게 자동 계산되는 앱. 캡처만으로 AI가 재료와 순서를 파싱해줍니다.</p>
+    <h1 data-en="Recipe Book">레시피북</h1>
+    <p class="hero-sub" data-en="An app that organizes recipes and auto-scales them by ratio. Just capture, and AI parses the ingredients and steps.">레시피를 정리하고, 비율에 맞게 자동 계산되는 앱. 캡처만으로 AI가 재료와 순서를 파싱해줍니다.</p>
   </header>
 
   <section class="reveal">
     <span class="label">Why I Built It</span>
-    <p class="body-text">인스타그램에서 마음에 드는 레시피를 만나면 저장해뒀는데, 막상 요리할 때 다시 찾는 게 쉽지 않았어요. 재료 하나를 기준으로 전체 양을 조절하려면 그것도 매번 GPT에 따로 물어봐야 했고요. 캡처 몇 장으로 정리되고, 재료 하나만 조절해도 나머지가 비율대로 자동 계산되게 만들었습니다.</p>
+    <p class="body-text" data-en="When I found a recipe I liked on Instagram I'd save it, but finding it again when it was time to cook wasn't easy. And scaling the whole thing around one ingredient meant asking GPT separately every time. So I made it organize from a few captures, and scale everything else by ratio when you adjust a single ingredient.">인스타그램에서 마음에 드는 레시피를 만나면 저장해뒀는데, 막상 요리할 때 다시 찾는 게 쉽지 않았어요. 재료 하나를 기준으로 전체 양을 조절하려면 그것도 매번 GPT에 따로 물어봐야 했고요. 캡처 몇 장으로 정리되고, 재료 하나만 조절해도 나머지가 비율대로 자동 계산되게 만들었습니다.</p>
   </section>
 
   <section class="reveal">
     <span class="label">Key Insight</span>
     <div class="insight">
       <span class="num">01</span>
-      <p>성공 지표는 원본을 안 찾아도 되는가가 아니라, 원본으로 더 빠르게 돌아갈 수 있는가였다 — 영상은 글보다 이해가 빠르니, 원본 링크 자체를 더 쉽게 했다.</p>
+      <p data-en="The success metric wasn't whether you never need the original, but whether you can get back to it faster — video is quicker to grasp than text, so I made the original link itself easier to reach.">성공 지표는 원본을 안 찾아도 되는가가 아니라, 원본으로 더 빠르게 돌아갈 수 있는가였다 — 영상은 글보다 이해가 빠르니, 원본 링크 자체를 더 쉽게 했다.</p>
     </div>
   </section>
 
   <section class="reveal">
     <span class="label">Try the Ratio Scaling</span>
-    <p class="body-text" style="margin-bottom:0;">재료 하나만 조절해도 나머지가 비율대로 따라가요. 두부 양을 눌러보세요.</p>
+    <p class="body-text" style="margin-bottom:0;" data-en="Adjust one ingredient and the rest follow by ratio. Try tapping the tofu amount.">재료 하나만 조절해도 나머지가 비율대로 따라가요. 두부 양을 눌러보세요.</p>
     <div class="demo-panel">
       <div id="ingredientList">
         <div class="ingredient-row anchor">
-          <span class="ingredient-name">두부</span>
+          <span class="ingredient-name" data-en="Tofu">두부</span>
           <div class="servings-controls">
             <button class="servings-btn" id="minus">−</button>
             <span class="ingredient-amt" id="anchorAmt" data-base="150">150 g</span>
             <button class="servings-btn" id="plus">+</button>
           </div>
         </div>
-        <div class="ingredient-row"><span class="ingredient-name">된장</span><span class="ingredient-amt" data-base="2" data-unit="tbsp">2 tbsp</span></div>
-        <div class="ingredient-row"><span class="ingredient-name">애호박</span><span class="ingredient-amt" data-base="0.5" data-unit="개">0.5 개</span></div>
-        <div class="ingredient-row"><span class="ingredient-name">물</span><span class="ingredient-amt" data-base="500" data-unit="ml">500 ml</span></div>
+        <div class="ingredient-row"><span class="ingredient-name" data-en="Doenjang">된장</span><span class="ingredient-amt" data-base="2" data-unit="tbsp">2 tbsp</span></div>
+        <div class="ingredient-row"><span class="ingredient-name" data-en="Zucchini">애호박</span><span class="ingredient-amt" data-base="0.5" data-unit="개" data-unit-en="pcs">0.5 개</span></div>
+        <div class="ingredient-row"><span class="ingredient-name" data-en="Water">물</span><span class="ingredient-amt" data-base="500" data-unit="ml">500 ml</span></div>
       </div>
     </div>
   </section>
@@ -146,21 +152,21 @@
   <section class="reveal">
     <span class="label">Features</span>
     <div class="feature-grid">
-      <div class="feature"><span class="feature-tag">PARSING</span><span class="feature-text">사진/텍스트 업로드 시 Claude API가 재료·순서 자동 파싱</span></div>
-      <div class="feature"><span class="feature-tag">SCALING</span><span class="feature-text">비율 유지하며 모든 재료양 자동 조정</span></div>
-      <div class="feature"><span class="feature-tag">NOTES</span><span class="feature-text">"참기름 대신 들기름 쓰니 더 풍미 좋음" 같은 시도 메모를 날짜와 함께 추가</span></div>
-      <div class="feature"><span class="feature-tag">SYNC</span><span class="feature-text">Firebase Firestore 동기화, PWA로 홈 화면 설치 가능</span></div>
+      <div class="feature"><span class="feature-tag">PARSING</span><span class="feature-text" data-en="On photo/text upload, the Claude API auto-parses ingredients and steps">사진/텍스트 업로드 시 Claude API가 재료·순서 자동 파싱</span></div>
+      <div class="feature"><span class="feature-tag">SCALING</span><span class="feature-text" data-en="Auto-adjusts every ingredient amount while keeping the ratio">비율 유지하며 모든 재료양 자동 조정</span></div>
+      <div class="feature"><span class="feature-tag">NOTES</span><span class="feature-text" data-en="Add trial notes with dates, like &#39;perilla oil instead of sesame oil tastes richer&#39;">"참기름 대신 들기름 쓰니 더 풍미 좋음" 같은 시도 메모를 날짜와 함께 추가</span></div>
+      <div class="feature"><span class="feature-tag">SYNC</span><span class="feature-text" data-en="Firebase Firestore sync; installable to the home screen as a PWA">Firebase Firestore 동기화, PWA로 홈 화면 설치 가능</span></div>
     </div>
   </section>
 
   <section class="reveal">
     <span class="label">Walkthrough</span>
-    <p class="body-text" style="margin-top:14px;">인스타 릴에서 레시피를 발견하면 → 캡션 스크린샷 → 링크 복사 → 앱에서 New recipe로 스샷·링크를 첨부해 저장하는 흐름이에요.</p>
+    <p class="body-text" style="margin-top:14px;" data-en="Spot a recipe in an Instagram reel → screenshot the caption → copy the link → in the app, attach the screenshot and link via New recipe and save.">인스타 릴에서 레시피를 발견하면 → 캡션 스크린샷 → 링크 복사 → 앱에서 New recipe로 스샷·링크를 첨부해 저장하는 흐름이에요.</p>
     <div class="walk-phone">
       <span class="cam"></span><span class="pw"></span><span class="vol"></span>
       <video src="./recipe-demo.webm" autoplay muted loop playsinline preload="metadata"></video>
     </div>
-    <p class="walk-cap">실제 앱 UX를 재현한 목업 데모입니다.</p>
+    <p class="walk-cap" data-en="A mockup demo recreating the real app UX.">실제 앱 UX를 재현한 목업 데모입니다.</p>
   </section>
 
   <section class="reveal">
@@ -182,15 +188,18 @@
   function render(){
     anchorEl.textContent = `${anchorVal} g`;
     const ratio = anchorVal / anchorBase;
+    const en = (window.__lang === 'en');
     others.forEach(el=>{
       const base = parseFloat(el.dataset.base);
-      const unit = el.dataset.unit;
+      const unit = (en && el.dataset.unitEn) ? el.dataset.unitEn : el.dataset.unit;
       const scaled = Math.round(base * ratio * 10) / 10;
       el.textContent = `${scaled} ${unit}`;
     });
   }
   document.getElementById('plus').addEventListener('click', ()=>{ anchorVal += 25; render(); });
   document.getElementById('minus').addEventListener('click', ()=>{ if(anchorVal>25){ anchorVal -= 25; render(); } });
+  window.__onLangChange = render;   // re-render amounts/units on language switch
+  render();
 
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
@@ -198,5 +207,23 @@
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
 
+<script>
+(function(){
+  var KEY='site-lang';
+  var els=[].slice.call(document.querySelectorAll('[data-en]'));
+  els.forEach(function(el){ el.dataset.ko = el.innerHTML; });
+  var lang = localStorage.getItem(KEY) || (((navigator.language||'').toLowerCase().indexOf('ko')===0)?'ko':'en');
+  function apply(l){
+    window.__lang=l; document.documentElement.lang=l;
+    els.forEach(function(el){ el.innerHTML=(l==='en')?el.dataset.en:el.dataset.ko; });
+    document.querySelectorAll('.lang-toggle button').forEach(function(b){ b.classList.toggle('on', b.dataset.lang===l); });
+    try{localStorage.setItem(KEY,l);}catch(e){}
+    if(window.__onLangChange) window.__onLangChange(l);
+  }
+  window.applyLang=apply;
+  document.querySelectorAll('.lang-toggle button').forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.lang); }); });
+  apply(lang);
+})();
+</script>
 </body>
 </html>
