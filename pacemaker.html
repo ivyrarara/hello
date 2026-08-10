@@ -94,9 +94,15 @@
   .walk-phone .pw{position:absolute; right:-3px; top:150px; width:3px; height:58px; border-radius:2px; background:#33343a;}
   .walk-phone .vol{position:absolute; left:-3px; top:118px; width:3px; height:92px; border-radius:2px; background:#33343a;}
   .walk-cap{font-size:13px; color:var(--muted); text-align:center; margin-top:14px;}
+  /* language toggle */
+  .lang-toggle{position:fixed; top:16px; right:16px; z-index:200; display:inline-flex; align-items:center; gap:2px; background:rgba(22,24,28,0.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border:1px solid var(--line); border-radius:99px; padding:3px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.04em;}
+  .lang-toggle button{background:none; border:none; color:var(--muted); padding:5px 11px; border-radius:99px; cursor:pointer; font:inherit; transition:background 0.2s ease, color 0.2s ease;}
+  .lang-toggle button.on{background:var(--a2); color:#0b0c0e; font-weight:700;}
 </style>
 </head>
 <body>
+
+<div class="lang-toggle" role="group" aria-label="Language"><button type="button" data-lang="en">EN</button><button type="button" data-lang="ko">KO</button></div>
 
 <div class="wrap">
   <a class="back" href="./index.html">← Home</a>
@@ -104,29 +110,29 @@
   <header class="hero">
     <div class="eyebrow">Telegram · AI Agent</div>
     <h1>Pacemaker Agent</h1>
-    <p class="hero-sub">100일 동안의 리듬을 지켜준 나만의 AI 에이전트. 매일 저녁 체크인하고, 일요일엔 한 주를 되짚고, 월요일엔 다음 액션을 짚어줍니다.</p>
+    <p class="hero-sub" data-en="My own AI agent that kept my rhythm for 100 days. It checks in every evening, reflects on the past week each Sunday, and points to the next action every Monday.">100일 동안의 리듬을 지켜준 나만의 AI 에이전트. 매일 저녁 체크인하고, 일요일엔 한 주를 되짚고, 월요일엔 다음 액션을 짚어줍니다.</p>
   </header>
 
   <section class="reveal">
     <span class="label">Why I Built It</span>
-    <p class="body-text">100일짜리 커리어 전환 프로젝트를 혼자 끌고 가려니 페이스메이커가 필요했어요. 매일 저녁 오늘 뭘 했는지 묻지 않고 정리하고, 그걸 기록해서 다음 걸음을 제안해주는 존재를 직접 만들었습니다. 자꾸 다그치는 코치가 아니라, 거리를 두고 지켜봐주는 존재여야 했어요.</p>
+    <p class="body-text" data-en="Running a 100-day career-transition project alone, I needed a pacemaker. So I built something that quietly organizes what I did each evening without nagging, logs it, and suggests the next step — not a coach that pushes, but a presence that watches from a distance.">100일짜리 커리어 전환 프로젝트를 혼자 끌고 가려니 페이스메이커가 필요했어요. 매일 저녁 오늘 뭘 했는지 묻지 않고 정리하고, 그걸 기록해서 다음 걸음을 제안해주는 존재를 직접 만들었습니다. 자꾸 다그치는 코치가 아니라, 거리를 두고 지켜봐주는 존재여야 했어요.</p>
   </section>
 
   <section class="reveal">
     <span class="label">Key Insight</span>
     <div class="insight">
       <span class="num">01</span>
-      <p>에이전트의 발화는 판단(Judgment)과 공감(Empathy)으로 나뉜다 — 둘이 섞인 설계가 가장 흔한 실수.</p>
+      <p data-en="An agent's speech splits into Judgment and Empathy — mixing the two is the most common design mistake.">에이전트의 발화는 판단(Judgment)과 공감(Empathy)으로 나뉜다 — 둘이 섞인 설계가 가장 흔한 실수.</p>
     </div>
     <div class="insight">
       <span class="num">02</span>
-      <p>사용자는 자기가 직접 만들지 않은 에이전트를 훈련시키지 않는다 — 진짜 과제는 이미 알고 있는 걸 드러내는 것, 그리고 그 타이밍.</p>
+      <p data-en="Users don't train an agent they didn't build themselves — the real task is surfacing what they already know, and the timing of it.">사용자는 자기가 직접 만들지 않은 에이전트를 훈련시키지 않는다 — 진짜 과제는 이미 알고 있는 걸 드러내는 것, 그리고 그 타이밍.</p>
     </div>
   </section>
 
   <section class="reveal">
     <span class="label">6-Rung Ladder</span>
-    <p class="body-text" style="margin-bottom:6px;">진행도는 커밋 수가 아니라 깊이로 측정했어요.</p>
+    <p class="body-text" style="margin-bottom:6px;" data-en="Progress was measured by depth, not by commit count.">진행도는 커밋 수가 아니라 깊이로 측정했어요.</p>
     <div class="nest-wrap">
       <svg viewBox="0 0 340 330" width="100%" style="max-width:340px; display:block; margin:0 auto;">
         <circle id="nest0" cx="170" cy="165" r="95" fill="none" stroke="var(--line)" stroke-width="2"/>
@@ -144,44 +150,44 @@
         <line id="leader4" x1="146.62" y1="178.5" x2="64.35" y2="226" stroke="var(--line)" stroke-width="1"/>
         <line id="leader5" x1="161.34" y1="160" x2="64.35" y2="104" stroke="var(--line)" stroke-width="1"/>
 
-        <text id="ringlabel0" x="170" y="43" text-anchor="middle" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)">01 학습</text>
-        <text id="ringlabel1" x="280" y="104" text-anchor="start" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)">02 활용</text>
-        <text id="ringlabel2" x="280" y="226" text-anchor="start" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)">03 확장</text>
-        <text id="ringlabel3" x="170" y="292" text-anchor="middle" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)">04 구현</text>
-        <text id="ringlabel4" x="60" y="226" text-anchor="end" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)">05 개선</text>
-        <text id="ringlabel5" x="60" y="104" text-anchor="end" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)">06 기록</text>
+        <text id="ringlabel0" x="170" y="43" text-anchor="middle" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)" data-en="01 Learn">01 학습</text>
+        <text id="ringlabel1" x="280" y="104" text-anchor="start" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)" data-en="02 Apply">02 활용</text>
+        <text id="ringlabel2" x="280" y="226" text-anchor="start" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)" data-en="03 Extend">03 확장</text>
+        <text id="ringlabel3" x="170" y="292" text-anchor="middle" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)" data-en="04 Build">04 구현</text>
+        <text id="ringlabel4" x="60" y="226" text-anchor="end" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)" data-en="05 Refine">05 개선</text>
+        <text id="ringlabel5" x="60" y="104" text-anchor="end" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)" data-en="06 Log">06 기록</text>
       </svg>
     </div>
     <div class="stage-list" id="stageList">
-      <div class="stage-item" data-i="0"><span class="stage-tag">01 학습</span><span class="stage-desc">개념을 이해하고 정리하는 단계</span></div>
-      <div class="stage-item" data-i="1"><span class="stage-tag">02 활용</span><span class="stage-desc">배운 걸 실제로 써보는 단계</span></div>
-      <div class="stage-item" data-i="2"><span class="stage-tag">03 확장</span><span class="stage-desc">범위를 넓혀 다른 문제에 적용</span></div>
-      <div class="stage-item" data-i="3"><span class="stage-tag">04 구현</span><span class="stage-desc">실제로 동작하는 걸 만드는 단계</span></div>
-      <div class="stage-item" data-i="4"><span class="stage-tag">05 개선</span><span class="stage-desc">써보면서 다듬는 단계</span></div>
-      <div class="stage-item" data-i="5"><span class="stage-tag">06 기록</span><span class="stage-desc">인사이트로 남겨서 재사용 가능하게</span></div>
+      <div class="stage-item" data-i="0"><span class="stage-tag" data-en="01 Learn">01 학습</span><span class="stage-desc" data-en="Understand and organize the concept">개념을 이해하고 정리하는 단계</span></div>
+      <div class="stage-item" data-i="1"><span class="stage-tag" data-en="02 Apply">02 활용</span><span class="stage-desc" data-en="Put what you learned into practice">배운 걸 실제로 써보는 단계</span></div>
+      <div class="stage-item" data-i="2"><span class="stage-tag" data-en="03 Extend">03 확장</span><span class="stage-desc" data-en="Widen the scope to other problems">범위를 넓혀 다른 문제에 적용</span></div>
+      <div class="stage-item" data-i="3"><span class="stage-tag" data-en="04 Build">04 구현</span><span class="stage-desc" data-en="Build something that actually works">실제로 동작하는 걸 만드는 단계</span></div>
+      <div class="stage-item" data-i="4"><span class="stage-tag" data-en="05 Refine">05 개선</span><span class="stage-desc" data-en="Refine it through real use">써보면서 다듬는 단계</span></div>
+      <div class="stage-item" data-i="5"><span class="stage-tag" data-en="06 Log">06 기록</span><span class="stage-desc" data-en="Capture as insight so it can be reused">인사이트로 남겨서 재사용 가능하게</span></div>
     </div>
   </section>
 
   <section class="reveal">
     <span class="label">Features</span>
     <div class="feature-grid">
-      <div class="feature"><span class="feature-tag">CHECK-IN</span><span class="feature-text">월–토요일 저녁 자율 체크인</span></div>
-      <div class="feature"><span class="feature-tag">REVIEW</span><span class="feature-text">일요일 저녁 주간 회고, 월요일 오전 액션 리마인더</span></div>
-      <div class="feature"><span class="feature-tag">MEMO</span><span class="feature-text">/memo #태그로 주제별 인사이트 기록, 쌓이면 액션으로 연결</span></div>
-      <div class="feature"><span class="feature-tag">RAW DATA</span><span class="feature-text">발화·침묵 로그별 판단 검증 데이터로 재사용</span></div>
-      <div class="feature"><span class="feature-tag">READING</span><span class="feature-text">블로그·깃허브 읽고 성과 자동 취합</span></div>
-      <div class="feature"><span class="feature-tag">BACKUP</span><span class="feature-text">매월 DB 자동 백업</span></div>
+      <div class="feature"><span class="feature-tag">CHECK-IN</span><span class="feature-text" data-en="Self-paced check-in, Mon–Sat evenings">월–토요일 저녁 자율 체크인</span></div>
+      <div class="feature"><span class="feature-tag">REVIEW</span><span class="feature-text" data-en="Sunday-evening weekly review, Monday-morning action reminder">일요일 저녁 주간 회고, 월요일 오전 액션 리마인더</span></div>
+      <div class="feature"><span class="feature-tag">MEMO</span><span class="feature-text" data-en="Log insights by topic with /memo #tags; as they pile up they turn into actions">/memo #태그로 주제별 인사이트 기록, 쌓이면 액션으로 연결</span></div>
+      <div class="feature"><span class="feature-tag">RAW DATA</span><span class="feature-text" data-en="Speech and silence logs reused as judgment-validation data">발화·침묵 로그별 판단 검증 데이터로 재사용</span></div>
+      <div class="feature"><span class="feature-tag">READING</span><span class="feature-text" data-en="Reads blog and GitHub to auto-collect progress">블로그·깃허브 읽고 성과 자동 취합</span></div>
+      <div class="feature"><span class="feature-tag">BACKUP</span><span class="feature-text" data-en="Automatic monthly DB backup">매월 DB 자동 백업</span></div>
     </div>
   </section>
 
   <section class="reveal">
     <span class="label">Walkthrough</span>
-    <p class="body-text" style="margin-top:14px;">주간 체크인 대화 뒤, 새 날의 회고에서 에이전트가 '삼킨 말들'을 꺼내면 — 각 항목을 '말했어야 함 / 침묵이 맞음'으로 직접 판정하는 흐름이에요.</p>
+    <p class="body-text" style="margin-top:14px;" data-en="After the weekly check-in, on a new day the agent brings up the words it swallowed — and you judge each one yourself as should-have-said-it / silence-was-right.">주간 체크인 대화 뒤, 새 날의 회고에서 에이전트가 '삼킨 말들'을 꺼내면 — 각 항목을 '말했어야 함 / 침묵이 맞음'으로 직접 판정하는 흐름이에요.</p>
     <div class="walk-phone">
       <span class="cam"></span><span class="pw"></span><span class="vol"></span>
       <video src="./agent-demo.webm" autoplay muted loop playsinline preload="metadata"></video>
     </div>
-    <p class="walk-cap">실제 봇 대화를 재현한 목업 데모입니다.</p>
+    <p class="walk-cap" data-en="A mockup demo recreating the real bot conversation.">실제 봇 대화를 재현한 목업 데모입니다.</p>
   </section>
 
   <section class="reveal">
@@ -238,5 +244,23 @@
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
 
+<script>
+(function(){
+  var KEY='site-lang';
+  var els=[].slice.call(document.querySelectorAll('[data-en]'));
+  els.forEach(function(el){ el.dataset.ko = el.innerHTML; });
+  var lang = localStorage.getItem(KEY) || (((navigator.language||'').toLowerCase().indexOf('ko')===0)?'ko':'en');
+  function apply(l){
+    window.__lang=l; document.documentElement.lang=l;
+    els.forEach(function(el){ el.innerHTML=(l==='en')?el.dataset.en:el.dataset.ko; });
+    document.querySelectorAll('.lang-toggle button').forEach(function(b){ b.classList.toggle('on', b.dataset.lang===l); });
+    try{localStorage.setItem(KEY,l);}catch(e){}
+    if(window.__onLangChange) window.__onLangChange(l);
+  }
+  window.applyLang=apply;
+  document.querySelectorAll('.lang-toggle button').forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.lang); }); });
+  apply(lang);
+})();
+</script>
 </body>
 </html>
