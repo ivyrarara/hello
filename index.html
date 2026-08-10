@@ -38,6 +38,20 @@
 
   .wrap{max-width:760px; margin:0 auto; padding:0 28px;}
 
+  /* language toggle */
+  .lang-toggle{
+    position:fixed; top:16px; right:16px; z-index:200;
+    display:inline-flex; align-items:center; gap:2px;
+    background:rgba(22,24,28,0.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    border:1px solid var(--line); border-radius:99px; padding:3px;
+    font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.04em;
+  }
+  .lang-toggle button{
+    background:none; border:none; color:var(--muted); padding:5px 11px; border-radius:99px;
+    cursor:pointer; font:inherit; transition:background 0.2s ease, color 0.2s ease;
+  }
+  .lang-toggle button.on{background:var(--a2); color:#0b0c0e; font-weight:700;}
+
 
   /* marquee */
   .marquee-band{
@@ -301,13 +315,17 @@
 </head>
 <body>
 
+<div class="lang-toggle" role="group" aria-label="Language">
+  <button type="button" data-lang="en">EN</button>
+  <button type="button" data-lang="ko">KO</button>
+</div>
 
 <div class="wrap">
 
   <header class="hero">
     <div class="eyebrow">Brand Designer → AI Product</div>
-    <h1 id="heroTitle">구조를 설계하고, 관계를 만듭니다</h1>
-    <p class="hero-sub">13년차 브랜드 디자이너. 최근엔 AI 프로덕트를 직접 만들며 판단과 공감의 경계를 실험 중입니다.</p>
+    <h1 id="heroTitle" data-en="Designing structure, building relationships">구조를 설계하고, 관계를 만듭니다</h1>
+    <p class="hero-sub" data-en="A brand designer with 13 years' experience. Lately I build AI products myself, exploring the line between judgment and empathy.">13년차 브랜드 디자이너. 최근엔 AI 프로덕트를 직접 만들며 판단과 공감의 경계를 실험 중입니다.</p>
 
     <div class="spectrum-block">
       <div class="spectrum-labels"><span id="labelJ">Judgment</span><span id="labelE">Empathy</span></div>
@@ -321,7 +339,7 @@
   <section class="about reveal">
     <span class="label">Background</span>
     <div class="about-grid">
-      <p>코스메틱과 리테일에서 <strong>브랜딩</strong>, <strong>패키징</strong>으로 13년을 쌓았고, 지금은 <strong>삼성 UX팀</strong>에서 <strong>가전 접근성</strong>을 다룹니다. 100일 동안 AI 에이전트 세 개를 직접 기획·개발·배포하며, 디자이너의 판단이 AI 제품에서 어떻게 확장되는지 실험하고 있습니다.</p>
+      <p data-en="I spent 13 years in cosmetics and retail doing <strong>branding</strong> and <strong>packaging</strong>, and now I work on <strong>appliance accessibility</strong> at <strong>Samsung's UX team</strong>. Over 100 days I planned, built, and shipped three AI agents myself — testing how a designer's judgment scales inside AI products.">코스메틱과 리테일에서 <strong>브랜딩</strong>, <strong>패키징</strong>으로 13년을 쌓았고, 지금은 <strong>삼성 UX팀</strong>에서 <strong>가전 접근성</strong>을 다룹니다. 100일 동안 AI 에이전트 세 개를 직접 기획·개발·배포하며, 디자이너의 판단이 AI 제품에서 어떻게 확장되는지 실험하고 있습니다.</p>
     </div>
   </section>
 
@@ -333,7 +351,7 @@
           <span class="build-name">Agent</span>
           <span class="build-arrow">↗</span>
         </div>
-        <p class="build-desc">매일의 페이스를 지켜주는 텔레그램 AI 에이전트</p>
+        <p class="build-desc" data-en="A Telegram AI agent that keeps your daily pace">매일의 페이스를 지켜주는 텔레그램 AI 에이전트</p>
         <span class="build-tag">TELEGRAM · AI AGENT</span>
       </a>
       <a class="build-card" href="./scheduler.html">
@@ -341,7 +359,7 @@
           <span class="build-name">Scheduler</span>
           <span class="build-arrow">↗</span>
         </div>
-        <p class="build-desc">일정 반복 확인을 없애는 웹앱</p>
+        <p class="build-desc" data-en="A web app that ends repeated schedule-checking">일정 반복 확인을 없애는 웹앱</p>
         <span class="build-tag">FIREBASE · WEB APP</span>
       </a>
       <a class="build-card" href="./recipebook.html">
@@ -349,7 +367,7 @@
           <span class="build-name">Recipe Book</span>
           <span class="build-arrow">↗</span>
         </div>
-        <p class="build-desc">레시피를 정리하고 비율로 스케일링하는 앱</p>
+        <p class="build-desc" data-en="An app to organize recipes and scale them by ratio">레시피를 정리하고 비율로 스케일링하는 앱</p>
         <span class="build-tag">CLAUDE API · PWA</span>
       </a>
     </div>
@@ -359,8 +377,8 @@
     <span class="label">Branding Works</span>
     <div class="case">
       <h2>The Rabbit Jump</h2>
-      <p>삼성 DAUX 팀의 사내 브랜딩 프로젝트입니다. 2023년 토끼해를 모티프로 팀 캐릭터를 만들고, 텀블러부터 굿즈까지 10여 종의 아이템을 기획·제작했어요. 팀 SCI(조직 몰입도)가 19포인트 올랐습니다.</p>
-      <div class="magnetic" style="margin-top:20px;"><a class="primary" href="./seungah-ra-portfolio.pdf" target="_blank" rel="noopener"><span class="frost"></span>최신 포트폴리오 PDF ↓</a></div>
+      <p data-en="An in-house branding project for Samsung's DAUX team. Themed on the 2023 Year of the Rabbit, I created a team character and designed 10+ items from tumblers to goods. Team SCI (organizational commitment) rose by 19 points.">삼성 DAUX 팀의 사내 브랜딩 프로젝트입니다. 2023년 토끼해를 모티프로 팀 캐릭터를 만들고, 텀블러부터 굿즈까지 10여 종의 아이템을 기획·제작했어요. 팀 SCI(조직 몰입도)가 19포인트 올랐습니다.</p>
+      <div class="magnetic" style="margin-top:20px;"><a class="primary" href="./seungah-ra-portfolio.pdf" target="_blank" rel="noopener"><span class="frost"></span><span class="pf-label" data-en="Latest Portfolio PDF ↓">최신 포트폴리오 PDF ↓</span></a></div>
     </div>
   </section>
 
@@ -389,12 +407,16 @@
 
   // magnetic hover on hero words
   const title = document.getElementById('heroTitle');
-  if(title && fine && !reduceMotion){
+  const magneticTitle = title && fine && !reduceMotion;
+  // wrap each word in a span (called on load and after a language switch)
+  window.__splitTitle = ()=>{
+    if(!magneticTitle) return;
     title.innerHTML = title.textContent.split(' ').map(w=>`<span class="word">${w}</span>`).join(' ');
-    const words = title.querySelectorAll('.word');
+  };
+  if(magneticTitle){
     title.addEventListener('pointermove', e=>{
       const rect = title.getBoundingClientRect();
-      words.forEach(w=>{
+      title.querySelectorAll('.word').forEach(w=>{
         const wr = w.getBoundingClientRect();
         const wx = wr.left + wr.width/2 - rect.left;
         const wy = wr.top + wr.height/2 - rect.top;
@@ -406,9 +428,25 @@
       });
     });
     title.addEventListener('pointerleave', ()=>{
-      words.forEach(w=> w.style.transform = 'translate(0,0)');
+      title.querySelectorAll('.word').forEach(w=> w.style.transform = 'translate(0,0)');
     });
   }
+
+  // ---- language (EN/KO) ----
+  const I18N_KEY = 'site-lang';
+  const i18nEls = [...document.querySelectorAll('[data-en]')];
+  i18nEls.forEach(el=> el.dataset.ko = el.innerHTML);   // capture Korean before any split
+  window.__lang = localStorage.getItem(I18N_KEY) || ((navigator.language||'').toLowerCase().startsWith('ko') ? 'ko' : 'en');
+  function applyLang(lang){
+    window.__lang = lang;
+    document.documentElement.lang = lang;
+    i18nEls.forEach(el=>{ el.innerHTML = (lang==='en') ? el.dataset.en : el.dataset.ko; });
+    document.querySelectorAll('.lang-toggle button').forEach(b=> b.classList.toggle('on', b.dataset.lang===lang));
+    try{ localStorage.setItem(I18N_KEY, lang); }catch(e){}
+    if(window.__splitTitle) window.__splitTitle();
+    if(typeof setPos === 'function') setPos(pos);   // re-render the dynamic caption
+  }
+  document.querySelectorAll('.lang-toggle button').forEach(b=> b.addEventListener('click', ()=> applyLang(b.dataset.lang)));
 
   // draggable spectrum
   const track = document.getElementById('track');
@@ -419,11 +457,11 @@
   let pos = 58;
 
   const captions = [
-    {max:20, text:"구조부터 잡습니다 — 시스템이 먼저입니다"},
-    {max:45, text:"구조를 세우고 톤을 다듬습니다"},
-    {max:70, text:"이 지점에서 대부분의 프로덕트가 만들어집니다"},
-    {max:90, text:"관계와 정서를 먼저 읽습니다"},
-    {max:101, text:"공감이 설계의 출발점입니다"}
+    {max:20, ko:"구조부터 잡습니다 — 시스템이 먼저입니다", en:"Structure first — the system comes before the surface"},
+    {max:45, ko:"구조를 세우고 톤을 다듬습니다", en:"Build the structure, then refine the tone"},
+    {max:70, ko:"이 지점에서 대부분의 프로덕트가 만들어집니다", en:"Most products are built right around here"},
+    {max:90, ko:"관계와 정서를 먼저 읽습니다", en:"Read the relationship and the emotion first"},
+    {max:101, ko:"공감이 설계의 출발점입니다", en:"Empathy is where design begins"}
   ];
 
   function setPos(p){
@@ -439,7 +477,7 @@
     handle.style.setProperty('--barx', (hw - 1.5 - center) + 'px'); // 1.5 = border
     handle.setAttribute('aria-valuenow', Math.round(pos));
     const c = captions.find(c=>pos <= c.max);
-    caption.textContent = c.text;
+    caption.textContent = (window.__lang === 'en') ? c.en : c.ko;
 
     // emphasize the JUDGMENT / EMPATHY label the handle approaches (color + bold)
     const t = (pos - 50) / 50;              // -1 judgment .. +1 empathy
@@ -544,6 +582,10 @@
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(alignFrost);
   // recompute the knob's px-based bar offset when the track width changes
   window.addEventListener('resize', ()=>setPos(pos));
+
+  // apply the initial language (saved choice, else the phone's language)
+  applyLang(window.__lang);
+  document.fonts && document.fonts.ready && document.fonts.ready.then(()=>alignFrost());
 </script>
 
 </body>
