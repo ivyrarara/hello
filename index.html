@@ -6,7 +6,7 @@
 <title>안녕하세요</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#0b0c0e;
@@ -52,6 +52,9 @@
   .lang-toggle.to-en .lang-icon text.en{fill:var(--a2);}
   .lang-toggle.to-ko .lang-icon path.ko{stroke:var(--a2);}
   .lang-toggle.to-ko .lang-icon text.ko{fill:var(--a2);}
+  /* thicken 한 with a matching stroke */
+  .lang-icon text.han{paint-order:stroke; stroke:currentColor; stroke-width:1.1;}
+  .lang-toggle.to-ko .lang-icon text.han{stroke:var(--a2);}
 
 
   /* marquee */
@@ -326,7 +329,7 @@
         <path class="ko" d="M67.7 70.2 A 30 30 0 1 0 49.8 52.3"/>
         <path class="ko" d="M43.6 46 L49.8 53 L56 46"/>
         <text class="en" x="31" y="50" font-size="24" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none" style="font-family:'Inter',sans-serif">A</text>
-        <text class="ko" x="88" y="49" font-size="19" font-weight="800" text-anchor="middle" fill="currentColor" stroke="none" style="font-family:'Noto Sans KR',sans-serif">한</text>
+        <text class="ko han" x="88" y="49" font-size="19" font-weight="900" text-anchor="middle" fill="currentColor" style="font-family:'Noto Sans KR',sans-serif">한</text>
       </svg>
     </button>
   </div>
