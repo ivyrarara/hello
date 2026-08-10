@@ -47,7 +47,7 @@
     font-size:12px; letter-spacing:0.1em; padding:4px 2px;
     transition:opacity 0.2s ease;
   }
-  .lang-switch .globe{display:block; flex:none;}
+  .lang-switch .flag{font-size:15px; line-height:1;}
   .lang-switch:hover{opacity:0.7;}
 
 
@@ -317,9 +317,7 @@
 
   <div class="lang-bar">
     <button type="button" class="lang-switch" id="langSwitch" aria-label="Switch language">
-      <svg class="globe" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.7 2.6 15.3 0 18M12 3c-2.6 2.7-2.6 15.3 0 18"/>
-      </svg>
+      <span class="flag" id="langFlag" aria-hidden="true"></span>
       <span id="langLabel"></span>
     </button>
   </div>
@@ -444,7 +442,10 @@
     document.documentElement.lang = lang;
     i18nEls.forEach(el=>{ el.innerHTML = (lang==='en') ? el.dataset.en : el.dataset.ko; });
     const langLabel = document.getElementById('langLabel');
-    if(langLabel) langLabel.textContent = (lang==='en') ? 'KR' : 'EN';  // show the language you can switch TO
+    const langFlag = document.getElementById('langFlag');
+    // show the language you can switch TO: EN = Canada flag, KR = Korea flag
+    if(langLabel) langLabel.textContent = (lang==='en') ? 'KR' : 'EN';
+    if(langFlag) langFlag.textContent = (lang==='en') ? '🇰🇷' : '🇨🇦';
     document.querySelectorAll('.ko-only').forEach(el=> el.style.display = (lang==='en') ? 'none' : '');
     try{ localStorage.setItem(I18N_KEY, lang); }catch(e){}
     if(window.__splitTitle) window.__splitTitle();
