@@ -38,9 +38,9 @@
 
   .wrap{max-width:760px; margin:0 auto; padding:0 28px;}
 
-  /* language toggle */
+  /* language toggle (main page only, in-flow at the top) */
+  .lang-bar{display:flex; justify-content:flex-end; padding-top:18px; margin-bottom:64px;}
   .lang-toggle{
-    position:fixed; top:16px; right:16px; z-index:200;
     display:inline-flex; align-items:center; gap:2px;
     background:rgba(22,24,28,0.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
     border:1px solid var(--line); border-radius:99px; padding:3px;
@@ -77,7 +77,7 @@
   @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
 
   /* hero */
-  header.hero{padding:80px 0 44px;}
+  header.hero{padding:8px 0 44px;}
   .eyebrow{
     font-family:'IBM Plex Mono','Noto Sans KR', monospace;
     font-size:12px; letter-spacing:0.08em;
@@ -315,12 +315,14 @@
 </head>
 <body>
 
-<div class="lang-toggle" role="group" aria-label="Language">
-  <button type="button" data-lang="en">EN</button>
-  <button type="button" data-lang="ko">KO</button>
-</div>
-
 <div class="wrap">
+
+  <div class="lang-bar">
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="ko">KO</button>
+    </div>
+  </div>
 
   <header class="hero">
     <div class="eyebrow">Brand Designer → AI Product</div>
