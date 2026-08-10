@@ -42,7 +42,7 @@
   .lang-bar{display:flex; justify-content:flex-end; padding-top:18px; margin-bottom:64px;}
   .lang-toggle{
     background:none; border:none; cursor:pointer; padding:2px; line-height:0;
-    color:#87888a; transition:color 0.2s ease;
+    color:#4e4f53; transition:color 0.2s ease;
   }
   .lang-toggle:active{opacity:0.7;}
   .lang-toggle .lang-icon{display:block;}
@@ -97,6 +97,7 @@
     font-size:clamp(36px, 7vw, 58px);
     line-height:1.1;
     letter-spacing:-0.02em;
+    word-break:keep-all;
     opacity:0;
     animation:rise 0.6s ease 0.08s forwards;
   }
@@ -201,6 +202,16 @@
   .about p{font-size:16px; max-width:56ch; color:rgba(237,237,237,0.62);}
   .about strong{color:#fff; font-weight:600;}
 
+  /* key insights auto-slider */
+  .islider{position:relative; margin-top:6px; transition:height 0.5s cubic-bezier(.4,0,.2,1);}
+  .islide{position:absolute; left:0; right:0; top:0; opacity:0; transform:translateY(12px); transition:opacity 0.6s ease, transform 0.6s ease; pointer-events:none;}
+  .islide.on{opacity:1; transform:translateY(0);}
+  .ifrom{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a1); display:block; margin-bottom:12px;}
+  .islide p{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-size:19px; font-weight:500; line-height:1.42; color:var(--text); max-width:54ch;}
+  .idots{display:flex; gap:7px; margin-top:26px;}
+  .idot{width:6px; height:6px; border-radius:99px; background:rgba(237,237,237,0.2); transition:background 0.3s ease, width 0.3s ease;}
+  .idot.on{background:var(--a2); width:18px;}
+
   /* build cards */
   .build-grid{display:grid; grid-template-columns:1fr; gap:14px;}
   .build-card{
@@ -219,7 +230,7 @@
   }
   .build-card:hover{border-color:rgba(124,245,208,0.4);}
   /* rotating neon-green highlight (cycles across the 3 cards) */
-  .build-card.glow{border-color:var(--a2); box-shadow:inset 0 1px 0 rgba(255,255,255,0.16), 0 0 0 1px rgba(124,245,208,0.35), 0 0 18px rgba(124,245,208,0.28), 0 8px 28px rgba(0,0,0,0.3);}
+  .build-card.glow{border-color:var(--a2); box-shadow:inset 0 0 0 999px rgba(124,245,208,0.10), inset 0 1px 0 rgba(255,255,255,0.16), 0 0 0 1px rgba(124,245,208,0.35), 0 0 18px rgba(124,245,208,0.28), 0 8px 28px rgba(0,0,0,0.3);}
   .build-top{display:flex; align-items:center; justify-content:space-between; gap:12px;}
   .build-name{
     font-family:'Space Grotesk','Noto Sans KR', sans-serif;
@@ -350,11 +361,16 @@
     </div>
   </header>
 
-  <section class="about reveal">
-    <span class="label">Background</span>
-    <div class="about-grid">
-      <p data-en="I spent 13 years in cosmetics and retail doing <strong>branding</strong> and <strong>packaging</strong>, and now I work on <strong>appliance accessibility</strong> at <strong>Samsung's UX team</strong>. Over 100 days I planned, built, and shipped three AI agents myself — testing how a designer's judgment scales inside AI products.">코스메틱과 리테일에서 <strong>브랜딩</strong>, <strong>패키징</strong>으로 13년을 쌓았고, 지금은 <strong>삼성 UX팀</strong>에서 <strong>가전 접근성</strong>을 다룹니다. 100일 동안 AI 에이전트 세 개를 직접 기획·개발·배포하며, 디자이너의 판단이 AI 제품에서 어떻게 확장되는지 실험하고 있습니다.</p>
+  <section class="insights reveal">
+    <span class="label">Key Insights</span>
+    <div class="islider" id="islider">
+      <div class="islide"><span class="ifrom">Agent</span><p data-en="An agent's speech splits into Judgment and Empathy — mixing the two is the most common design mistake.">에이전트의 발화는 판단(Judgment)과 공감(Empathy)으로 나뉜다 — 둘이 섞인 설계가 가장 흔한 실수.</p></div>
+      <div class="islide"><span class="ifrom">Agent</span><p data-en="Users don't train an agent they didn't build themselves — the real task is surfacing what they already know, and the timing of it.">사용자는 자기가 직접 만들지 않은 에이전트를 훈련시키지 않는다 — 진짜 과제는 이미 알고 있는 걸 드러내는 것, 그리고 그 타이밍.</p></div>
+      <div class="islide"><span class="ifrom">Scheduler</span><p data-en="Information you can't pull up when you need it is as good as no information.">필요할 때 꺼내 쓸 수 없는 정보는, 없는 정보나 마찬가지.</p></div>
+      <div class="islide"><span class="ifrom">Scheduler</span><p data-en="Telling when automatic is better from when manual is better is where real UX begins.">자동이 편할 때와 수동이 편할 때의 구분이 진정한 UX의 시작.</p></div>
+      <div class="islide"><span class="ifrom">Recipe Book</span><p data-en="Recipe Book's success metric isn't whether you never need the original, but whether you can get back to the original video faster.">레시피북의 성공 지표는 원본을 안 찾아도 되는가가 아니라, 원본 영상으로 더 빠르게 돌아갈 수 있는가</p></div>
     </div>
+    <div class="idots" id="idots"></div>
   </section>
 
   <section class="builds reveal">
@@ -384,6 +400,13 @@
         <p class="build-desc" data-en="An app to organize recipes and scale them by ratio">레시피를 정리하고 비율로 스케일링하는 앱</p>
         <span class="build-tag">CLAUDE API · PWA</span>
       </a>
+    </div>
+  </section>
+
+  <section class="about reveal">
+    <span class="label">Background</span>
+    <div class="about-grid">
+      <p data-en="I spent 13 years in cosmetics and retail doing <strong>branding</strong> and <strong>packaging</strong>, and now I work on <strong>appliance accessibility</strong> at <strong>Samsung's UX team</strong>. Over 100 days I planned, built, and shipped three AI agents myself — testing how a designer's judgment scales inside AI products.">코스메틱과 리테일에서 <strong>브랜딩</strong>, <strong>패키징</strong>으로 13년을 쌓았고, 지금은 <strong>삼성 UX팀</strong>에서 <strong>가전 접근성</strong>을 다룹니다. 100일 동안 AI 에이전트 세 개를 직접 기획·개발·배포하며, 디자이너의 판단이 AI 제품에서 어떻게 확장되는지 실험하고 있습니다.</p>
     </div>
   </section>
 
@@ -466,6 +489,7 @@
     try{ localStorage.setItem(I18N_KEY, lang); }catch(e){}
     if(window.__splitTitle) window.__splitTitle();
     if(typeof setPos === 'function') setPos(pos);   // re-render the dynamic caption
+    if(window.__reflowInsights) setTimeout(window.__reflowInsights, 0);   // recompute slider height for new text
   }
   const langToggleBtn = document.getElementById('langToggle');
   if(langToggleBtn) langToggleBtn.addEventListener('click', ()=> applyLang(window.__lang==='en' ? 'ko' : 'en'));
@@ -482,7 +506,7 @@
     {max:20, ko:"구조부터 잡습니다 — 시스템이 먼저입니다", en:"Structure first, then the surface"},
     {max:45, ko:"구조를 세우고 톤을 다듬습니다", en:"Build the structure, then refine the tone"},
     {max:70, ko:"이 지점에서 대부분의 프로덕트가 만들어집니다", en:"Most products are built right around here"},
-    {max:90, ko:"관계와 정서를 먼저 읽습니다", en:"Read the relationship and the emotion first"},
+    {max:90, ko:"관계와 정서를 읽습니다", en:"Read the relationship and the emotion"},
     {max:101, ko:"공감이 설계의 출발점입니다", en:"Empathy is where design begins"}
   ];
 
@@ -532,7 +556,7 @@
     autoTimer = setInterval(()=>{
       autoIndex = (autoIndex+1) % autoPositions.length;
       setPos(autoPositions[autoIndex]);
-    }, 3000);
+    }, 5000);
   }
   startAuto();
 
@@ -584,7 +608,27 @@
       gi = (gi+1) % glowCards.length;
     };
     rotateGlow();
-    setInterval(rotateGlow, 3000);
+    setInterval(rotateGlow, 5000);
+  }
+
+  // auto-sliding Key Insights (every 5s)
+  const islider = document.getElementById('islider');
+  if(islider){
+    const islides = [...islider.querySelectorAll('.islide')];
+    const idots = document.getElementById('idots');
+    islides.forEach(()=>{ const d=document.createElement('span'); d.className='idot'; idots.appendChild(d); });
+    const dots = [...idots.children];
+    let ii = 0;
+    function showInsight(n){
+      ii = n;
+      islides.forEach((s,i)=> s.classList.toggle('on', i===n));
+      dots.forEach((d,i)=> d.classList.toggle('on', i===n));
+      islider.style.height = islides[n].offsetHeight + 'px';
+    }
+    window.__reflowInsights = ()=> showInsight(ii);
+    showInsight(0);
+    window.addEventListener('resize', ()=> showInsight(ii));
+    if(!reduceMotion){ setInterval(()=>{ showInsight((ii+1) % islides.length); }, 5000); }
   }
 
   // live Toronto clock

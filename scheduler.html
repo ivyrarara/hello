@@ -164,7 +164,7 @@
     <p class="body-text" style="margin-top:14px;" data-en="From the weekly view: check tomorrow's camp card → swap the dinner menu with refresh → add a field-trip tag and memo → then mark items purchased in the grocery list.">주간 뷰에서 내일 캠프 카드를 확인하고 → 저녁 메뉴를 리프레시로 바꾸고 → 필드트립 태그·메모를 더한 뒤 → 장보기 리스트에서 구매완료 처리하는 흐름이에요.</p>
     <div class="walk-phone">
       <span class="cam"></span><span class="pw"></span><span class="vol"></span>
-      <video src="./scheduler-demo.webm" autoplay muted loop playsinline preload="metadata"></video>
+      <video src="./scheduler-demo.webm" data-vko="./scheduler-demo.webm" data-ven="./scheduler-demo-en.webm" autoplay muted loop playsinline preload="metadata"></video>
     </div>
     <p class="walk-cap" data-en="A mockup demo recreating the real app UX.">실제 앱 UX를 재현한 목업 데모입니다.</p>
   </section>
@@ -213,7 +213,13 @@
     demoState = (demoState === 'before') ? 'after' : 'before';
     renderDemo();
   });
-  window.__onLangChange = renderDemo;
+  const walkVid = document.querySelector('.walk-phone video');
+  function swapWalkVideo(lang){
+    if(!walkVid) return;
+    const src = (lang==='en' && walkVid.dataset.ven) ? walkVid.dataset.ven : walkVid.dataset.vko;
+    if(walkVid.getAttribute('src') !== src){ walkVid.setAttribute('src', src); walkVid.load(); }
+  }
+  window.__onLangChange = (lang)=>{ renderDemo(); swapWalkVideo(lang); };
   renderDemo();
 
   const io = new IntersectionObserver((entries)=>{

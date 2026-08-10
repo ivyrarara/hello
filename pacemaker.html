@@ -183,7 +183,7 @@
     <p class="body-text" style="margin-top:14px;" data-en="After the weekly check-in, on a new day the agent brings up the words it swallowed — and you judge each one yourself as should-have-said-it / silence-was-right.">주간 체크인 대화 뒤, 새 날의 회고에서 에이전트가 '삼킨 말들'을 꺼내면 — 각 항목을 '말했어야 함 / 침묵이 맞음'으로 직접 판정하는 흐름이에요.</p>
     <div class="walk-phone">
       <span class="cam"></span><span class="pw"></span><span class="vol"></span>
-      <video src="./agent-demo.webm" autoplay muted loop playsinline preload="metadata"></video>
+      <video src="./agent-demo.webm" data-vko="./agent-demo.webm" data-ven="./agent-demo-en.webm" autoplay muted loop playsinline preload="metadata"></video>
     </div>
     <p class="walk-cap" data-en="A mockup demo recreating the real bot conversation.">실제 봇 대화를 재현한 목업 데모입니다.</p>
   </section>
@@ -236,6 +236,14 @@
       renderNest(nestIndex);
     }, 2800);
   }
+
+  // swap the walkthrough video to match the site language
+  const walkVid = document.querySelector('.walk-phone video');
+  window.__onLangChange = function(lang){
+    if(!walkVid) return;
+    const src = (lang==='en' && walkVid.dataset.ven) ? walkVid.dataset.ven : walkVid.dataset.vko;
+    if(walkVid.getAttribute('src') !== src){ walkVid.setAttribute('src', src); walkVid.load(); }
+  };
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, {threshold:0.15});
