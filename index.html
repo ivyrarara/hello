@@ -642,7 +642,7 @@
       ii = n;
     }
     let timer = null;
-    function restart(){ if(reduceMotion) return; clearInterval(timer); timer = setInterval(()=> go(1), 5000); }
+    function restart(){ if(reduceMotion) return; clearInterval(timer); timer = setInterval(()=> go(1), 10000); }
     function go(dir){ showInsight((ii + dir + islides.length) % islides.length, dir); restart(); }
     function jumpTo(i){ if(i===ii) return; showInsight(i, i>ii ? 1 : -1); restart(); }
     dots.forEach((d,i)=> d.addEventListener('click', ()=> jumpTo(i)));
