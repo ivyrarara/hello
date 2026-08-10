@@ -56,7 +56,7 @@
   /* nested rings (signature interactive element) */
   .nest-wrap{margin-top:24px; display:flex; justify-content:center;}
   .nest-wrap circle{transition:stroke 1.4s ease, stroke-width 1.4s ease, stroke-opacity 1.4s ease, filter 1.4s ease;}
-  .nest-wrap text{transition:fill 1.4s ease;}
+  .nest-wrap text{transition:fill 1.4s ease, transform 1.4s ease; transform-box:fill-box; transform-origin:center;}
   .nest-wrap line{transition:stroke 1.4s ease, stroke-opacity 1.4s ease;}
   .stage-list{display:flex; flex-direction:column; gap:0; margin-top:20px;}
   .stage-item{display:flex; gap:14px; padding:10px 0; border-top:1px solid var(--line); transition:opacity 1.4s ease;}
@@ -222,8 +222,7 @@
       ring.setAttribute('stroke-opacity', isActive ? '1' : '0.5');
       ring.style.filter = isActive ? 'blur(2.8px) drop-shadow(0 0 16px var(--a2)) drop-shadow(0 0 40px rgba(124,245,208,0.55)) drop-shadow(0 0 72px rgba(124,245,208,0.32))' : 'blur(3.6px)';
       label.setAttribute('fill', isActive ? 'var(--a2)' : 'var(--dim)');
-      label.setAttribute('font-size', isActive ? '16' : '13');
-      label.setAttribute('font-weight', isActive ? '500' : '400');
+      label.style.transform = isActive ? 'scale(1.22)' : 'scale(1)';   // smooth grow/shrink (font-size setAttribute would snap)
       leader.setAttribute('stroke', isActive ? 'var(--a2)' : 'var(--line)');
       leader.setAttribute('stroke-opacity', isActive ? '0.8' : '0.4');
     }
