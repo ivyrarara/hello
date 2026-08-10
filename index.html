@@ -387,7 +387,7 @@
     <div class="contact-links">
       <div class="magnetic"><a href="mailto:[email protected]">Email</a></div>
       <div class="magnetic"><a href="https://github.com/ivyrarara" target="_blank" rel="noopener">GitHub</a></div>
-      <div class="magnetic"><a href="https://brunch.co.kr/@ivyra" target="_blank" rel="noopener">Brunch</a></div>
+      <div class="magnetic ko-only"><a href="https://brunch.co.kr/@ivyra" target="_blank" rel="noopener">Brunch</a></div>
       <div class="magnetic"><a href="https://www.linkedin.com/in/ivyra" target="_blank" rel="noopener">LinkedIn</a></div>
       <div class="magnetic"><a href="https://ivyra.myportfolio.com" target="_blank" rel="noopener">Web Portfolio</a></div>
     </div>
@@ -442,6 +442,7 @@
     document.documentElement.lang = lang;
     i18nEls.forEach(el=>{ el.innerHTML = (lang==='en') ? el.dataset.en : el.dataset.ko; });
     document.querySelectorAll('.lang-toggle button').forEach(b=> b.classList.toggle('on', b.dataset.lang===lang));
+    document.querySelectorAll('.ko-only').forEach(el=> el.style.display = (lang==='en') ? 'none' : '');
     try{ localStorage.setItem(I18N_KEY, lang); }catch(e){}
     if(window.__splitTitle) window.__splitTitle();
     if(typeof setPos === 'function') setPos(pos);   // re-render the dynamic caption
