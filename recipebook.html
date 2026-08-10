@@ -162,7 +162,7 @@
     <p class="body-text" style="margin-top:14px;" data-en="Spot a recipe in an Instagram reel → screenshot the caption → copy the link → in the app, attach the screenshot and link via New recipe and save.">인스타 릴에서 레시피를 발견하면 → 캡션 스크린샷 → 링크 복사 → 앱에서 New recipe로 스샷·링크를 첨부해 저장하는 흐름이에요.</p>
     <div class="walk-phone">
       <span class="cam"></span><span class="pw"></span><span class="vol"></span>
-      <video src="./recipe-demo.webm" autoplay muted loop playsinline preload="metadata"></video>
+      <video src="./recipe-demo.webm" data-vko="./recipe-demo.webm" data-ven="./recipe-demo-en.webm" autoplay muted loop playsinline preload="metadata"></video>
     </div>
     <p class="walk-cap" data-en="A mockup demo recreating the real app UX.">실제 앱 UX를 재현한 목업 데모입니다.</p>
   </section>
@@ -196,7 +196,9 @@
   }
   document.getElementById('plus').addEventListener('click', ()=>{ anchorVal += 25; render(); });
   document.getElementById('minus').addEventListener('click', ()=>{ if(anchorVal>25){ anchorVal -= 25; render(); } });
-  window.__onLangChange = render;   // re-render amounts/units on language switch
+  const walkVid = document.querySelector('.walk-phone video');
+  function swapWalkVideo(lang){ if(!walkVid) return; const src=(lang==='en'&&walkVid.dataset.ven)?walkVid.dataset.ven:walkVid.dataset.vko; if(walkVid.getAttribute('src')!==src){ walkVid.setAttribute('src',src); walkVid.load(); } }
+  window.__onLangChange = (lang)=>{ render(); swapWalkVideo(lang); };   // re-render amounts/units + swap demo video on language switch
   render();
 
   const io = new IntersectionObserver((entries)=>{
