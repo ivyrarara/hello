@@ -203,13 +203,15 @@
   .about strong{color:#fff; font-weight:600;}
 
   /* key insights auto-slider */
-  .islider{position:relative; margin-top:6px; transition:height 0.5s cubic-bezier(.4,0,.2,1);}
-  .islide{position:absolute; left:0; right:0; top:0; opacity:0; transform:translateY(12px); transition:opacity 0.6s ease, transform 0.6s ease; pointer-events:none;}
-  .islide.on{opacity:1; transform:translateY(0);}
+  .islider{position:relative; margin-top:6px; transition:height 0.5s cubic-bezier(.4,0,.2,1); touch-action:pan-y; -webkit-user-select:none; user-select:none;}
+  .islide{position:absolute; left:0; right:0; top:0; opacity:0; transform:translateX(34px); transition:opacity 0.5s ease, transform 0.5s cubic-bezier(.4,0,.2,1); pointer-events:none;}
+  .islide.on{opacity:1; transform:translateX(0);}
+  .islide.left{opacity:0; transform:translateX(-34px);}
+  .islide.right{opacity:0; transform:translateX(34px);}
   .ifrom{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a1); display:block; margin-bottom:12px;}
   .islide p{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-size:19px; font-weight:500; line-height:1.42; color:var(--text); max-width:54ch;}
   .idots{display:flex; gap:7px; margin-top:26px;}
-  .idot{width:6px; height:6px; border-radius:99px; background:rgba(237,237,237,0.2); transition:background 0.3s ease, width 0.3s ease;}
+  .idot{width:6px; height:6px; border-radius:99px; background:rgba(237,237,237,0.2); transition:background 0.3s ease, width 0.3s ease; cursor:pointer;}
   .idot.on{background:var(--a2); width:18px;}
 
   /* build cards */
@@ -627,16 +629,36 @@
     islides.forEach(()=>{ const d=document.createElement('span'); d.className='idot'; idots.appendChild(d); });
     const dots = [...idots.children];
     let ii = 0;
-    function showInsight(n){
-      ii = n;
-      islides.forEach((s,i)=> s.classList.toggle('on', i===n));
+    function showInsight(n, dir){
+      dir = dir || 1;                       // 1 = forward (enter from right), -1 = back (enter from left)
+      islides.forEach((s,i)=>{
+        s.classList.remove('on','left','right');
+        if(i===n) s.classList.add('on');
+        else if(i===ii && i!==n) s.classList.add(dir>0 ? 'left' : 'right');  // outgoing slide
+        else s.classList.add(dir>0 ? 'right' : 'left');                       // parked off-screen
+      });
       dots.forEach((d,i)=> d.classList.toggle('on', i===n));
       islider.style.height = islides[n].offsetHeight + 'px';
+      ii = n;
     }
-    window.__reflowInsights = ()=> showInsight(ii);
-    showInsight(0);
-    window.addEventListener('resize', ()=> showInsight(ii));
-    if(!reduceMotion){ setInterval(()=>{ showInsight((ii+1) % islides.length); }, 5000); }
+    let timer = null;
+    function restart(){ if(reduceMotion) return; clearInterval(timer); timer = setInterval(()=> go(1), 5000); }
+    function go(dir){ showInsight((ii + dir + islides.length) % islides.length, dir); restart(); }
+    function jumpTo(i){ if(i===ii) return; showInsight(i, i>ii ? 1 : -1); restart(); }
+    dots.forEach((d,i)=> d.addEventListener('click', ()=> jumpTo(i)));
+    // swipe left/right (pointer covers touch + mouse-drag); touch-action:pan-y keeps vertical scroll
+    let px=0, py=0, down=false;
+    islider.addEventListener('pointerdown', e=>{ px=e.clientX; py=e.clientY; down=true; });
+    islider.addEventListener('pointerup', e=>{
+      if(!down) return; down=false;
+      const dx=e.clientX-px, dy=e.clientY-py;
+      if(Math.abs(dx)>36 && Math.abs(dx)>Math.abs(dy)*1.2) go(dx<0 ? 1 : -1);
+    });
+    islider.addEventListener('pointercancel', ()=>{ down=false; });
+    window.__reflowInsights = ()=> showInsight(ii, 1);
+    showInsight(0, 1);
+    window.addEventListener('resize', ()=> showInsight(ii, 1));
+    restart();
   }
 
   // live Toronto clock
