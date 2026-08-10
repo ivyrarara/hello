@@ -38,19 +38,14 @@
 
   .wrap{max-width:760px; margin:0 auto; padding:0 28px;}
 
-  /* language toggle */
+  /* language toggle (main page only) — translate icon that swaps EN/KO */
+  .lang-bar{display:flex; justify-content:flex-end; padding-top:18px; margin-bottom:64px;}
   .lang-toggle{
-    position:fixed; top:16px; right:16px; z-index:200;
-    display:inline-flex; align-items:center; gap:2px;
-    background:rgba(22,24,28,0.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
-    border:1px solid var(--line); border-radius:99px; padding:3px;
-    font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.04em;
+    background:none; border:none; cursor:pointer; padding:2px; line-height:0;
+    color:rgba(237,237,237,0.55); transition:color 0.2s ease;
   }
-  .lang-toggle button{
-    background:none; border:none; color:var(--muted); padding:5px 11px; border-radius:99px;
-    cursor:pointer; font:inherit; transition:background 0.2s ease, color 0.2s ease;
-  }
-  .lang-toggle button.on{background:var(--a2); color:#0b0c0e; font-weight:700;}
+  .lang-toggle:hover, .lang-toggle:focus-visible{color:var(--a2);}
+  .lang-toggle .lang-icon{display:block;}
 
 
   /* marquee */
@@ -77,7 +72,7 @@
   @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
 
   /* hero */
-  header.hero{padding:80px 0 44px;}
+  header.hero{padding:8px 0 44px;}
   .eyebrow{
     font-family:'IBM Plex Mono','Noto Sans KR', monospace;
     font-size:12px; letter-spacing:0.08em;
@@ -315,12 +310,20 @@
 </head>
 <body>
 
-<div class="lang-toggle" role="group" aria-label="Language">
-  <button type="button" data-lang="en">EN</button>
-  <button type="button" data-lang="ko">KO</button>
-</div>
-
 <div class="wrap">
+
+  <div class="lang-bar">
+    <button type="button" class="lang-toggle" id="langToggle" aria-label="Switch language">
+      <svg class="lang-icon" viewBox="0 0 118 82" width="36" height="25" fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M50.3 13.8 A 30 30 0 1 0 68.2 31.7"/>
+        <path d="M62 37 L68.2 30.5 L74.4 37"/>
+        <path d="M67.7 70.2 A 30 30 0 1 0 49.8 52.3"/>
+        <path d="M43.6 46 L49.8 53 L56 46"/>
+        <text x="31" y="50" font-size="24" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none" style="font-family:'Inter',sans-serif">A</text>
+        <text x="88" y="49" font-size="19" font-weight="600" text-anchor="middle" fill="currentColor" stroke="none" style="font-family:'Noto Sans KR',sans-serif">한</text>
+      </svg>
+    </button>
+  </div>
 
   <header class="hero">
     <div class="eyebrow">Brand Designer → AI Product</div>
@@ -441,13 +444,15 @@
     window.__lang = lang;
     document.documentElement.lang = lang;
     i18nEls.forEach(el=>{ el.innerHTML = (lang==='en') ? el.dataset.en : el.dataset.ko; });
-    document.querySelectorAll('.lang-toggle button').forEach(b=> b.classList.toggle('on', b.dataset.lang===lang));
+    const langToggle = document.getElementById('langToggle');
+    if(langToggle) langToggle.setAttribute('aria-label', (lang==='en') ? 'Switch to Korean' : 'Switch to English');
     document.querySelectorAll('.ko-only').forEach(el=> el.style.display = (lang==='en') ? 'none' : '');
     try{ localStorage.setItem(I18N_KEY, lang); }catch(e){}
     if(window.__splitTitle) window.__splitTitle();
     if(typeof setPos === 'function') setPos(pos);   // re-render the dynamic caption
   }
-  document.querySelectorAll('.lang-toggle button').forEach(b=> b.addEventListener('click', ()=> applyLang(b.dataset.lang)));
+  const langToggleBtn = document.getElementById('langToggle');
+  if(langToggleBtn) langToggleBtn.addEventListener('click', ()=> applyLang(window.__lang==='en' ? 'ko' : 'en'));
 
   // draggable spectrum
   const track = document.getElementById('track');
