@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automated SNS Contents Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0c0e; --bg-2:#16181c; --text:#ededed;
+    --muted: rgba(237,237,237,0.55); --line: rgba(237,237,237,0.12);
+    --a1:#6e7bff; --a2:#7cf5d0; --grad: linear-gradient(90deg, var(--a1), var(--a2));
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--text); font-family:'Inter','Noto Sans KR', sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+  a{color:inherit; text-decoration:none;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--a2); outline-offset:3px;}
+  .wrap{max-width:760px; margin:0 auto; padding:0 28px;}
+
+  .back{display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:12px; letter-spacing:0.05em; color:var(--muted); padding:24px 0 0;}
+  .back:hover{color:var(--a2);}
+
+  header.hero{padding:64px 0 40px;}
+  .eyebrow{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:12px; letter-spacing:0.08em; color:var(--a2); text-transform:uppercase; margin-bottom:18px; opacity:0; animation:rise 0.6s ease forwards;}
+  h1{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-weight:600; font-size:clamp(34px,6.5vw,50px); line-height:1.12; letter-spacing:-0.02em; opacity:0; animation:rise 0.6s ease 0.08s forwards;}
+  .hero-sub{margin-top:16px; font-size:16.5px; color:var(--muted); max-width:52ch; opacity:0; animation:rise 0.6s ease 0.16s forwards;}
+  @keyframes rise{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+
+  section{padding:52px 0; border-top:1px solid var(--line);}
+  .label{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a2); margin-bottom:16px; display:block;}
+  p.body-text{font-size:16px; color:rgba(237,237,237,0.85); max-width:58ch;}
+  p.body-text + p.body-text{margin-top:14px;}
+
+  .insight{background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:26px; margin-top:18px;}
+  .insight .num{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; color:var(--a1);}
+  .insight p{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-size:18px; font-weight:500; margin-top:8px; line-height:1.4;}
+
+  .feature-grid{display:grid; grid-template-columns:1fr; gap:0;}
+  .feature{display:grid; grid-template-columns:88px 1fr; gap:10px; padding:14px 0; border-top:1px solid var(--line);}
+  .feature:first-child{border-top:none;}
+  .feature-tag{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; color:var(--a1); padding-top:2px;}
+  .feature-text{font-size:14.5px; color:rgba(237,237,237,0.82);}
+  @media (min-width:560px){ .feature{grid-template-columns:120px 1fr;} }
+
+  figure{margin-top:18px;}
+  figure img{display:block; width:100%; height:auto; border-radius:12px; border:1px solid var(--line);}
+  figcaption{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:12px; color:var(--muted); text-align:center; margin-top:12px;}
+
+  .palette{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:18px;}
+  .sw .chip{height:60px; border-radius:10px; border:1px solid var(--line);}
+  .sw .hex{font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.02em; color:var(--muted); padding:8px 2px 0; text-align:center;}
+  @media (max-width:420px){ .sw .chip{height:46px;} }
+
+  .contact-links{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:20px;}
+  .magnetic a{display:inline-flex; align-items:center; justify-content:center; line-height:1; font-size:14.5px; padding:11px 20px 10px; border:1px solid rgba(255,255,255,0.2); border-radius:99px; background:linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04) 62%); backdrop-filter:blur(10px) saturate(160%); -webkit-backdrop-filter:blur(10px) saturate(160%); box-shadow:inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 1px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.28); transition:border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;}
+  .magnetic a:hover{border-color:var(--a2); background:rgba(124,245,208,0.06);}
+
+  footer{padding:30px 0 60px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; color:var(--muted);}
+
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./index.html">← Home</a>
+
+  <header class="hero">
+    <div class="eyebrow">Nano Banana 2 · Branding</div>
+    <h1 data-en="Automated SNS Contents Generator">Automated SNS Contents Generator</h1>
+    <p class="hero-sub" data-en="A fictional fragrance brand built in half a day — a test of whether an AI image model can generate a whole Instagram feed that still reads as one coherent brand.">반나절 만에 만든 가상의 향수 브랜드 — AI 이미지 모델이 인스타그램 피드 전체를 생성하면서도 하나의 일관된 브랜드로 읽히게 만들 수 있는지 실험한 과제입니다.</p>
+  </header>
+
+  <section class="reveal">
+    <span class="label">Why I Built It</span>
+    <p class="body-text" data-en="The perfume wasn't the point. I wanted to see how far a brand's content could be automated: could an AI image model keep posting on-brand, week after week, with no photoshoot? To answer it I built a full fictional brand — story, personas, palette, tone — and treated it as one big prompt spec for image generation.">향수는 핵심이 아니었어요. 브랜드 콘텐츠를 어디까지 자동화할 수 있는지 보고 싶었습니다. AI 이미지 모델이 촬영 없이도 매주 브랜드에 맞는 게시물을 계속 만들어낼 수 있을까? 그걸 확인하려고 스토리·페르소나·팔레트·톤까지 갖춘 가상 브랜드를 통째로 만들고, 이걸 이미지 생성용 프롬프트 스펙으로 다뤘습니다.</p>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Key Insight</span>
+    <div class="insight">
+      <span class="num">01</span>
+      <p data-en="Constraints do the art-directing — a tight enough spec lets an image model stay on-brand indefinitely, with no human in the loop.">제약이 아트디렉션을 대신한다 — 스펙이 충분히 촘촘하면, 사람이 개입하지 않아도 이미지 모델이 계속 브랜드를 유지한다.</p>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">The Prompt Spec</span>
+    <p class="body-text" style="margin-bottom:20px;" data-en="These six locked rules are the actual generation spec. Fix them and the feed becomes self-generating — the constraints carry the brand.">아래 여섯 개의 고정 규칙이 실제 생성 스펙입니다. 여기에 묶어두면 피드가 스스로 생성돼요 — 제약이 브랜드를 지탱합니다.</p>
+    <div class="feature-grid">
+      <div class="feature"><span class="feature-tag">PALETTE</span><span class="feature-text" data-en="Locked to 4 values — achromatic base with a single red point">무채색 베이스 + 레드 포인트, 4색 고정</span></div>
+      <div class="feature"><span class="feature-tag">FRAMING</span><span class="feature-text" data-en="Collarbone and wrist close-ups; the face is never shown">쇄골·손목 클로즈업, 얼굴은 절대 노출하지 않음</span></div>
+      <div class="feature"><span class="feature-tag">LIGHT</span><span class="feature-text" data-en="Natural, partial daylight falling through a window">창을 통해 부분적으로 들어오는 자연광</span></div>
+      <div class="feature"><span class="feature-tag">ROTATION</span><span class="feature-text" data-en="Two personas, S and H, alternate and never share a frame">두 페르소나 S·H가 교차하며, 한 프레임에 함께 등장하지 않음</span></div>
+      <div class="feature"><span class="feature-tag">TONE</span><span class="feature-text" data-en="Whisper-quiet presence, light chic, nothing shouted">속삭이는 존재감, 가벼운 시크, 소리치지 않음</span></div>
+      <div class="feature"><span class="feature-tag">PRODUCT</span><span class="feature-text" data-en="No product close-ups until the launch phase">런칭 단계 전까지 제품 클로즈업 없음</span></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Generated Output</span>
+    <p class="body-text" data-en="A single scene generated by Nano Banana 2, split across three grid tiles so the feed reads as one continuous image — collarbone, an open oval pendant, dissipating mist. Faces stay out; the palette holds.">Nano Banana 2로 생성한 한 장면을 세 그리드 타일로 분할해, 피드가 하나의 연속된 이미지로 읽히게 했습니다 — 쇄골, 열린 타원 펜던트, 흩어지는 미스트. 얼굴은 빠지고, 팔레트는 유지됩니다.</p>
+    <figure>
+      <img src="./mohsh-triptych.jpg" alt="Nano Banana 2 auto-generated triptych" loading="lazy">
+      <figcaption data-en="Nano Banana 2 auto-generation test — L · M · R">Nano Banana 2 자동 생성 테스트 — L · M · R</figcaption>
+    </figure>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Fixed Palette</span>
+    <p class="body-text" data-en="Four values, locked. Every generated image shares the same skin, which is what keeps an automated feed from drifting.">고정된 네 가지 값. 생성되는 모든 이미지가 같은 피부를 공유하고, 그게 자동화된 피드가 흐트러지지 않게 잡아줍니다.</p>
+    <div class="palette">
+      <div class="sw"><div class="chip" style="background:#F5F3F0;"></div><div class="hex">#F5F3F0</div></div>
+      <div class="sw"><div class="chip" style="background:#B8B2AA;"></div><div class="hex">#B8B2AA</div></div>
+      <div class="sw"><div class="chip" style="background:#3A3835;"></div><div class="hex">#3A3835</div></div>
+      <div class="sw"><div class="chip" style="background:#7A0C14;"></div><div class="hex">#7A0C14</div></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Content Roadmap</span>
+    <p class="body-text" style="margin-bottom:20px;" data-en="A five-phase pre-launch rollout, each phase a different generation brief for the same locked spec.">런칭 전 5단계 롤아웃. 각 단계는 같은 고정 스펙에 대한 서로 다른 생성 브리프입니다.</p>
+    <div class="feature-grid">
+      <div class="feature"><span class="feature-tag">PHASE 1</span><span class="feature-text" data-en="Silence — no name, no logo. Four mood images rotating between S and H. The goal is the question &#39;what is this?&#39;">Silence — 이름·로고 비노출. S·H로 번갈아 도는 무드 이미지 4종. 목적은 "이거 뭐지?"</span></div>
+      <div class="feature"><span class="feature-tag">PHASE 2</span><span class="feature-text" data-en="Presence — the wordmark appears small, for the first time, with the signature line.">Presence — 워드마크가 처음으로 작게 등장, 시그니처 카피와 함께.</span></div>
+      <div class="feature"><span class="feature-tag">PHASE 3</span><span class="feature-text" data-en="Story — the four brand values, one image each; the S/H easter egg is revealed.">Story — 브랜드 밸류 4가지를 각 한 컷씩, S/H 이스터에그 리빌.</span></div>
+      <div class="feature"><span class="feature-tag">PHASE 4</span><span class="feature-text" data-en="Countdown — silhouette and texture teasers for Balm / Mist / Charm.">Countdown — Balm/Mist/Charm 실루엣·질감 티저.</span></div>
+      <div class="feature"><span class="feature-tag">PHASE 5</span><span class="feature-text" data-en="Launch (2027) — first product cut, logo reveal, full brand story.">Launch (2027) — 첫 제품 컷, 로고 리빌, 브랜드 풀스토리.</span></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">More</span>
+    <div class="contact-links">
+      <div class="magnetic"><a href="./mohsh-brand.pdf" target="_blank" rel="noopener" data-en="Full Brand Book (PDF) ↓">브랜드 북 전체 (PDF) ↓</a></div>
+    </div>
+  </section>
+
+  <footer>© 2026</footer>
+</div>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<script>
+(function(){
+  var KEY='site-lang';
+  var els=[].slice.call(document.querySelectorAll('[data-en]'));
+  els.forEach(function(el){ el.dataset.ko = el.innerHTML; });
+  var lang = localStorage.getItem(KEY) || (((navigator.language||'').toLowerCase().indexOf('ko')===0)?'ko':'en');
+  function apply(l){
+    window.__lang=l; document.documentElement.lang=l;
+    els.forEach(function(el){ el.innerHTML=(l==='en')?el.dataset.en:el.dataset.ko; });
+    document.querySelectorAll('.lang-toggle button').forEach(function(b){ b.classList.toggle('on', b.dataset.lang===l); });
+    try{localStorage.setItem(KEY,l);}catch(e){}
+    if(window.__onLangChange) window.__onLangChange(l);
+  }
+  window.applyLang=apply;
+  document.querySelectorAll('.lang-toggle button').forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.lang); }); });
+  apply(lang);
+})();
+</script>
+</body>
+</html>
