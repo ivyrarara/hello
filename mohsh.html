@@ -50,11 +50,6 @@
   figure img{display:block; width:100%; height:auto; border-radius:12px; border:1px solid var(--line);}
   figcaption{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:12px; color:var(--muted); text-align:center; margin-top:12px;}
 
-  .palette{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:18px;}
-  .sw .chip{height:60px; border-radius:10px; border:1px solid var(--line);}
-  .sw .hex{font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.02em; color:var(--muted); padding:8px 2px 0; text-align:center;}
-  @media (max-width:420px){ .sw .chip{height:46px;} }
-
   .contact-links{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:20px;}
   .magnetic a{display:inline-flex; align-items:center; justify-content:center; line-height:1; font-size:14.5px; padding:11px 20px 10px; border:1px solid rgba(255,255,255,0.2); border-radius:99px; background:linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04) 62%); backdrop-filter:blur(10px) saturate(160%); -webkit-backdrop-filter:blur(10px) saturate(160%); box-shadow:inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 1px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.28); transition:border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;}
   .magnetic a:hover{border-color:var(--a2); background:rgba(124,245,208,0.06);}
@@ -108,17 +103,6 @@
       <img src="./mohsh-triptych.jpg" alt="Nano Banana 2 auto-generated triptych" loading="lazy">
       <figcaption data-en="Nano Banana 2 auto-generation test — L · M · R">Nano Banana 2 자동 생성 테스트 — L · M · R</figcaption>
     </figure>
-  </section>
-
-  <section class="reveal">
-    <span class="label">Fixed Palette</span>
-    <p class="body-text" data-en="Four values, locked. Every generated image shares the same skin, which is what keeps an automated feed from drifting.">고정된 네 가지 값. 생성되는 모든 이미지가 같은 피부를 공유하고, 그게 자동화된 피드가 흐트러지지 않게 잡아줍니다.</p>
-    <div class="palette">
-      <div class="sw"><div class="chip" style="background:#F5F3F0;"></div><div class="hex">#F5F3F0</div></div>
-      <div class="sw"><div class="chip" style="background:#B8B2AA;"></div><div class="hex">#B8B2AA</div></div>
-      <div class="sw"><div class="chip" style="background:#3A3835;"></div><div class="hex">#3A3835</div></div>
-      <div class="sw"><div class="chip" style="background:#7A0C14;"></div><div class="hex">#7A0C14</div></div>
-    </div>
   </section>
 
   <section class="reveal">
