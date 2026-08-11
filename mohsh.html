@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Automated SNS Contents Generator</title>
+<title>Automated Image Generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -50,11 +50,6 @@
   figure img{display:block; width:100%; height:auto; border-radius:12px; border:1px solid var(--line);}
   figcaption{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:12px; color:var(--muted); text-align:center; margin-top:12px;}
 
-  .palette{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:18px;}
-  .sw .chip{height:60px; border-radius:10px; border:1px solid var(--line);}
-  .sw .hex{font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.02em; color:var(--muted); padding:8px 2px 0; text-align:center;}
-  @media (max-width:420px){ .sw .chip{height:46px;} }
-
   .contact-links{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:20px;}
   .magnetic a{display:inline-flex; align-items:center; justify-content:center; line-height:1; font-size:14.5px; padding:11px 20px 10px; border:1px solid rgba(255,255,255,0.2); border-radius:99px; background:linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04) 62%); backdrop-filter:blur(10px) saturate(160%); -webkit-backdrop-filter:blur(10px) saturate(160%); box-shadow:inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 1px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.28); transition:border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;}
   .magnetic a:hover{border-color:var(--a2); background:rgba(124,245,208,0.06);}
@@ -71,13 +66,13 @@
 
   <header class="hero">
     <div class="eyebrow">Nano Banana 2 · Branding</div>
-    <h1 data-en="Automated SNS Contents Generator">Automated SNS Contents Generator</h1>
-    <p class="hero-sub" data-en="A fictional fragrance brand built in half a day — a test of whether an AI image model can generate a whole Instagram feed that still reads as one coherent brand.">반나절 만에 만든 가상의 향수 브랜드 — AI 이미지 모델이 인스타그램 피드 전체를 생성하면서도 하나의 일관된 브랜드로 읽히게 만들 수 있는지 실험한 과제입니다.</p>
+    <h1 data-en="Automated Image Generator">Automated Image Generator</h1>
+    <p class="hero-sub" data-en="MOHSH, a fictional brand built in half a day — an experiment in building a pipeline that generates a brand's Instagram feed on a regular cadence with generative AI.">반나절 만에 만든 가상의 브랜드 MOHSH — Generative AI로 정기적인 브랜드 인스타그램 피드 생성이 되는 파이프라인 구축을 실험한 과제입니다.</p>
   </header>
 
   <section class="reveal">
     <span class="label">Why I Built It</span>
-    <p class="body-text" data-en="The perfume wasn't the point. I wanted to see how far a brand's content could be automated: could an AI image model keep posting on-brand, week after week, with no photoshoot? To answer it I built a full fictional brand — story, personas, palette, tone — and treated it as one big prompt spec for image generation.">향수는 핵심이 아니었어요. 브랜드 콘텐츠를 어디까지 자동화할 수 있는지 보고 싶었습니다. AI 이미지 모델이 촬영 없이도 매주 브랜드에 맞는 게시물을 계속 만들어낼 수 있을까? 그걸 확인하려고 스토리·페르소나·팔레트·톤까지 갖춘 가상 브랜드를 통째로 만들고, 이걸 이미지 생성용 프롬프트 스펙으로 다뤘습니다.</p>
+    <p class="body-text" data-en="The perfume wasn't the point. I wanted to see how far a brand's content could be automated: could an AI image model keep posting on-brand, week after week, with no photoshoot? To find out, I used AI to build an entire fictional brand — story, personas, palette, tone — and treated it as one big prompt spec for image generation.">향수는 핵심이 아니었어요. 브랜드 콘텐츠를 어디까지 자동화할 수 있는지 보고 싶었습니다. AI 이미지 모델이 촬영 없이도 매주 브랜드에 맞는 게시물을 계속 만들어낼 수 있을까? 확인을 위해 AI로 스토리, 페르소나, 팔레트, 톤까지 갖춘 가상 브랜드를 통째로 만들고, 이걸 이미지 생성용 프롬프트 스펙으로 다뤄보았습니다.</p>
   </section>
 
   <section class="reveal">
@@ -108,17 +103,6 @@
       <img src="./mohsh-triptych.jpg" alt="Nano Banana 2 auto-generated triptych" loading="lazy">
       <figcaption data-en="Nano Banana 2 auto-generation test — L · M · R">Nano Banana 2 자동 생성 테스트 — L · M · R</figcaption>
     </figure>
-  </section>
-
-  <section class="reveal">
-    <span class="label">Fixed Palette</span>
-    <p class="body-text" data-en="Four values, locked. Every generated image shares the same skin, which is what keeps an automated feed from drifting.">고정된 네 가지 값. 생성되는 모든 이미지가 같은 피부를 공유하고, 그게 자동화된 피드가 흐트러지지 않게 잡아줍니다.</p>
-    <div class="palette">
-      <div class="sw"><div class="chip" style="background:#F5F3F0;"></div><div class="hex">#F5F3F0</div></div>
-      <div class="sw"><div class="chip" style="background:#B8B2AA;"></div><div class="hex">#B8B2AA</div></div>
-      <div class="sw"><div class="chip" style="background:#3A3835;"></div><div class="hex">#3A3835</div></div>
-      <div class="sw"><div class="chip" style="background:#7A0C14;"></div><div class="hex">#7A0C14</div></div>
-    </div>
   </section>
 
   <section class="reveal">
