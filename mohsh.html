@@ -71,24 +71,38 @@
   .ploop-back{display:flex; align-items:center; justify-content:center; gap:8px; margin-top:12px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.03em; color:var(--a2); opacity:0.9;}
   /* horizontal loop diagram */
   .hloop{position:relative; padding:6px 2px 0;}
+  /* fixed 01 (one-time) label above the loop, connected to the 01 icon */
+  .h01{background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:13px 16px;}
+  .h01-t{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-weight:600; font-size:14px; color:rgba(237,237,237,0.55); line-height:1.35;}
+  .h01-t .h01-num{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; color:var(--muted); margin-right:8px;}
+  .h01-t .gtag{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:9.5px; font-weight:400; letter-spacing:0.05em; color:var(--muted); border:1px solid var(--line); border-radius:99px; padding:2px 7px; margin-left:7px; vertical-align:middle; white-space:nowrap;}
+  .h01-d{font-size:12.5px; color:rgba(237,237,237,0.42); margin-top:5px; line-height:1.5;}
+  .h01-line{height:16px; position:relative;}
+  .h01-line::before{content:''; position:absolute; left:21px; top:0; bottom:0; width:1.5px; background:var(--line);}
   .htrack{position:relative; display:flex; justify-content:space-between; align-items:center;}
   .htrack::before{content:''; position:absolute; left:21px; right:21px; top:21px; height:1.5px; background:rgba(124,245,208,0.2);}
   .hnode{position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:7px;}
-  .hcirc{width:42px; height:42px; border-radius:50%; background:#0e1012; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; gap:2px; transition:border-color .45s ease, box-shadow .45s ease, transform .45s ease;}
+  .hcirc{width:42px; height:42px; border-radius:50%; background:#0e1012; border:1px solid var(--line); color:#8f9399; display:flex; align-items:center; justify-content:center; gap:2px; transition:border-color .45s ease, box-shadow .45s ease, transform .45s ease;}
   .hcirc svg{width:22px; height:22px;}
   .hnode.duo .hcirc svg{width:16px; height:16px;}
   .hnode .hn{display:none;}
-  .hnode.on .hcirc{animation:halo 4s ease-in-out;}
-  .hnode.on .hn{animation:halotext 4s ease-in-out;}
-  @keyframes halo{ 0%,100%{box-shadow:0 0 0 0 rgba(124,245,208,0); border-color:var(--line);} 50%{box-shadow:0 0 18px 2px rgba(124,245,208,0.55); border-color:var(--a2);} }
-  @keyframes halotext{ 0%,100%{color:var(--muted);} 50%{color:var(--a2);} }
+  .hnode.on .hcirc{animation:halo 5s ease-in-out;}
+  @keyframes halo{
+    0%,100%{box-shadow:0 0 0 0 rgba(124,245,208,0); border-color:var(--line); color:#8f9399;}
+    25%,75%{box-shadow:0 0 18px 2px rgba(124,245,208,0.55); border-color:var(--a2); color:var(--a2);}
+    50%{box-shadow:0 0 7px 0 rgba(124,245,208,0.2); border-color:rgba(124,245,208,0.45); color:#93b9af;}
+  }
   .hback-u{position:relative; height:34px; margin-top:8px; margin-right:21px; margin-left:calc(21px + (100% - 42px)/5); border:1.5px solid rgba(124,245,208,0.35); border-top:none; border-radius:0 0 16px 16px; transition:border-color .4s ease;}
-  .hback-u.on{animation:haloarc 4s ease-in-out;}
-  @keyframes haloarc{ 0%,100%{border-color:rgba(124,245,208,0.35);} 50%{border-color:var(--a2);} }
+  .hback-u.on{animation:haloarc 5s ease-in-out;}
+  @keyframes haloarc{ 0%,100%{border-color:rgba(124,245,208,0.35);} 25%,75%{border-color:var(--a2);} 50%{border-color:rgba(124,245,208,0.55);} }
   .hback-arrow{position:absolute; left:-6px; top:-8px; width:12px; height:8px;}
   .hback-pill{position:absolute; left:50%; bottom:-11px; transform:translateX(-50%); background:var(--bg); padding:3px 11px; border:1.5px solid rgba(124,245,208,0.3); border-radius:99px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a2); white-space:nowrap; transition:border-color .4s ease, background .4s ease, box-shadow .4s ease;}
-  .hback-pill.on{animation:halopill 4s ease-in-out;}
-  @keyframes halopill{ 0%,100%{box-shadow:0 0 0 0 rgba(124,245,208,0); border-color:rgba(124,245,208,0.3); background:var(--bg);} 50%{box-shadow:0 0 16px rgba(124,245,208,0.5); border-color:var(--a2); background:rgba(124,245,208,0.1);} }
+  .hback-pill.on{animation:halopill 5s ease-in-out;}
+  @keyframes halopill{
+    0%,100%{box-shadow:0 0 0 0 rgba(124,245,208,0); border-color:rgba(124,245,208,0.3); background:var(--bg);}
+    25%,75%{box-shadow:0 0 9px rgba(124,245,208,0.28); border-color:var(--a2); background:rgba(124,245,208,0.05);}
+    50%{box-shadow:0 0 4px rgba(124,245,208,0.1); border-color:rgba(124,245,208,0.5); background:var(--bg);}
+  }
   .hdesc-wrap{position:relative; margin-top:24px; min-height:86px;}
   .hdesc{position:absolute; inset:0; opacity:0; transition:opacity .4s ease; pointer-events:none;}
   .hdesc.on{opacity:1; pointer-events:auto;}
@@ -127,7 +141,7 @@
   <a class="back" href="./index.html">← Home</a>
 
   <header class="hero">
-    <div class="eyebrow">Nano Banana 2 · Branding</div>
+    <div class="eyebrow">Nano Banana 2 · HOOTL</div>
     <h1 data-en="Automated Image Generator">Automated Image Generator</h1>
     <p class="hero-sub" data-en="MOHSH, a fictional brand built in half a day — an experiment in building an automated pipeline that regularly generates a brand's SNS content with generative AI.">반나절 만에 만들어진 가상의 브랜드 MOHSH — Generative AI로 정기적인 브랜드 SNS 컨텐츠 생성 자동 파이프라인 구축을 실험한 과제입니다.</p>
   </header>
@@ -167,24 +181,27 @@
     <p class="body-text" style="margin-bottom:22px;" data-en="The locked spec plus a weekly brief becomes the prompt, the model renders the image, and it ships through a constraint check — Human Out Of The Loop.">고정 스펙에 주간 브리프를 더해 프롬프트를 만들고, 모델이 이미지를 렌더링하면 제약 검수를 통해 게시됩니다 — Human Out Of The Loop이 성립됩니다.</p>
     <div class="pipe">
       <div class="hloop">
+        <div class="h01">
+          <div class="h01-t"><span class="h01-num">01</span><span data-en="Brand Spec">브랜드 스펙</span><span class="gtag">Claude</span><span class="gtag" data-en="one-time">1회 세팅</span></div>
+          <div class="h01-d" data-en="Story, brand values, personas, product, logo, palette, tone and framing — locked once into one reusable source of truth">스토리·브랜드 가치·페르소나·제품·로고·팔레트·톤·프레이밍을 한 번 고정해 기준으로 묶음</div>
+        </div>
+        <div class="h01-line"></div>
         <div class="htrack">
-          <div class="hnode" data-i="0"><div class="hcirc"><svg viewBox="0 0 24 24" fill="none" stroke="#8f9399" stroke-width="1.6" stroke-linejoin="round"><path d="M3 7.5A1.5 1.5 0 0 1 4.5 6h3.4l1.8 2H19.5A1.5 1.5 0 0 1 21 9.5v8A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/></svg></div><span class="hn">01</span></div>
-          <div class="hnode" data-i="1"><div class="hcirc"><svg viewBox="0 0 24 24" fill="none" stroke="#8f9399" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3"/></svg></div><span class="hn">02</span></div>
-          <div class="hnode" data-i="2"><div class="hcirc"><svg viewBox="0 0 24 24" stroke="#8f9399" stroke-width="1.7" stroke-linecap="round"><line x1="12" y1="4.5" x2="12" y2="19.5"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(30 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(60 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(90 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(120 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(150 12 12)"/></svg></div><span class="hn">03</span></div>
-          <div class="hnode" data-i="3"><div class="hcirc"><svg viewBox="0 0 24 24"><path d="M12 2Q12 12 22 12Q12 12 12 22Q12 12 2 12Q12 12 12 2Z" fill="#8f9399"/></svg></div><span class="hn">04</span></div>
-          <div class="hnode" data-i="4"><div class="hcirc"><svg viewBox="0 0 24 24" fill="none" stroke="#8f9399" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 2.6v5.2c0 4.4-3 7.4-7 8.7c-4-1.3-7-4.3-7-8.7V5.6z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg></div><span class="hn">05</span></div>
-          <div class="hnode" data-i="5"><div class="hcirc"><svg viewBox="0 0 24 24" fill="none"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" stroke="#8f9399" stroke-width="1.7"/><circle cx="12" cy="12" r="4" stroke="#8f9399" stroke-width="1.7"/><circle cx="17" cy="7" r="1.1" fill="#8f9399"/></svg></div><span class="hn">06</span></div>
+          <div class="hnode" data-i="0"><div class="hcirc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 7.5A1.5 1.5 0 0 1 4.5 6h3.4l1.8 2H19.5A1.5 1.5 0 0 1 21 9.5v8A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/></svg></div><span class="hn">01</span></div>
+          <div class="hnode" data-i="1"><div class="hcirc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3"/></svg></div><span class="hn">02</span></div>
+          <div class="hnode" data-i="2"><div class="hcirc"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><line x1="12" y1="4.5" x2="12" y2="19.5"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(30 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(60 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(90 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(120 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(150 12 12)"/></svg></div><span class="hn">03</span></div>
+          <div class="hnode" data-i="3"><div class="hcirc"><svg viewBox="0 0 24 24"><path d="M12 2Q12 12 22 12Q12 12 12 22Q12 12 2 12Q12 12 12 2Z" fill="currentColor"/></svg></div><span class="hn">04</span></div>
+          <div class="hnode" data-i="4"><div class="hcirc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 2.6v5.2c0 4.4-3 7.4-7 8.7c-4-1.3-7-4.3-7-8.7V5.6z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg></div><span class="hn">05</span></div>
+          <div class="hnode" data-i="5"><div class="hcirc"><svg viewBox="0 0 24 24" fill="none"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"/><circle cx="17" cy="7" r="1.1" fill="currentColor"/></svg></div><span class="hn">06</span></div>
         </div>
         <div class="hback-u"><svg class="hback-arrow" viewBox="0 0 12 8" fill="none"><path d="M1 7 L6 1.5 L11 7" stroke="#7cf5d0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="hback-pill"><span data-en="repeats every cycle">매 주기 반복</span></span></div>
       </div>
       <div class="hdesc-wrap">
-        <div class="hdesc" data-i="0"><div class="hd-t"><span class="hd-num">01</span><span data-en="Brand Spec">브랜드 스펙</span><span class="tag">Claude</span><span class="tag" data-en="one-time">1회 세팅</span></div><div class="hd-d" data-en="Story, brand values, personas, product, logo, palette, tone and framing — locked once into one reusable source of truth">스토리·브랜드 가치·페르소나·제품·로고·팔레트·톤·프레이밍을 한 번 고정해 기준으로 묶음</div></div>
         <div class="hdesc" data-i="1"><div class="hd-t"><span class="hd-num">02</span><span data-en="Cadence Scheduler">주기 스케줄러</span><span class="tag">Claude</span></div><div class="hd-d" data-en="Defines the rhythm — weekly mood cut, biweekly product cut, monthly video and copy">주기를 정의 — 주간 무드컷, 격주 제품컷, 월간 영상·카피</div></div>
         <div class="hdesc" data-i="2"><div class="hd-t"><span class="hd-num">03</span><span data-en="Prompt &amp; Caption">프롬프트 · 캡션 조립</span><span class="tag">Claude</span></div><div class="hd-d" data-en="Claude writes both the generation prompt and the post caption from the brief + locked spec + S/H rotation">Claude가 브리프 + 고정 스펙 + S/H 로테이션으로 생성 프롬프트와 게시 캡션을 함께 작성</div></div>
         <div class="hdesc" data-i="3"><div class="hd-t"><span class="hd-num">04</span><span data-en="Image Generation">이미지 생성</span><span class="tag">Gemini · Nano Banana 2</span></div><div class="hd-d" data-en="Nano Banana renders the image from the prompt">Nano Banana가 프롬프트로 이미지를 렌더링</div></div>
         <div class="hdesc" data-i="4"><div class="hd-t"><span class="hd-num">05</span><span data-en="Constraint Check">제약 검수</span><span class="tag">Claude</span></div><div class="hd-d" data-en="Claude (vision) verifies the 4-color palette, no-face rule and persona alternation before anything ships">Claude(비전)가 게시 전 4색 팔레트·얼굴 비노출·페르소나 교차 규칙을 검수</div></div>
         <div class="hdesc" data-i="5"><div class="hd-t"><span class="hd-num">06</span><span data-en="Instagram Feed">인스타그램 피드</span><span class="tag">Instagram Graph API</span></div><div class="hd-d" data-en="The scheduler calls the Graph API to auto-post the generated image and caption">스케줄러가 Graph API를 호출해 생성된 이미지와 캡션을 자동 게시</div></div>
-        <div class="hdesc" data-i="loop"><div class="hd-t"><span data-en="Next cycle">다음 주기</span></div><div class="hd-d" data-en="Returns to step 02 and repeats — automatically, every cycle">처음(02)으로 돌아가 매 주기 자동 반복</div></div>
       </div>
     </div>
   </section>
@@ -247,7 +264,8 @@
     const uarc=document.querySelector('.hback-u');
     if(!nodes.length) return;
     const seq=[1,2,3,4,5,'pill'];   // node indices 02..06, then the loop-back pill
-    let s=0;
+    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let s=0, timer=null;
     function apply(){
       const pos=seq[s];
       const isPill=(pos==='pill');
@@ -257,9 +275,28 @@
       pill.classList.toggle('on', isPill);
       if(uarc) uarc.classList.toggle('on', isPill);
     }
-    apply();
-    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(!reduce) setInterval(()=>{ s=(s+1)%seq.length; apply(); }, 4000);
+    function restart(){ clearInterval(timer); if(!reduce) timer=setInterval(()=>go(1), 5000); }
+    function go(dir){ s=(s+dir+seq.length)%seq.length; apply(); restart(); }
+    apply(); restart();
+    // tap or swipe on the diagram / description to step through manually
+    function jumpTo(nodeIndex){ const si=seq.indexOf(nodeIndex); if(si<0) return; s=si; apply(); restart(); }
+    const zone=document.querySelector('.pipe');
+    if(zone){
+      zone.style.touchAction='pan-y'; zone.style.cursor='pointer';
+      let px=0, py=0, down=false;
+      zone.addEventListener('pointerdown', e=>{ px=e.clientX; py=e.clientY; down=true; });
+      zone.addEventListener('pointerup', e=>{
+        if(!down) return; down=false;
+        const dx=e.clientX-px, dy=e.clientY-py;
+        if(Math.abs(dx)>36 && Math.abs(dx)>Math.abs(dy)){ go(dx<0?1:-1); return; }   // swipe
+        if(Math.abs(dx)<10 && Math.abs(dy)<10){                                       // tap
+          const hit=e.target.closest('.hnode');
+          if(hit){ const ni=nodes.indexOf(hit); if(seq.indexOf(ni)>=0) jumpTo(ni); return; }  // tap a step icon → restart loop from there
+          go(1);                                                                       // tap elsewhere → next
+        }
+      });
+      zone.addEventListener('pointercancel', ()=>{ down=false; });
+    }
   })();
 </script>
 
