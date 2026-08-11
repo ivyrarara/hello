@@ -50,14 +50,17 @@
   figure img{display:block; width:100%; height:auto; border-radius:12px; border:1px solid var(--line);}
   figcaption{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:12px; color:var(--muted); text-align:center; margin-top:12px;}
 
-  /* pipeline flow */
+  /* pipeline flow diagram */
   .pipe{margin-top:8px;}
-  .pstep{display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:start; background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:17px 20px; position:relative;}
-  .pstep .pk{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:12px; color:var(--a2); padding-top:3px; letter-spacing:0.04em;}
+  .pstep{display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:center; background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:15px 18px; position:relative;}
+  .picon{width:46px; height:46px; border-radius:12px; background:#0e1012; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; gap:3px; flex:none;}
+  .picon svg{width:25px; height:25px; display:block;}
+  .picon.duo svg{width:19px; height:19px;}
   .pstep .pt{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-weight:600; font-size:16px; line-height:1.25;}
+  .pstep .pt .pnum{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10px; font-weight:400; color:var(--muted); letter-spacing:0.08em; margin-right:8px;}
   .pstep .pt .tag{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10px; font-weight:400; letter-spacing:0.06em; color:var(--a1); border:1px solid rgba(110,123,255,0.4); border-radius:99px; padding:2px 8px; margin-left:8px; vertical-align:middle; white-space:nowrap;}
-  .pstep .pd{font-size:13.5px; color:rgba(237,237,237,0.68); margin-top:4px; line-height:1.5;}
-  .parrow{display:flex; justify-content:center; align-items:center; color:var(--a2); opacity:0.55; height:22px; font-size:15px;}
+  .pstep .pd{font-size:13px; color:rgba(237,237,237,0.66); margin-top:4px; line-height:1.5;}
+  .parrow{display:flex; justify-content:center; align-items:center; color:var(--a2); opacity:0.5; height:20px; font-size:15px;}
   .pstep.final{border-color:rgba(124,245,208,0.35); background:rgba(124,245,208,0.05);}
 
   .contact-links{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:20px;}
@@ -82,7 +85,7 @@
 
   <section class="reveal">
     <span class="label">Why I Built It</span>
-    <p class="body-text" data-en="The product isn't the point. I wanted to see how far a brand's content could be automated: could AI keep posting on-brand, week after week, with no photoshoot? To find out, I used AI to build an entire fictional brand — story, personas, palette, tone — and treated it as one big prompt spec for image generation.">제품은 핵심이 아니예요. 브랜드 콘텐츠를 어디까지 자동화할 수 있는지 보고 싶었습니다. AI가 촬영 없이도 매주 브랜드에 맞는 게시물을 계속 만들어낼 수 있을까? 확인을 위해 AI로 스토리, 페르소나, 팔레트, 톤까지 갖춘 가상 브랜드를 통째로 만들고, 이걸 이미지 생성용 프롬프트 스펙으로 다뤄보았습니다.</p>
+    <p class="body-text" data-en="The product isn't the point. I wanted to see how far a brand's content could be automated: could an AI image model keep posting on-brand, week after week, with no photoshoot? To find out, I used AI to build an entire fictional brand — story, personas, palette, tone — and treated it as one big prompt spec for image generation.">제품은 핵심이 아니예요. 브랜드 콘텐츠를 어디까지 자동화할 수 있는지 보고 싶었습니다. AI 이미지 모델이 촬영 없이도 매주 브랜드에 맞는 게시물을 계속 만들어낼 수 있을까? 확인을 위해 AI로 스토리, 페르소나, 팔레트, 톤까지 갖춘 가상 브랜드를 통째로 만들고, 이걸 이미지 생성용 프롬프트 스펙으로 다뤄보았습니다.</p>
   </section>
 
   <section class="reveal">
@@ -110,17 +113,35 @@
     <span class="label">Pipeline</span>
     <p class="body-text" style="margin-bottom:22px;" data-en="The whole thing runs as one loop: the locked spec plus a weekly brief become a prompt, the model renders it, a constraint check filters it, and the post ships — no photoshoot in the path.">전체가 하나의 루프로 돕니다. 고정 스펙에 주간 브리프를 더해 프롬프트를 만들고, 모델이 이미지를 렌더링하고, 제약 검수를 통과하면 게시됩니다 — 그 경로 어디에도 촬영은 없습니다.</p>
     <div class="pipe">
-      <div class="pstep"><span class="pk">01</span><div><div class="pt" data-en="Brand Spec">브랜드 스펙</div><div class="pd" data-en="Story, personas, palette, tone and framing — locked into one reusable source of truth.">스토리·페르소나·팔레트·톤·프레이밍을 하나의 고정된 기준으로 묶음.</div></div></div>
+      <div class="pstep">
+        <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="#7cf5d0" stroke-width="1.6" stroke-linejoin="round"><path d="M3 7.5A1.5 1.5 0 0 1 4.5 6h3.4l1.8 2H19.5A1.5 1.5 0 0 1 21 9.5v8A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/></svg></div>
+        <div><div class="pt"><span class="pnum">01</span><span data-en="Brand Spec">브랜드 스펙</span></div><div class="pd" data-en="Story, personas, palette, tone and framing — locked into one reusable source of truth.">스토리·페르소나·팔레트·톤·프레이밍을 하나의 고정된 기준으로 묶음.</div></div>
+      </div>
       <div class="parrow">↓</div>
-      <div class="pstep"><span class="pk">02</span><div><div class="pt" data-en="Cadence Scheduler">주기 스케줄러</div><div class="pd" data-en="Defines the rhythm — weekly mood cut, biweekly product cut, monthly video and copy.">주기를 정의 — 주간 무드컷, 격주 제품컷, 월간 영상·카피.</div></div></div>
+      <div class="pstep">
+        <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="#7cf5d0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3"/></svg></div>
+        <div><div class="pt"><span class="pnum">02</span><span data-en="Cadence Scheduler">주기 스케줄러</span></div><div class="pd" data-en="Defines the rhythm — weekly mood cut, biweekly product cut, monthly video and copy.">주기를 정의 — 주간 무드컷, 격주 제품컷, 월간 영상·카피.</div></div>
+      </div>
       <div class="parrow">↓</div>
-      <div class="pstep"><span class="pk">03</span><div><div class="pt" data-en="Prompt Assembly">프롬프트 조립</div><div class="pd" data-en="Locked spec + this week's brief + S/H persona rotation compile into one generation prompt.">고정 스펙 + 이번 주 브리프 + S/H 페르소나 로테이션을 하나의 생성 프롬프트로 결합.</div></div></div>
+      <div class="pstep">
+        <div class="picon"><svg viewBox="0 0 24 24" stroke="#d97757" stroke-width="1.7" stroke-linecap="round"><line x1="12" y1="4.5" x2="12" y2="19.5"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(30 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(60 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(90 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(120 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(150 12 12)"/></svg></div>
+        <div><div class="pt"><span class="pnum">03</span><span data-en="Prompt Assembly">프롬프트 조립</span><span class="tag">Claude</span></div><div class="pd" data-en="Claude turns the brief + locked spec + S/H rotation into one generation prompt.">Claude가 브리프 + 고정 스펙 + S/H 로테이션을 하나의 생성 프롬프트로 만듦.</div></div>
+      </div>
       <div class="parrow">↓</div>
-      <div class="pstep"><span class="pk">04</span><div><div class="pt" data-en="Generative AI">이미지 생성<span class="tag">Nano Banana 2</span></div><div class="pd" data-en="The model renders the image from the assembled prompt — no shoot, no set.">모델이 조립된 프롬프트로 이미지를 렌더링 — 촬영도, 세트도 없이.</div></div></div>
+      <div class="pstep">
+        <div class="picon duo"><svg viewBox="0 0 24 24"><defs><linearGradient id="gem" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4796E3"/><stop offset="1" stop-color="#9177E1"/></linearGradient></defs><path d="M12 2Q12 12 22 12Q12 12 12 22Q12 12 2 12Q12 12 12 2Z" fill="url(#gem)"/></svg><svg viewBox="0 0 24 24"><path d="M5 6.2c1 6.4 6 10.8 13.6 10.4c-.9-.9-1.9-1.1-2.9-1.2C10.6 15 7 11.3 6.3 6.3c-.1-.7-.4-1-.9-.9c-.2 0-.3.4-.4.8Z" fill="#F2C14E"/></svg></div>
+        <div><div class="pt"><span class="pnum">04</span><span data-en="Image Generation">이미지 생성</span><span class="tag">Gemini · Nano Banana 2</span></div><div class="pd" data-en="Nano Banana renders the image from the prompt — no shoot, no set.">Nano Banana가 프롬프트로 이미지를 렌더링 — 촬영도, 세트도 없이.</div></div>
+      </div>
       <div class="parrow">↓</div>
-      <div class="pstep"><span class="pk">05</span><div><div class="pt" data-en="Constraint Check">제약 검수</div><div class="pd" data-en="Verifies the 4-color palette, no-face rule and persona alternation before anything ships.">게시 전 4색 팔레트·얼굴 비노출·페르소나 교차 규칙을 검수.</div></div></div>
+      <div class="pstep">
+        <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="#7cf5d0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 2.6v5.2c0 4.4-3 7.4-7 8.7c-4-1.3-7-4.3-7-8.7V5.6z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg></div>
+        <div><div class="pt"><span class="pnum">05</span><span data-en="Constraint Check">제약 검수</span></div><div class="pd" data-en="Verifies the 4-color palette, no-face rule and persona alternation before anything ships.">게시 전 4색 팔레트·얼굴 비노출·페르소나 교차 규칙을 검수.</div></div>
+      </div>
       <div class="parrow">↓</div>
-      <div class="pstep final"><span class="pk">06</span><div><div class="pt" data-en="Instagram Feed">인스타그램 피드</div><div class="pd" data-en="Posted to fit the grid — triptychs placed in reverse so the scene reads left to right.">그리드에 맞춰 게시 — 트립틱은 역순 배치해 장면이 좌→우로 읽히게.</div></div></div>
+      <div class="pstep final">
+        <div class="picon"><svg viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset=".5" stop-color="#D62976"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" stroke="url(#ig)" stroke-width="1.7"/><circle cx="12" cy="12" r="4" stroke="url(#ig)" stroke-width="1.7"/><circle cx="17" cy="7" r="1.1" fill="url(#ig)"/></svg></div>
+        <div><div class="pt"><span class="pnum">06</span><span data-en="Instagram Feed">인스타그램 피드</span></div><div class="pd" data-en="Posted to fit the grid — triptychs placed in reverse so the scene reads left to right.">그리드에 맞춰 게시 — 트립틱은 역순 배치해 장면이 좌→우로 읽히게.</div></div>
+      </div>
     </div>
   </section>
 
