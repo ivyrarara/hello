@@ -69,6 +69,28 @@
   .ploop-head{display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--a2); margin-bottom:12px; padding-left:2px;}
   .ploop-head svg, .ploop-back svg{width:15px; height:15px; flex:none;}
   .ploop-back{display:flex; align-items:center; justify-content:center; gap:8px; margin-top:12px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.03em; color:var(--a2); opacity:0.9;}
+  /* horizontal loop diagram */
+  .hloop{position:relative; padding:6px 2px 0;}
+  .htrack{position:relative; display:flex; justify-content:space-between; align-items:center;}
+  .htrack::before{content:''; position:absolute; left:24px; right:24px; top:24px; height:1.5px; background:rgba(124,245,208,0.2);}
+  .hnode{position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:7px;}
+  .hcirc{width:48px; height:48px; border-radius:50%; background:#0e1012; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; gap:2px; transition:border-color .45s ease, box-shadow .45s ease, transform .45s ease;}
+  .hcirc svg{width:24px; height:24px;}
+  .hnode.duo .hcirc svg{width:17px; height:17px;}
+  .hnode .hn{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10px; color:var(--muted); transition:color .45s ease;}
+  .hnode.on .hcirc{border-color:var(--a2); box-shadow:0 0 0 1px var(--a2), 0 0 16px rgba(124,245,208,0.4); transform:scale(1.13);}
+  .hnode.on .hn{color:var(--a2);}
+  .hback-u{position:relative; height:34px; margin:8px 24px 0; border:1.4px dashed rgba(124,245,208,0.38); border-top:none; border-radius:0 0 16px 16px;}
+  .hback-arrow{position:absolute; left:-5.5px; top:-6px; width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-bottom:7px solid rgba(124,245,208,0.6);}
+  .hback-pill{position:absolute; left:50%; bottom:-11px; transform:translateX(-50%); background:var(--bg); padding:3px 11px; border:1px solid rgba(124,245,208,0.3); border-radius:99px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a2); display:flex; align-items:center; gap:6px; white-space:nowrap;}
+  .hback-pill svg{width:13px; height:13px; stroke:var(--a2); fill:none;}
+  .hdesc-wrap{position:relative; margin-top:24px; min-height:86px;}
+  .hdesc{position:absolute; inset:0; opacity:0; transition:opacity .4s ease; pointer-events:none;}
+  .hdesc.on{opacity:1; pointer-events:auto;}
+  .hdesc .hd-t{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-weight:600; font-size:15px; line-height:1.3;}
+  .hdesc .hd-t .hd-num{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; color:var(--a2); margin-right:8px;}
+  .hdesc .hd-t .tag{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:9.5px; font-weight:400; color:var(--a1); border:1px solid rgba(110,123,255,0.4); border-radius:99px; padding:2px 7px; margin-left:8px; white-space:nowrap;}
+  .hdesc .hd-d{font-size:13px; color:rgba(237,237,237,0.66); margin-top:6px; line-height:1.5;}
 
   /* cost */
   .cost-cards{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px;}
@@ -147,31 +169,23 @@
       <div class="parrow">↓</div>
       <div class="ploop">
         <div class="ploop-head"><svg viewBox="0 0 24 24" fill="none" stroke="#7cf5d0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8M20 3.5v4.5h-4.5"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 16M4 20.5v-4.5h4.5"/></svg><span data-en="Automated loop · every cycle">반복 자동 루프 · 매 주기</span></div>
-      <div class="pstep">
-        <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="#d97757" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3"/></svg></div>
-        <div><div class="pt"><span class="pnum">02</span><span data-en="Cadence Scheduler">주기 스케줄러</span><span class="tag">Claude</span></div><div class="pd" data-en="Defines the rhythm — weekly mood cut, biweekly product cut, monthly video and copy">주기를 정의 — 주간 무드컷, 격주 제품컷, 월간 영상·카피</div></div>
+      <div class="hloop">
+        <div class="htrack">
+          <div class="hnode" data-i="0"><div class="hcirc"><svg viewBox="0 0 24 24" fill="none" stroke="#d97757" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3"/></svg></div><span class="hn">02</span></div>
+          <div class="hnode" data-i="1"><div class="hcirc"><svg viewBox="0 0 24 24" stroke="#d97757" stroke-width="1.7" stroke-linecap="round"><line x1="12" y1="4.5" x2="12" y2="19.5"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(30 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(60 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(90 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(120 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(150 12 12)"/></svg></div><span class="hn">03</span></div>
+          <div class="hnode duo" data-i="2"><div class="hcirc"><svg viewBox="0 0 24 24"><defs><linearGradient id="gem" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4796E3"/><stop offset="1" stop-color="#9177E1"/></linearGradient></defs><path d="M12 2Q12 12 22 12Q12 12 12 22Q12 12 2 12Q12 12 12 2Z" fill="url(#gem)"/></svg><svg viewBox="0 0 24 24"><path d="M5 6.2c1 6.4 6 10.8 13.6 10.4c-.9-.9-1.9-1.1-2.9-1.2C10.6 15 7 11.3 6.3 6.3c-.1-.7-.4-1-.9-.9c-.2 0-.3.4-.4.8Z" fill="#F2C14E"/></svg></div><span class="hn">04</span></div>
+          <div class="hnode" data-i="3"><div class="hcirc"><svg viewBox="0 0 24 24" fill="none" stroke="#d97757" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 2.6v5.2c0 4.4-3 7.4-7 8.7c-4-1.3-7-4.3-7-8.7V5.6z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg></div><span class="hn">05</span></div>
+          <div class="hnode" data-i="4"><div class="hcirc"><svg viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset=".5" stop-color="#D62976"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" stroke="url(#ig)" stroke-width="1.7"/><circle cx="12" cy="12" r="4" stroke="url(#ig)" stroke-width="1.7"/><circle cx="17" cy="7" r="1.1" fill="url(#ig)"/></svg></div><span class="hn">06</span></div>
+        </div>
+        <div class="hback-u"><span class="hback-arrow"></span><span class="hback-pill"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8M20 3.5v4.5h-4.5"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 16M4 20.5v-4.5h4.5"/></svg><span data-en="repeats every cycle">매 주기 반복</span></span></div>
       </div>
-      <div class="parrow">↓</div>
-      <div class="pstep">
-        <div class="picon"><svg viewBox="0 0 24 24" stroke="#d97757" stroke-width="1.7" stroke-linecap="round"><line x1="12" y1="4.5" x2="12" y2="19.5"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(30 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(60 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(90 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(120 12 12)"/><line x1="12" y1="4.5" x2="12" y2="19.5" transform="rotate(150 12 12)"/></svg></div>
-        <div><div class="pt"><span class="pnum">03</span><span data-en="Prompt &amp; Caption">프롬프트 · 캡션 조립</span><span class="tag">Claude</span></div><div class="pd" data-en="Claude writes both the generation prompt and the post caption from the brief + locked spec + S/H rotation">Claude가 브리프 + 고정 스펙 + S/H 로테이션으로 생성 프롬프트와 게시 캡션을 함께 작성</div></div>
+      <div class="hdesc-wrap">
+        <div class="hdesc" data-i="0"><div class="hd-t"><span class="hd-num">02</span><span data-en="Cadence Scheduler">주기 스케줄러</span><span class="tag">Claude</span></div><div class="hd-d" data-en="Defines the rhythm — weekly mood cut, biweekly product cut, monthly video and copy">주기를 정의 — 주간 무드컷, 격주 제품컷, 월간 영상·카피</div></div>
+        <div class="hdesc" data-i="1"><div class="hd-t"><span class="hd-num">03</span><span data-en="Prompt &amp; Caption">프롬프트 · 캡션 조립</span><span class="tag">Claude</span></div><div class="hd-d" data-en="Claude writes both the generation prompt and the post caption from the brief + locked spec + S/H rotation">Claude가 브리프 + 고정 스펙 + S/H 로테이션으로 생성 프롬프트와 게시 캡션을 함께 작성</div></div>
+        <div class="hdesc" data-i="2"><div class="hd-t"><span class="hd-num">04</span><span data-en="Image Generation">이미지 생성</span><span class="tag">Gemini · Nano Banana 2</span></div><div class="hd-d" data-en="Nano Banana renders the image from the prompt">Nano Banana가 프롬프트로 이미지를 렌더링</div></div>
+        <div class="hdesc" data-i="3"><div class="hd-t"><span class="hd-num">05</span><span data-en="Constraint Check">제약 검수</span><span class="tag">Claude</span></div><div class="hd-d" data-en="Claude (vision) verifies the 4-color palette, no-face rule and persona alternation before anything ships">Claude(비전)가 게시 전 4색 팔레트·얼굴 비노출·페르소나 교차 규칙을 검수</div></div>
+        <div class="hdesc" data-i="4"><div class="hd-t"><span class="hd-num">06</span><span data-en="Instagram Feed">인스타그램 피드</span><span class="tag">Instagram Graph API</span></div><div class="hd-d" data-en="The scheduler calls the Graph API to auto-post the generated image and caption">스케줄러가 Graph API를 호출해 생성된 이미지와 캡션을 자동 게시</div></div>
       </div>
-      <div class="parrow">↓</div>
-      <div class="pstep">
-        <div class="picon duo"><svg viewBox="0 0 24 24"><defs><linearGradient id="gem" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4796E3"/><stop offset="1" stop-color="#9177E1"/></linearGradient></defs><path d="M12 2Q12 12 22 12Q12 12 12 22Q12 12 2 12Q12 12 12 2Z" fill="url(#gem)"/></svg><svg viewBox="0 0 24 24"><path d="M5 6.2c1 6.4 6 10.8 13.6 10.4c-.9-.9-1.9-1.1-2.9-1.2C10.6 15 7 11.3 6.3 6.3c-.1-.7-.4-1-.9-.9c-.2 0-.3.4-.4.8Z" fill="#F2C14E"/></svg></div>
-        <div><div class="pt"><span class="pnum">04</span><span data-en="Image Generation">이미지 생성</span><span class="tag">Gemini · Nano Banana 2</span></div><div class="pd" data-en="Nano Banana renders the image from the prompt">Nano Banana가 프롬프트로 이미지를 렌더링</div></div>
-      </div>
-      <div class="parrow">↓</div>
-      <div class="pstep">
-        <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="#d97757" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 2.6v5.2c0 4.4-3 7.4-7 8.7c-4-1.3-7-4.3-7-8.7V5.6z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg></div>
-        <div><div class="pt"><span class="pnum">05</span><span data-en="Constraint Check">제약 검수</span><span class="tag">Claude</span></div><div class="pd" data-en="Claude (vision) verifies the 4-color palette, no-face rule and persona alternation before anything ships">Claude(비전)가 게시 전 4색 팔레트·얼굴 비노출·페르소나 교차 규칙을 검수</div></div>
-      </div>
-      <div class="parrow">↓</div>
-      <div class="pstep final">
-        <div class="picon"><svg viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset=".5" stop-color="#D62976"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" stroke="url(#ig)" stroke-width="1.7"/><circle cx="12" cy="12" r="4" stroke="url(#ig)" stroke-width="1.7"/><circle cx="17" cy="7" r="1.1" fill="url(#ig)"/></svg></div>
-        <div><div class="pt"><span class="pnum">06</span><span data-en="Instagram Feed">인스타그램 피드</span><span class="tag">Instagram Graph API</span></div><div class="pd" data-en="The scheduler calls the Graph API to auto-post the generated image and caption">스케줄러가 Graph API를 호출해 생성된 이미지와 캡션을 자동 게시</div></div>
-      </div>
-      <div class="ploop-back"><svg viewBox="0 0 24 24" fill="none" stroke="#7cf5d0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8M20 3.5v4.5h-4.5"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 16M4 20.5v-4.5h4.5"/></svg><span data-en="repeats from step 02 every cycle">매 주기 02부터 다시 반복</span></div>
       </div>
     </div>
   </section>
@@ -225,16 +239,16 @@
   }, {threshold:0.15});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-  // sequential loop highlight — a marker travels 02 → 06 and loops back
+  // sequential loop highlight — active node travels 02 → 06 and loops back
   (function(){
-    const steps=[...document.querySelectorAll('.ploop .pstep')];
-    if(!steps.length) return;
-    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reduce) return;
+    const nodes=[...document.querySelectorAll('.hnode')];
+    const descs=[...document.querySelectorAll('.hdesc')];
+    if(!nodes.length) return;
     let i=0;
-    function set(n){ steps.forEach((e,k)=>e.classList.toggle('cycle', k===n)); i=n; }
+    function set(n){ nodes.forEach((e,k)=>e.classList.toggle('on', k===n)); descs.forEach((e,k)=>e.classList.toggle('on', k===n)); i=n; }
     set(0);
-    setInterval(()=>set((i+1)%steps.length), 2200);
+    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!reduce) setInterval(()=>set((i+1)%nodes.length), 2400);
   })();
 </script>
 
