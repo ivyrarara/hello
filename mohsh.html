@@ -68,6 +68,21 @@
   .ploop-head svg, .ploop-back svg{width:15px; height:15px; flex:none;}
   .ploop-back{display:flex; align-items:center; justify-content:center; gap:8px; margin-top:12px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.03em; color:var(--a2); opacity:0.9;}
 
+  /* cost */
+  .cost-cards{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px;}
+  .ccard{background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:20px;}
+  .ccard .ck{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10.5px; letter-spacing:0.09em; text-transform:uppercase; color:var(--muted);}
+  .ccard .cnum{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-weight:600; font-size:30px; letter-spacing:-0.02em; margin-top:10px; color:var(--a2);}
+  .ccard .csub{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.45;}
+  .cost-list{margin-top:16px;}
+  .crow{display:flex; justify-content:space-between; align-items:center; gap:14px; padding:13px 0; border-top:1px solid var(--line);}
+  .crow:first-child{border-top:none;}
+  .crow .cl{font-size:14.5px; color:rgba(237,237,237,0.88);}
+  .crow .cl small{display:block; color:var(--muted); font-size:12px; margin-top:2px;}
+  .crow .cv{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:14px; color:var(--a2); white-space:nowrap;}
+  .cost-note{font-size:12.5px; color:var(--muted); margin-top:18px; line-height:1.55;}
+  @media (max-width:460px){ .cost-cards{grid-template-columns:1fr;} }
+
   .contact-links{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:20px;}
   .magnetic a{display:inline-flex; align-items:center; justify-content:center; line-height:1; font-size:14.5px; padding:11px 20px 10px; border:1px solid rgba(255,255,255,0.2); border-radius:99px; background:linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04) 62%); backdrop-filter:blur(10px) saturate(160%); -webkit-backdrop-filter:blur(10px) saturate(160%); box-shadow:inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 1px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.28); transition:border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;}
   .magnetic a:hover{border-color:var(--a2); background:rgba(124,245,208,0.06);}
@@ -162,6 +177,30 @@
       <img src="./mohsh-ig-profile.jpg" alt="Live @mohsh_official Instagram profile" loading="lazy">
       <figcaption data-en="The live @mohsh_official profile">실제 운영 중인 @mohsh_official 프로필</figcaption>
     </figure>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Cost</span>
+    <p class="body-text" data-en="Once the one-time setup is done, the pure AI + infrastructure cost runs on the price of a couple coffees a month.">1회성 세팅만 끝나면, 순수 AI + 인프라 비용은 한 달에 커피 한두 잔 값으로 돌아갑니다.</p>
+    <div class="cost-cards">
+      <div class="ccard">
+        <div class="ck" data-en="One-time setup">초기 세팅 · 1회성</div>
+        <div class="cnum">~$5</div>
+        <div class="csub" data-en="Mostly your own time — API tokens are only a few dollars.">대부분 사람의 시간 — API 토큰은 몇 달러 수준</div>
+      </div>
+      <div class="ccard">
+        <div class="ck" data-en="Monthly upkeep">월간 유지비</div>
+        <div class="cnum">$3–8</div>
+        <div class="csub" data-en="~6 posts a month, regenerations included.">월 ~6게시물 · 재생성 포함</div>
+      </div>
+    </div>
+    <div class="cost-list">
+      <div class="crow"><span class="cl" data-en="Image generation<small>Nano Banana · ~25 images / mo</small>">이미지 생성<small>Nano Banana · 월 ~25장</small></span><span class="cv">~$1</span></div>
+      <div class="crow"><span class="cl" data-en="Claude<small>prompt · caption · vision check</small>">Claude<small>프롬프트 · 캡션 · 비전 검수</small></span><span class="cv">~$2</span></div>
+      <div class="crow"><span class="cl" data-en="Instagram Graph API<small>auto-posting</small>">Instagram Graph API<small>자동 게시</small></span><span class="cv" data-en="Free">무료</span></div>
+      <div class="crow"><span class="cl" data-en="Scheduler hosting<small>cron · serverless</small>">스케줄러 호스팅<small>cron · 서버리스</small></span><span class="cv">$0–5</span></div>
+    </div>
+    <p class="cost-note" data-en="Assumes ~6 posts/month (4 weekly mood + 2 biweekly product). AI video (Veo, etc.) is separate and would be the priciest line. Prices are early-2026 estimates and vary by model tier.">월 ~6게시물(주간 무드 4 + 격주 제품 2) 기준. AI 영상(Veo 등)은 별도이며 가장 비싼 항목이 됩니다. 가격은 2026년 초 기준 대략치로 모델 티어에 따라 달라집니다.</p>
   </section>
 
   <section class="reveal">
