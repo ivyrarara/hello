@@ -215,7 +215,7 @@
   .idot.on{background:var(--a2); width:18px;}
 
   /* build cards */
-  .build-grid{display:grid; grid-template-columns:1fr; gap:14px;}
+  .build-grid{display:grid; grid-template-columns:1fr; gap:11px;}
   .build-card{
     position:relative;
     display:block;
@@ -224,7 +224,7 @@
     -webkit-backdrop-filter:blur(16px) saturate(150%);
     border:1px solid rgba(255,255,255,0.14);
     border-radius:14px;
-    padding:22px 24px;
+    padding:15px 18px;
     box-shadow:inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -1px 1px rgba(0,0,0,0.2), 0 8px 28px rgba(0,0,0,0.3);
     transform-style:preserve-3d;
     transition:transform 0.15s ease;
@@ -234,7 +234,7 @@
   .build-top{display:flex; align-items:center; justify-content:space-between; gap:12px;}
   .build-name{
     font-family:'Space Grotesk','Noto Sans KR', sans-serif;
-    font-weight:600; font-size:23px; line-height:1.15;
+    font-weight:600; font-size:18px; line-height:1.15;
   }
   .build-arrow{
     font-family:'IBM Plex Mono','Noto Sans KR', monospace;
@@ -242,11 +242,11 @@
     transition:transform 0.25s ease;
   }
   .build-card:hover .build-arrow{transform:translate(4px,-4px);}
-  .build-desc{font-size:14px; color:var(--muted); margin-top:8px;}
+  .build-desc{font-size:13px; color:var(--muted); margin-top:5px;}
   .build-tag{
     font-family:'IBM Plex Mono','Noto Sans KR', monospace;
-    font-size:10.5px; color:var(--a1);
-    margin-top:14px;
+    font-size:10px; color:var(--a1);
+    margin-top:10px;
     display:block;
   }
 
@@ -373,6 +373,7 @@
     <div class="islider" id="islider">
       <div class="islide"><span class="ifrom">Agent</span><p data-en="An agent's speech splits into Judgment and Empathy — mixing the two is the most common design mistake.">에이전트의 발화는 판단(Judgment)과 공감(Empathy)으로 나뉜다 — 둘이 섞인 설계가 가장 흔한 실수.</p></div>
       <div class="islide"><span class="ifrom">Agent</span><p data-en="Users don't train an agent they didn't build themselves — the real task is surfacing what they already know, and the timing of it.">사용자는 자기가 직접 만들지 않은 에이전트를 훈련시키지 않는다 — 진짜 과제는 이미 알고 있는 걸 드러내는 것, 그리고 그 타이밍.</p></div>
+      <div class="islide"><span class="ifrom">Automated Image Generator</span><p data-en="Keeping a brand consistent doesn't take dedicated staff — it takes a pillar of tight constraints.">일관된 브랜드 유지를 위해 필요한 것은 담당 인력이 아닌, 촘촘한 제약이라는 pillar.</p></div>
       <div class="islide"><span class="ifrom">Scheduler</span><p data-en="Information you can't pull up when you need it is as good as no information.">필요할 때 꺼내 쓸 수 없는 정보는, 없는 정보나 마찬가지.</p></div>
       <div class="islide"><span class="ifrom">Scheduler</span><p data-en="Telling when automatic is better from when manual is better is where real UX begins.">자동이 편할 때와 수동이 편할 때의 구분이 진정한 UX의 시작.</p></div>
       <div class="islide"><span class="ifrom">Recipe Book</span><p data-en="Recipe Book's success metric isn't whether you never need the original, but whether you can get back to the original video faster.">레시피북의 성공 지표는 원본을 안 찾아도 되는가가 아니라, 원본 영상으로 더 빠르게 돌아갈 수 있는가</p></div>
@@ -383,14 +384,6 @@
   <section class="builds reveal">
     <span class="label">Recently Built</span>
     <div class="build-grid" id="buildGrid">
-      <a class="build-card" href="./mohsh.html">
-        <div class="build-top">
-          <span class="build-name">Automated Image Generator</span>
-          <span class="build-arrow">↗</span>
-        </div>
-        <p class="build-desc" data-en="Auto-generating a coherent Instagram feed from a fictional brand, Mohsh">가상 브랜드 Mohsh로 일관된 인스타그램 피드를 자동 생성</p>
-        <span class="build-tag">NANO BANANA 2 · BRANDING</span>
-      </a>
       <a class="build-card" href="./pacemaker.html">
         <div class="build-top">
           <span class="build-name">Agent</span>
@@ -398,6 +391,14 @@
         </div>
         <p class="build-desc" data-en="A Telegram AI agent that keeps your daily pace">매일의 페이스를 지켜주는 텔레그램 AI 에이전트</p>
         <span class="build-tag">TELEGRAM · AI AGENT</span>
+      </a>
+      <a class="build-card" href="./mohsh.html">
+        <div class="build-top">
+          <span class="build-name">Automated Image Generator</span>
+          <span class="build-arrow">↗</span>
+        </div>
+        <p class="build-desc" data-en="Auto-generating a coherent Instagram feed from a fictional brand, Mohsh">가상 브랜드 Mohsh로 일관된 인스타그램 피드를 자동 생성</p>
+        <span class="build-tag">NANO BANANA 2 · BRANDING</span>
       </a>
       <a class="build-card" href="./scheduler.html">
         <div class="build-top">
