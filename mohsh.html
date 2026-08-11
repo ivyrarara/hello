@@ -62,6 +62,11 @@
   .pstep .pd{font-size:13px; color:rgba(237,237,237,0.66); margin-top:4px; line-height:1.5;}
   .parrow{display:flex; justify-content:center; align-items:center; color:var(--a2); opacity:0.5; height:20px; font-size:15px;}
   .pstep.final{border-color:rgba(124,245,208,0.35); background:rgba(124,245,208,0.05);}
+  .pgroup-label{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin:0 0 12px 3px;}
+  .ploop{border:1px dashed rgba(124,245,208,0.32); border-radius:14px; padding:14px 12px; background:rgba(124,245,208,0.02);}
+  .ploop-head{display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--a2); margin-bottom:12px; padding-left:2px;}
+  .ploop-head svg, .ploop-back svg{width:15px; height:15px; flex:none;}
+  .ploop-back{display:flex; align-items:center; justify-content:center; gap:8px; margin-top:12px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.03em; color:var(--a2); opacity:0.9;}
 
   .contact-links{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:20px;}
   .magnetic a{display:inline-flex; align-items:center; justify-content:center; line-height:1; font-size:14.5px; padding:11px 20px 10px; border:1px solid rgba(255,255,255,0.2); border-radius:99px; background:linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04) 62%); backdrop-filter:blur(10px) saturate(160%); -webkit-backdrop-filter:blur(10px) saturate(160%); box-shadow:inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 1px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.28); transition:border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;}
@@ -113,11 +118,14 @@
     <span class="label">Pipeline</span>
     <p class="body-text" style="margin-bottom:22px;" data-en="The whole thing runs as one loop: the locked spec plus a weekly brief become a prompt, the model renders it, a constraint check filters it, and the post ships — no photoshoot in the path.">전체가 하나의 루프로 돕니다. 고정 스펙에 주간 브리프를 더해 프롬프트를 만들고, 모델이 이미지를 렌더링하고, 제약 검수를 통과하면 게시됩니다 — 그 경로 어디에도 촬영은 없습니다.</p>
     <div class="pipe">
+      <div class="pgroup-label" data-en="One-time setup">1회 세팅</div>
       <div class="pstep">
         <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="#d97757" stroke-width="1.6" stroke-linejoin="round"><path d="M3 7.5A1.5 1.5 0 0 1 4.5 6h3.4l1.8 2H19.5A1.5 1.5 0 0 1 21 9.5v8A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/></svg></div>
         <div><div class="pt"><span class="pnum">01</span><span data-en="Brand Spec">브랜드 스펙</span><span class="tag">Claude</span></div><div class="pd" data-en="Story, personas, palette, tone and framing — locked into one reusable source of truth.">스토리·페르소나·팔레트·톤·프레이밍을 하나의 고정된 기준으로 묶음.</div></div>
       </div>
       <div class="parrow">↓</div>
+      <div class="ploop">
+        <div class="ploop-head"><svg viewBox="0 0 24 24" fill="none" stroke="#7cf5d0" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8M20 3.5v4.5h-4.5"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 16M4 20.5v-4.5h4.5"/></svg><span data-en="Automated loop · every cycle">반복 자동 루프 · 매 주기</span></div>
       <div class="pstep">
         <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="#d97757" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3"/></svg></div>
         <div><div class="pt"><span class="pnum">02</span><span data-en="Cadence Scheduler">주기 스케줄러</span><span class="tag">Claude</span></div><div class="pd" data-en="Defines the rhythm — weekly mood cut, biweekly product cut, monthly video and copy.">주기를 정의 — 주간 무드컷, 격주 제품컷, 월간 영상·카피.</div></div>
@@ -141,6 +149,8 @@
       <div class="pstep final">
         <div class="picon"><svg viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FEDA75"/><stop offset=".5" stop-color="#D62976"/><stop offset="1" stop-color="#4F5BD5"/></linearGradient></defs><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5" stroke="url(#ig)" stroke-width="1.7"/><circle cx="12" cy="12" r="4" stroke="url(#ig)" stroke-width="1.7"/><circle cx="17" cy="7" r="1.1" fill="url(#ig)"/></svg></div>
         <div><div class="pt"><span class="pnum">06</span><span data-en="Instagram Feed">인스타그램 피드</span></div><div class="pd" data-en="Posted to fit the grid — triptychs placed in reverse so the scene reads left to right.">그리드에 맞춰 게시 — 트립틱은 역순 배치해 장면이 좌→우로 읽히게.</div></div>
+      </div>
+      <div class="ploop-back"><svg viewBox="0 0 24 24" fill="none" stroke="#7cf5d0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8M20 3.5v4.5h-4.5"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 16M4 20.5v-4.5h4.5"/></svg><span data-en="repeats from step 02 every cycle">매 주기 02부터 다시 반복</span></div>
       </div>
     </div>
   </section>
