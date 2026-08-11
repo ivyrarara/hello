@@ -78,11 +78,17 @@
   .hcirc svg{width:22px; height:22px;}
   .hnode.duo .hcirc svg{width:16px; height:16px;}
   .hnode .hn{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10px; color:var(--muted); transition:color .45s ease;}
-  .hnode.on .hcirc{border-color:var(--a2); box-shadow:0 0 0 1px var(--a2), 0 0 16px rgba(124,245,208,0.4); transform:scale(1.13);}
-  .hnode.on .hn{color:var(--a2);}
-  .hback-u{position:relative; height:34px; margin-top:8px; margin-right:21px; margin-left:calc(21px + (100% - 42px)/5); border:1.4px dashed rgba(124,245,208,0.38); border-top:none; border-radius:0 0 16px 16px;}
+  .hnode.on .hcirc{animation:halo 4s ease-in-out;}
+  .hnode.on .hn{animation:halotext 4s ease-in-out;}
+  @keyframes halo{ 0%,100%{box-shadow:0 0 0 0 rgba(124,245,208,0); border-color:var(--line);} 50%{box-shadow:0 0 18px 2px rgba(124,245,208,0.55); border-color:var(--a2);} }
+  @keyframes halotext{ 0%,100%{color:var(--muted);} 50%{color:var(--a2);} }
+  .hback-u{position:relative; height:34px; margin-top:8px; margin-right:21px; margin-left:calc(21px + (100% - 42px)/5); border:1.4px solid rgba(124,245,208,0.35); border-top:none; border-radius:0 0 16px 16px; transition:border-color .4s ease;}
+  .hback-u.on{animation:haloarc 4s ease-in-out;}
+  @keyframes haloarc{ 0%,100%{border-color:rgba(124,245,208,0.35);} 50%{border-color:var(--a2);} }
   .hback-arrow{position:absolute; left:-6px; top:-8px; width:12px; height:8px;}
-  .hback-pill{position:absolute; left:50%; bottom:-11px; transform:translateX(-50%); background:var(--bg); padding:3px 11px; border:1px solid rgba(124,245,208,0.3); border-radius:99px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a2); white-space:nowrap;}
+  .hback-pill{position:absolute; left:50%; bottom:-11px; transform:translateX(-50%); background:var(--bg); padding:3px 11px; border:1px solid rgba(124,245,208,0.3); border-radius:99px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a2); white-space:nowrap; transition:border-color .4s ease, background .4s ease, box-shadow .4s ease;}
+  .hback-pill.on{animation:halopill 4s ease-in-out;}
+  @keyframes halopill{ 0%,100%{box-shadow:0 0 0 0 rgba(124,245,208,0); border-color:rgba(124,245,208,0.3); background:var(--bg);} 50%{box-shadow:0 0 16px rgba(124,245,208,0.5); border-color:var(--a2); background:rgba(124,245,208,0.1);} }
   .hdesc-wrap{position:relative; margin-top:24px; min-height:86px;}
   .hdesc{position:absolute; inset:0; opacity:0; transition:opacity .4s ease; pointer-events:none;}
   .hdesc.on{opacity:1; pointer-events:auto;}
@@ -178,6 +184,7 @@
         <div class="hdesc" data-i="3"><div class="hd-t"><span class="hd-num">04</span><span data-en="Image Generation">이미지 생성</span><span class="tag">Gemini · Nano Banana 2</span></div><div class="hd-d" data-en="Nano Banana renders the image from the prompt">Nano Banana가 프롬프트로 이미지를 렌더링</div></div>
         <div class="hdesc" data-i="4"><div class="hd-t"><span class="hd-num">05</span><span data-en="Constraint Check">제약 검수</span><span class="tag">Claude</span></div><div class="hd-d" data-en="Claude (vision) verifies the 4-color palette, no-face rule and persona alternation before anything ships">Claude(비전)가 게시 전 4색 팔레트·얼굴 비노출·페르소나 교차 규칙을 검수</div></div>
         <div class="hdesc" data-i="5"><div class="hd-t"><span class="hd-num">06</span><span data-en="Instagram Feed">인스타그램 피드</span><span class="tag">Instagram Graph API</span></div><div class="hd-d" data-en="The scheduler calls the Graph API to auto-post the generated image and caption">스케줄러가 Graph API를 호출해 생성된 이미지와 캡션을 자동 게시</div></div>
+        <div class="hdesc" data-i="loop"><div class="hd-t"><span data-en="Next cycle">다음 주기</span></div><div class="hd-d" data-en="Returns to step 02 and repeats — automatically, every cycle">처음(02)으로 돌아가 매 주기 자동 반복</div></div>
       </div>
     </div>
   </section>
@@ -231,17 +238,28 @@
   }, {threshold:0.15});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-  // sequential loop highlight — active node travels 02 → 06 and loops back
+  // auto loop highlight — 01 stays gray; 02→06 light up in turn, then the
+  // loop-back pill, then back to 02. Every 5s.
   (function(){
-    const nodes=[...document.querySelectorAll('.hnode')];
+    const nodes=[...document.querySelectorAll('.hnode')]; // 0=01 (always gray) … 5=06
     const descs=[...document.querySelectorAll('.hdesc')];
+    const pill=document.querySelector('.hback-pill');
+    const uarc=document.querySelector('.hback-u');
     if(!nodes.length) return;
-    let i=0;
-    function set(n){ nodes.forEach((e,k)=>e.classList.toggle('on', k===n)); descs.forEach((e,k)=>e.classList.toggle('on', k===n)); i=n; }
-    set(0);
+    const seq=[1,2,3,4,5,'pill'];   // node indices 02..06, then the loop-back pill
+    let s=0;
+    function apply(){
+      const pos=seq[s];
+      const isPill=(pos==='pill');
+      nodes.forEach((n,k)=> n.classList.toggle('on', !isPill && k===pos));
+      const key=isPill ? 'loop' : String(pos);
+      descs.forEach(d=> d.classList.toggle('on', d.dataset.i===key));
+      pill.classList.toggle('on', isPill);
+      if(uarc) uarc.classList.toggle('on', isPill);
+    }
+    apply();
     const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // 01 is one-time: show it once, then loop only 02→06 (indices 1..last)
-    if(!reduce) setInterval(()=>{ let n=i+1; if(n>=nodes.length) n=1; set(n); }, 2400);
+    if(!reduce) setInterval(()=>{ s=(s+1)%seq.length; apply(); }, 4000);
   })();
 </script>
 
