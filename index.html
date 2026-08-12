@@ -249,6 +249,7 @@
   .build-card[data-open] .build-panel{grid-template-rows:1fr;}
   .build-panel-inner{overflow:hidden;}
   .bp-pad{margin-top:14px; padding-top:14px; border-top:1px solid var(--line);}
+  .bp-media{display:block; margin:0 auto 14px; max-width:100%; max-height:420px; border-radius:12px; border:1px solid var(--line); background:#000;}
   .bp-text{font-size:13.5px; color:rgba(237,237,237,0.74); line-height:1.6;}
   .bp-link{display:inline-block; margin-top:13px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:12px; letter-spacing:0.03em; color:var(--a2);}
   .bp-link:hover{text-decoration:underline;}
@@ -374,6 +375,7 @@
           <span class="build-tag">NANO BANANA 2 · HOOTL</span>
         </div>
         <div class="build-panel" id="bp-mohsh"><div class="build-panel-inner"><div class="bp-pad">
+          <img class="bp-media" src="./mohsh-ig-profile.jpg" alt="Live @mohsh_official Instagram profile" loading="lazy">
           <p class="bp-text" data-en="Can a brand stay consistent on social with nobody running it? The identity is pinned as a photo filter, S/H persona diaries become the prompts for each image and caption, and only what passes Claude's check auto-posts to Instagram — no human in the loop (HOOTL).">브랜드 담당자 없이도 SNS를 일관되게 유지할 수 있을까? 아이덴티티를 '사진 필터'로 고정하고, S·H 페르소나의 일기를 이미지·캡션 프롬프트로 바꿔 생성 — Claude 검수를 통과한 것만 사람 손 없이 Instagram에 자동 게시(HOOTL).</p>
           <a class="bp-link" href="./mohsh.html" data-en="View the case study →">자세히 보기 →</a>
         </div></div></div>
@@ -388,6 +390,7 @@
           <span class="build-tag">FIELD STUDY · AI AGENT</span>
         </div>
         <div class="build-panel" id="bp-agent"><div class="build-panel-inner"><div class="bp-pad">
+          <video class="bp-media" data-src="./agent-demo.webm" muted loop playsinline preload="none"></video>
           <p class="bp-text" data-en="Running a 100-day career pivot solo, I needed a pacemaker. A field study: I lived with my own Telegram agent for 100 days, collected its speech-and-silence logs, and drew out agent-design principles — Judgment vs. Empathy.">100일 커리어 전환을 혼자 끌고 가려니 페이스메이커가 필요했다. 직접 만든 텔레그램 에이전트를 100일간 쓰며 발화·침묵 로그를 모으고, 거기서 판단(Judgment)과 공감(Empathy)이라는 에이전트 설계 원칙을 뽑아낸 필드 스터디.</p>
           <a class="bp-link" href="./pacemaker.html" data-en="View the case study →">자세히 보기 →</a>
         </div></div></div>
@@ -402,6 +405,7 @@
           <span class="build-tag">FIREBASE · WEB APP</span>
         </div>
         <div class="build-panel" id="bp-scheduler"><div class="build-panel-inner"><div class="bp-pad">
+          <video class="bp-media" data-src="./scheduler-demo.webm" muted loop playsinline preload="none"></video>
           <p class="bp-text" data-en="A family web app that ends the loop of re-checking the schedule. At-a-glance info is separated from info that needs sorting; weekly/monthly views, per-date supplies and market-split shopping all sync in real time via Firebase.">일정을 반복해서 확인하는 피로를 없애려고 만든 가족용 웹앱. 한 눈에 볼 정보와 구분이 필요한 정보를 나눠 배치하고, 주간/월간 뷰·날짜별 준비물·마트별 장보기를 Firebase로 실시간 동기화.</p>
           <a class="bp-link" href="./scheduler.html" data-en="View the case study →">자세히 보기 →</a>
         </div></div></div>
@@ -416,6 +420,7 @@
           <span class="build-tag">CLAUDE API · PWA</span>
         </div>
         <div class="build-panel" id="bp-recipe"><div class="build-panel-inner"><div class="bp-pad">
+          <video class="bp-media" data-src="./recipe-demo.webm" muted loop playsinline preload="none"></video>
           <p class="bp-text" data-en="Recipes I saved on Instagram were hard to find again at cooking time. Drop in a few screenshots and AI parses the ingredients and steps; adjust one ingredient and the rest scale by ratio — a PWA.">인스타에서 저장한 레시피를 막상 요리할 때 다시 찾기 어려웠다. 캡처 몇 장을 넣으면 AI가 재료·순서를 파싱해 정리하고, 재료 하나만 조절하면 나머지가 비율대로 자동 계산되는 PWA.</p>
           <a class="bp-link" href="./recipebook.html" data-en="View the case study →">자세히 보기 →</a>
         </div></div></div>
@@ -619,10 +624,15 @@
   document.querySelectorAll('.build-card').forEach(card=>{
     const head = card.querySelector('.build-head');
     if(!head) return;
+    const vid = card.querySelector('video.bp-media');
     function toggle(){
-      const open = card.hasAttribute('data-open');
-      card.toggleAttribute('data-open', !open);
-      head.setAttribute('aria-expanded', String(!open));
+      const willOpen = !card.hasAttribute('data-open');
+      card.toggleAttribute('data-open', willOpen);
+      head.setAttribute('aria-expanded', String(willOpen));
+      if(vid){
+        if(willOpen){ if(!vid.getAttribute('src') && vid.dataset.src) vid.setAttribute('src', vid.dataset.src); vid.play().catch(()=>{}); }
+        else vid.pause();
+      }
     }
     head.addEventListener('click', toggle);
     head.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); } });
