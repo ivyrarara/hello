@@ -53,19 +53,6 @@
   .insight .num{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--a1);}
   .insight p{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-size:18px; font-weight:500; margin-top:8px; line-height:1.4;}
 
-  /* nested rings (signature interactive element) */
-  .nest-wrap{margin-top:24px; display:flex; justify-content:center;}
-  .nest-wrap circle{transition:stroke 1.4s ease, stroke-width 1.4s ease, stroke-opacity 1.4s ease, filter 1.4s ease;}
-  .nest-wrap text{transition:fill 1.4s ease, transform 1.4s ease; transform-box:fill-box; transform-origin:center;}
-  .nest-wrap line{transition:stroke 1.4s ease, stroke-opacity 1.4s ease;}
-  .stage-list{display:flex; flex-direction:column; gap:0; margin-top:20px;}
-  .stage-item{display:flex; gap:14px; padding:10px 0; border-top:1px solid var(--line); transition:opacity 1.4s ease;}
-  .stage-item:first-child{border-top:none;}
-  .stage-tag{font-family:'IBM Plex Mono','Noto Sans KR', sans-serif; font-size:12px; color:var(--dim); min-width:64px; transition:color 1.4s ease;}
-  .stage-desc{font-size:13.5px; color:var(--dim); transition:color 1.4s ease;}
-  .stage-item.active .stage-tag{color:var(--a2);}
-  .stage-item.active .stage-desc{color:rgba(237,237,237,0.92);}
-
   /* feature list */
   .feature-grid{display:grid; grid-template-columns:1fr; gap:0;}
   .feature{display:grid; grid-template-columns:64px 1fr; gap:10px; padding:14px 0; border-top:1px solid var(--line);}
@@ -139,7 +126,7 @@
   </section>
 
   <section class="reveal">
-    <span class="label">Key Insight</span>
+    <span class="label">Key Insights</span>
     <div class="insight">
       <span class="num">01</span>
       <p data-en="An agent's speech splits into Judgment and Empathy — mixing the two is the most common design mistake">에이전트의 발화는 판단(Judgment)과 공감(Empathy)으로 나뉜다 — 둘이 섞인 설계가 가장 흔한 실수</p>
@@ -148,43 +135,9 @@
       <span class="num">02</span>
       <p data-en="Users don't train an agent they didn't build themselves — the real task is surfacing what they already know, and the timing of it">사용자는 자기가 직접 만들지 않은 에이전트를 훈련시키지 않는다 — 진짜 과제는 이미 알고 있는 걸 드러내는 것, 그리고 그 타이밍</p>
     </div>
-  </section>
-
-  <section class="reveal">
-    <span class="label">6-Rung Ladder</span>
-    <p class="body-text" style="margin-bottom:6px;" data-en="Progress was measured by depth, not by commit count.">진행도는 커밋 수가 아니라 깊이로 측정했어요.</p>
-    <div class="nest-wrap">
-      <svg viewBox="-46 0 432 330" width="100%" overflow="visible" style="max-width:372px; display:block; margin:0 auto;">
-        <circle id="nest0" cx="170" cy="165" r="95" fill="none" stroke="var(--line)" stroke-width="2"/>
-        <circle id="nest1" cx="170" cy="165" r="78" fill="none" stroke="var(--line)" stroke-width="6"/>
-        <circle id="nest2" cx="170" cy="165" r="61" fill="none" stroke="var(--line)" stroke-width="11"/>
-        <circle id="nest3" cx="170" cy="165" r="44" fill="none" stroke="var(--line)" stroke-width="16"/>
-        <circle id="nest4" cx="170" cy="165" r="27" fill="none" stroke="var(--line)" stroke-width="21"/>
-        <circle id="nest5" cx="170" cy="165" r="10" fill="none" stroke="var(--line)" stroke-width="26"/>
-        <circle cx="170" cy="165" r="4" fill="var(--a2)" style="filter:drop-shadow(0 0 8px var(--a2))"/>
-
-        <line id="leader0" x1="170" y1="70" x2="170" y2="55" stroke="var(--line)" stroke-width="1"/>
-        <line id="leader1" x1="237.55" y1="126" x2="275.65" y2="104" stroke="var(--line)" stroke-width="1"/>
-        <line id="leader2" x1="222.83" y1="195.5" x2="275.65" y2="226" stroke="var(--line)" stroke-width="1"/>
-        <line id="leader3" x1="170" y1="209" x2="170" y2="278" stroke="var(--line)" stroke-width="1"/>
-        <line id="leader4" x1="146.62" y1="178.5" x2="64.35" y2="226" stroke="var(--line)" stroke-width="1"/>
-        <line id="leader5" x1="161.34" y1="160" x2="64.35" y2="104" stroke="var(--line)" stroke-width="1"/>
-
-        <text id="ringlabel0" x="170" y="43" text-anchor="middle" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)" data-en="01 Learn">01 학습</text>
-        <text id="ringlabel1" x="280" y="104" text-anchor="start" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)" data-en="02 Apply">02 활용</text>
-        <text id="ringlabel2" x="280" y="226" text-anchor="start" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)" data-en="03 Extend">03 확장</text>
-        <text id="ringlabel3" x="170" y="292" text-anchor="middle" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)" data-en="04 Build">04 구현</text>
-        <text id="ringlabel4" x="60" y="226" text-anchor="end" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)" data-en="05 Refine">05 개선</text>
-        <text id="ringlabel5" x="60" y="104" text-anchor="end" dominant-baseline="central" font-family="'IBM Plex Mono','Noto Sans KR',sans-serif" font-size="13" fill="var(--dim)" data-en="06 Log">06 기록</text>
-      </svg>
-    </div>
-    <div class="stage-list" id="stageList">
-      <div class="stage-item" data-i="0"><span class="stage-tag" data-en="01 Learn">01 학습</span><span class="stage-desc" data-en="Understand and organize the concept">개념을 이해하고 정리하는 단계</span></div>
-      <div class="stage-item" data-i="1"><span class="stage-tag" data-en="02 Apply">02 활용</span><span class="stage-desc" data-en="Put what you learned into practice">배운 걸 실제로 써보는 단계</span></div>
-      <div class="stage-item" data-i="2"><span class="stage-tag" data-en="03 Extend">03 확장</span><span class="stage-desc" data-en="Widen the scope to other problems">범위를 넓혀 다른 문제에 적용</span></div>
-      <div class="stage-item" data-i="3"><span class="stage-tag" data-en="04 Build">04 구현</span><span class="stage-desc" data-en="Build something that actually works">실제로 동작하는 걸 만드는 단계</span></div>
-      <div class="stage-item" data-i="4"><span class="stage-tag" data-en="05 Refine">05 개선</span><span class="stage-desc" data-en="Refine it through real use">써보면서 다듬는 단계</span></div>
-      <div class="stage-item" data-i="5"><span class="stage-tag" data-en="06 Log">06 기록</span><span class="stage-desc" data-en="Capture as insight so it can be reused">인사이트로 남겨서 재사용 가능하게</span></div>
+    <div class="insight">
+      <span class="num">03</span>
+      <p data-en="Progress is measured by depth, not by commit count — not how much you did, but how deep you went">진행은 커밋 수가 아니라 깊이로 측정된다 — 얼마나 많이 했나가 아니라, 얼마나 깊이 들어갔나</p>
     </div>
   </section>
 
@@ -221,43 +174,6 @@
 </div>
 
 <script>
-  const stages = [
-    {name:'학습', desc:'개념을 이해하고 정리하는 단계'},
-    {name:'활용', desc:'배운 걸 실제로 써보는 단계'},
-    {name:'확장', desc:'범위를 넓혀 다른 문제에 적용'},
-    {name:'구현', desc:'실제로 동작하는 걸 만드는 단계'},
-    {name:'개선', desc:'써보면서 다듬는 단계'},
-    {name:'기록', desc:'인사이트로 남겨서 재사용 가능하게'}
-  ];
-  const stageItems = document.querySelectorAll('.stage-item');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let nestIndex = 0;
-  const ringWidths = [2,6,11,16,21,26];
-  function renderNest(i){
-    for(let n=0; n<6; n++){
-      const ring = document.getElementById('nest'+n);
-      const label = document.getElementById('ringlabel'+n);
-      const leader = document.getElementById('leader'+n);
-      const isActive = n===i;
-      ring.setAttribute('stroke', isActive ? 'var(--a2)' : 'var(--line)');
-      ring.setAttribute('stroke-width', isActive ? ringWidths[n]+3 : ringWidths[n]);
-      ring.setAttribute('stroke-opacity', isActive ? '1' : '0.5');
-      ring.style.filter = isActive ? 'blur(2.8px) drop-shadow(0 0 16px var(--a2)) drop-shadow(0 0 40px rgba(124,245,208,0.55)) drop-shadow(0 0 72px rgba(124,245,208,0.32))' : 'blur(3.6px)';
-      label.setAttribute('fill', isActive ? 'var(--a2)' : 'var(--dim)');
-      label.style.transform = isActive ? 'scale(1.22)' : 'scale(1)';   // smooth grow/shrink (font-size setAttribute would snap)
-      leader.setAttribute('stroke', isActive ? 'var(--a2)' : 'var(--line)');
-      leader.setAttribute('stroke-opacity', isActive ? '0.8' : '0.4');
-    }
-    stageItems.forEach(el=> el.classList.toggle('active', parseInt(el.dataset.i)===i));
-  }
-  renderNest(0);
-  if(!reduceMotion){
-    setInterval(()=>{
-      nestIndex = (nestIndex+1) % 6;
-      renderNest(nestIndex);
-    }, 5000);
-  }
-
   // swap the walkthrough video to match the site language
   const walkVid = document.querySelector('.walk-phone video');
   window.__onLangChange = function(lang){
