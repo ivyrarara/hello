@@ -626,9 +626,9 @@
         else s.classList.add(dir>0 ? 'right' : 'left');                       // parked off-screen
       });
       dots.forEach((d,i)=> d.classList.toggle('on', i===n));
-      islider.style.height = islides[n].offsetHeight + 'px';
       ii = n;
     }
+    function fitHeight(){ islider.style.height = Math.max(...islides.map(s=> s.offsetHeight)) + 'px'; }
     let timer = null;
     function restart(){ if(reduceMotion) return; clearInterval(timer); timer = setInterval(()=> go(1), 10000); }
     function go(dir){ showInsight((ii + dir + islides.length) % islides.length, dir); restart(); }
@@ -645,9 +645,11 @@
       else if(Math.abs(dx)<10 && Math.abs(dy)<10) go(1);   // tap → next
     });
     islider.addEventListener('pointercancel', ()=>{ down=false; });
-    window.__reflowInsights = ()=> showInsight(ii, 1);
+    window.__reflowInsights = ()=>{ fitHeight(); showInsight(ii, 1); };   // recompute max height on language switch
+    fitHeight();
     showInsight(0, 1);
-    window.addEventListener('resize', ()=> showInsight(ii, 1));
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeight);
+    window.addEventListener('resize', ()=>{ fitHeight(); showInsight(ii, 1); });
     restart();
   }
 
