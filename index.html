@@ -209,16 +209,15 @@
   .islide.left{opacity:0; transform:translateX(-34px);}
   .islide.right{opacity:0; transform:translateX(34px);}
   .ifrom{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a1); display:block; margin-bottom:12px;}
-  .islide p{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-size:19px; font-weight:500; line-height:1.42; color:var(--text); max-width:54ch;}
+  .islide p{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-size:17px; font-weight:500; line-height:1.44; color:var(--text); max-width:54ch;}
   .idots{display:flex; gap:7px; margin-top:26px;}
   .idot{width:6px; height:6px; border-radius:99px; background:rgba(237,237,237,0.2); transition:background 0.3s ease, width 0.3s ease; cursor:pointer;}
   .idot.on{background:var(--a2); width:18px;}
 
-  /* build cards */
+  /* build cards (accordion) */
   .build-grid{display:grid; grid-template-columns:1fr; gap:11px;}
   .build-card{
     position:relative;
-    display:block;
     background:linear-gradient(140deg, rgba(255,255,255,0.14), rgba(255,255,255,0.055) 58%);
     backdrop-filter:blur(16px) saturate(150%);
     -webkit-backdrop-filter:blur(16px) saturate(150%);
@@ -226,22 +225,18 @@
     border-radius:14px;
     padding:15px 18px;
     box-shadow:inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -1px 1px rgba(0,0,0,0.2), 0 8px 28px rgba(0,0,0,0.3);
-    transform-style:preserve-3d;
-    transition:transform 0.15s ease;
-    will-change:transform;
+    transition:border-color 0.25s ease;
   }
-  .build-card:hover{border-color:rgba(124,245,208,0.4);}
+  .build-card:hover, .build-card[data-open]{border-color:rgba(124,245,208,0.4);}
+  .build-head{cursor:pointer; outline:none;}
+  .build-head:focus-visible{outline:2px solid var(--a2); outline-offset:4px; border-radius:6px;}
   .build-top{display:flex; align-items:center; justify-content:space-between; gap:12px;}
   .build-name{
     font-family:'Space Grotesk','Noto Sans KR', sans-serif;
     font-weight:600; font-size:18px; line-height:1.15;
   }
-  .build-arrow{
-    font-family:'IBM Plex Mono','Noto Sans KR', monospace;
-    font-size:14px; color:var(--a2);
-    transition:transform 0.25s ease;
-  }
-  .build-card:hover .build-arrow{transform:translate(4px,-4px);}
+  .build-chev{width:16px; height:16px; color:var(--a2); flex:none; transition:transform 0.3s ease;}
+  .build-card[data-open] .build-chev{transform:rotate(180deg);}
   .build-desc{font-size:13px; color:var(--muted); margin-top:5px;}
   .build-tag{
     font-family:'IBM Plex Mono','Noto Sans KR', monospace;
@@ -249,6 +244,15 @@
     margin-top:10px;
     display:block;
   }
+  /* expandable panel */
+  .build-panel{display:grid; grid-template-rows:0fr; transition:grid-template-rows 0.35s ease;}
+  .build-card[data-open] .build-panel{grid-template-rows:1fr;}
+  .build-panel-inner{overflow:hidden;}
+  .bp-pad{margin-top:14px; padding-top:14px; border-top:1px solid var(--line);}
+  .bp-media{display:block; margin:0 auto 14px; max-width:100%; max-height:420px; border-radius:12px; border:1px solid var(--line); background:#000;}
+  .bp-text{font-size:13.5px; color:rgba(237,237,237,0.74); line-height:1.6;}
+  .bp-link{display:inline-block; margin-top:13px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:12px; letter-spacing:0.03em; color:var(--a2);}
+  .bp-link:hover{text-decoration:underline;}
 
   /* case */
   .case{
@@ -325,9 +329,6 @@
   .reveal{opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease;}
   .reveal.in{opacity:1; transform:translateY(0);}
 
-  @media (min-width:640px){
-    .build-grid{grid-template-columns:1fr 1fr 1fr;}
-  }
 </style>
 </head>
 <body>
@@ -364,38 +365,66 @@
   <section class="builds reveal">
     <span class="label">Recently Built</span>
     <div class="build-grid" id="buildGrid">
-      <a class="build-card" href="./pacemaker.html">
-        <div class="build-top">
-          <span class="build-name">Agent</span>
-          <span class="build-arrow">↗</span>
+      <article class="build-card" data-open>
+        <div class="build-head" role="button" tabindex="0" aria-expanded="true" aria-controls="bp-mohsh">
+          <div class="build-top">
+            <span class="build-name">AI Content Pipeline</span>
+            <svg class="build-chev" viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M1.5 2 L8 8 L14.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <p class="build-desc" data-en="A pipeline that regularly auto-publishes a brand's Instagram feed">브랜드 인스타그램 피드 정기 자동 발행 파이프라인</p>
+          <span class="build-tag">NANO BANANA 2 · HOOTL</span>
         </div>
-        <p class="build-desc" data-en="A Telegram AI agent that keeps your daily pace">매일의 페이스를 지켜주는 텔레그램 AI 에이전트</p>
-        <span class="build-tag">TELEGRAM · AI AGENT</span>
-      </a>
-      <a class="build-card" href="./mohsh.html">
-        <div class="build-top">
-          <span class="build-name">SNS Contents Generator</span>
-          <span class="build-arrow">↗</span>
+        <div class="build-panel" id="bp-mohsh"><div class="build-panel-inner"><div class="bp-pad">
+          <img class="bp-media" src="./mohsh-ig-profile.jpg" alt="Live @mohsh_official Instagram profile" loading="lazy">
+          <p class="bp-text" data-en="Can a brand stay consistent on social with nobody running it? The identity is pinned as a photo filter, S/H persona diaries become the prompts for each image and caption, and only what passes Claude's check auto-posts to Instagram — no human in the loop (HOOTL).">브랜드 담당자 없이도 SNS를 일관되게 유지할 수 있을까? 아이덴티티를 '사진 필터'로 고정하고, S·H 페르소나의 일기를 이미지·캡션 프롬프트로 바꿔 생성 — Claude 검수를 통과한 것만 사람 손 없이 Instagram에 자동 게시(HOOTL).</p>
+          <a class="bp-link" href="./mohsh.html" data-en="View the case study →">자세히 보기 →</a>
+        </div></div></div>
+      </article>
+      <article class="build-card">
+        <div class="build-head" role="button" tabindex="0" aria-expanded="false" aria-controls="bp-agent">
+          <div class="build-top">
+            <span class="build-name">Agent</span>
+            <svg class="build-chev" viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M1.5 2 L8 8 L14.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <p class="build-desc" data-en="A 100-day field study that mined agent-design insights from real use">100일간 직접 쓰며 에이전트 설계 인사이트를 캐낸 필드 스터디</p>
+          <span class="build-tag">FIELD STUDY · AI AGENT</span>
         </div>
-        <p class="build-desc" data-en="A pipeline that regularly auto-publishes a brand's Instagram feed">브랜드 인스타그램 피드 정기 자동 발행 파이프라인</p>
-        <span class="build-tag">NANO BANANA 2 · HOOTL</span>
-      </a>
-      <a class="build-card" href="./scheduler.html">
-        <div class="build-top">
-          <span class="build-name">Scheduler</span>
-          <span class="build-arrow">↗</span>
+        <div class="build-panel" id="bp-agent"><div class="build-panel-inner"><div class="bp-pad">
+          <video class="bp-media" data-src="./agent-demo.webm" muted loop playsinline preload="none"></video>
+          <p class="bp-text" data-en="Running a 100-day career pivot solo, I needed a pacemaker. A field study: I lived with my own Telegram agent for 100 days, collected its speech-and-silence logs, and drew out agent-design principles — Judgment vs. Empathy.">100일 커리어 전환을 혼자 끌고 가려니 페이스메이커가 필요했다. 직접 만든 텔레그램 에이전트를 100일간 쓰며 발화·침묵 로그를 모으고, 거기서 판단(Judgment)과 공감(Empathy)이라는 에이전트 설계 원칙을 뽑아낸 필드 스터디.</p>
+          <a class="bp-link" href="./pacemaker.html" data-en="View the case study →">자세히 보기 →</a>
+        </div></div></div>
+      </article>
+      <article class="build-card">
+        <div class="build-head" role="button" tabindex="0" aria-expanded="false" aria-controls="bp-scheduler">
+          <div class="build-top">
+            <span class="build-name">Scheduler</span>
+            <svg class="build-chev" viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M1.5 2 L8 8 L14.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <p class="build-desc" data-en="A web app that ends repeated schedule-checking">일정 반복 확인을 없애는 웹앱</p>
+          <span class="build-tag">FIREBASE · WEB APP</span>
         </div>
-        <p class="build-desc" data-en="A web app that ends repeated schedule-checking">일정 반복 확인을 없애는 웹앱</p>
-        <span class="build-tag">FIREBASE · WEB APP</span>
-      </a>
-      <a class="build-card" href="./recipebook.html">
-        <div class="build-top">
-          <span class="build-name">Recipe Book</span>
-          <span class="build-arrow">↗</span>
+        <div class="build-panel" id="bp-scheduler"><div class="build-panel-inner"><div class="bp-pad">
+          <video class="bp-media" data-src="./scheduler-demo.webm" muted loop playsinline preload="none"></video>
+          <p class="bp-text" data-en="A family web app that ends the loop of re-checking the schedule. At-a-glance info is separated from info that needs sorting; weekly/monthly views, per-date supplies and market-split shopping all sync in real time via Firebase.">일정을 반복해서 확인하는 피로를 없애려고 만든 가족용 웹앱. 한 눈에 볼 정보와 구분이 필요한 정보를 나눠 배치하고, 주간/월간 뷰·날짜별 준비물·마트별 장보기를 Firebase로 실시간 동기화.</p>
+          <a class="bp-link" href="./scheduler.html" data-en="View the case study →">자세히 보기 →</a>
+        </div></div></div>
+      </article>
+      <article class="build-card">
+        <div class="build-head" role="button" tabindex="0" aria-expanded="false" aria-controls="bp-recipe">
+          <div class="build-top">
+            <span class="build-name">Recipe Book</span>
+            <svg class="build-chev" viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M1.5 2 L8 8 L14.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <p class="build-desc" data-en="An app to organize recipes and scale them by ratio">레시피를 정리하고 비율로 스케일링하는 앱</p>
+          <span class="build-tag">CLAUDE API · PWA</span>
         </div>
-        <p class="build-desc" data-en="An app to organize recipes and scale them by ratio">레시피를 정리하고 비율로 스케일링하는 앱</p>
-        <span class="build-tag">CLAUDE API · PWA</span>
-      </a>
+        <div class="build-panel" id="bp-recipe"><div class="build-panel-inner"><div class="bp-pad">
+          <video class="bp-media" data-src="./recipe-demo.webm" muted loop playsinline preload="none"></video>
+          <p class="bp-text" data-en="Recipes I saved on Instagram were hard to find again at cooking time. Drop in a few screenshots and AI parses the ingredients and steps; adjust one ingredient and the rest scale by ratio — a PWA.">인스타에서 저장한 레시피를 막상 요리할 때 다시 찾기 어려웠다. 캡처 몇 장을 넣으면 AI가 재료·순서를 파싱해 정리하고, 재료 하나만 조절하면 나머지가 비율대로 자동 계산되는 PWA.</p>
+          <a class="bp-link" href="./recipebook.html" data-en="View the case study →">자세히 보기 →</a>
+        </div></div></div>
+      </article>
     </div>
   </section>
 
@@ -404,8 +433,9 @@
     <div class="islider" id="islider">
       <div class="islide"><span class="ifrom">Agent</span><p data-en="An agent's speech splits into Judgment and Empathy — mixing the two is the most common design mistake">에이전트의 발화는 판단(Judgment)과 공감(Empathy)으로 나뉜다 — 둘이 섞인 설계가 가장 흔한 실수</p></div>
       <div class="islide"><span class="ifrom">Agent</span><p data-en="Users don't train an agent they didn't build themselves — the real task is surfacing what they already know, and the timing of it">사용자는 자기가 직접 만들지 않은 에이전트를 훈련시키지 않는다 — 진짜 과제는 이미 알고 있는 걸 드러내는 것, 그리고 그 타이밍</p></div>
-      <div class="islide"><span class="ifrom">SNS Contents Generator</span><p data-en="Keeping a brand consistent doesn't take dedicated staff — it takes a pillar of tight constraints">일관된 브랜드 유지를 위해 필요한 것은 담당 인력이 아닌, 촘촘한 제약이라는 pillar</p></div>
-      <div class="islide"><span class="ifrom">SNS Contents Generator</span><p data-en="A world where you hire an SNS Contents Designer for the price of a cup of coffee">커피 한 잔 값으로 SNS Contents Designer를 고용하는 세상</p></div>
+      <div class="islide"><span class="ifrom">Agent</span><p data-en="Progress is measured by depth, not by commit count — not how much you did, but how deep you went">진행은 커밋 수가 아니라 깊이로 측정된다 — 얼마나 많이 했나가 아니라, 얼마나 깊이 들어갔나</p></div>
+      <div class="islide"><span class="ifrom">AI Content Pipeline</span><p data-en="Keeping a brand consistent doesn't take dedicated staff — it takes a pillar of tight constraints">일관된 브랜드 유지를 위해 필요한 것은 담당 인력이 아닌, 촘촘한 제약이라는 pillar</p></div>
+      <div class="islide"><span class="ifrom">AI Content Pipeline</span><p data-en="A world where you hire an SNS Contents Designer for the price of a cup of coffee">커피 한 잔 값으로 SNS Contents Designer를 고용하는 세상</p></div>
       <div class="islide"><span class="ifrom">Scheduler</span><p data-en="Information you can't pull up when you need it is as good as no information">필요할 때 꺼내 쓸 수 없는 정보는, 없는 정보나 마찬가지</p></div>
       <div class="islide"><span class="ifrom">Scheduler</span><p data-en="Telling when automatic is better from when manual is better is where real UX begins">자동이 편할 때와 수동이 편할 때의 구분이 진정한 UX의 시작</p></div>
       <div class="islide"><span class="ifrom">Recipe Book</span><p data-en="Recipe Book's success metric isn't whether you never need the original, but whether you can get back to the original video faster">레시피북의 성공 지표는 원본을 안 찾아도 되는가가 아니라, 원본 영상으로 더 빠르게 돌아갈 수 있는가</p></div>
@@ -590,18 +620,30 @@
     if(e.key==='ArrowRight'){ stopAuto(); setPos(pos+4); }
   });
 
-  // tilt on build cards
-  if(fine && !reduceMotion){
-    document.querySelectorAll('.build-card').forEach(card=>{
-      card.addEventListener('pointermove', e=>{
-        const r = card.getBoundingClientRect();
-        const px = (e.clientX - r.left)/r.width - 0.5;
-        const py = (e.clientY - r.top)/r.height - 0.5;
-        card.style.transform = `perspective(500px) rotateY(${px*8}deg) rotateX(${-py*8}deg) translateZ(0)`;
-      });
-      card.addEventListener('pointerleave', ()=>{ card.style.transform = ''; });
-    });
+  // build-card accordion — tap header to expand; the first card is open by default
+  const buildCards = [...document.querySelectorAll('.build-card')];
+  function setCard(card, open){
+    const head = card.querySelector('.build-head');
+    const vid = card.querySelector('video.bp-media');
+    card.toggleAttribute('data-open', open);
+    if(head) head.setAttribute('aria-expanded', String(open));
+    if(vid){
+      if(open){ if(!vid.getAttribute('src') && vid.dataset.src) vid.setAttribute('src', vid.dataset.src); vid.play().catch(()=>{}); }
+      else vid.pause();
+    }
   }
+  buildCards.forEach(card=>{
+    const head = card.querySelector('.build-head');
+    if(!head) return;
+    function toggle(){
+      const willOpen = !card.hasAttribute('data-open');
+      // single-open accordion: close every other card first
+      if(willOpen) buildCards.forEach(other=>{ if(other!==card && other.hasAttribute('data-open')) setCard(other, false); });
+      setCard(card, willOpen);
+    }
+    head.addEventListener('click', toggle);
+    head.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); } });
+  });
 
   // scroll reveal
   const io = new IntersectionObserver((entries)=>{
