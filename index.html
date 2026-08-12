@@ -621,18 +621,25 @@
   });
 
   // build-card accordion — tap header to expand; the first card is open by default
-  document.querySelectorAll('.build-card').forEach(card=>{
+  const buildCards = [...document.querySelectorAll('.build-card')];
+  function setCard(card, open){
+    const head = card.querySelector('.build-head');
+    const vid = card.querySelector('video.bp-media');
+    card.toggleAttribute('data-open', open);
+    if(head) head.setAttribute('aria-expanded', String(open));
+    if(vid){
+      if(open){ if(!vid.getAttribute('src') && vid.dataset.src) vid.setAttribute('src', vid.dataset.src); vid.play().catch(()=>{}); }
+      else vid.pause();
+    }
+  }
+  buildCards.forEach(card=>{
     const head = card.querySelector('.build-head');
     if(!head) return;
-    const vid = card.querySelector('video.bp-media');
     function toggle(){
       const willOpen = !card.hasAttribute('data-open');
-      card.toggleAttribute('data-open', willOpen);
-      head.setAttribute('aria-expanded', String(willOpen));
-      if(vid){
-        if(willOpen){ if(!vid.getAttribute('src') && vid.dataset.src) vid.setAttribute('src', vid.dataset.src); vid.play().catch(()=>{}); }
-        else vid.pause();
-      }
+      // single-open accordion: close every other card first
+      if(willOpen) buildCards.forEach(other=>{ if(other!==card && other.hasAttribute('data-open')) setCard(other, false); });
+      setCard(card, willOpen);
     }
     head.addEventListener('click', toggle);
     head.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); } });
