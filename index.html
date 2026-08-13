@@ -197,6 +197,7 @@
     margin-bottom:16px;
     display:block;
   }
+  .label.secondary{color:var(--muted); margin-top:34px;}
 
   .about-grid{display:grid; grid-template-columns:1fr; gap:16px;}
   .about p{font-size:16px; max-width:56ch; color:rgba(237,237,237,0.62);}
@@ -365,12 +366,12 @@
   </header>
 
   <section class="builds reveal">
-    <span class="label">Recently Built</span>
-    <div class="build-grid" id="buildGrid">
+    <span class="label">Featured Studies</span>
+    <div class="build-grid">
       <article class="build-card" data-open>
         <div class="build-head" role="button" tabindex="0" aria-expanded="true" aria-controls="bp-agent">
           <div class="build-top">
-            <span class="build-name">Agent</span>
+            <span class="build-name">100-Day Agent</span>
             <svg class="build-chev" viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M1.5 2 L8 8 L14.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <p class="build-desc" data-en="One agent, 100 days of continuous real-life use — raw interaction data, then design principles">하나의 에이전트를 100일간 실사용하며 raw 데이터를 축적한 필드 스터디</p>
@@ -397,6 +398,9 @@
           <a class="bp-link" href="./mohsh.html" data-en="View the case study →">자세히 보기 →</a>
         </div></div></div>
       </article>
+    </div>
+    <span class="label secondary">Product Experiments</span>
+    <div class="build-grid">
       <article class="build-card">
         <div class="build-head" role="button" tabindex="0" aria-expanded="false" aria-controls="bp-scheduler">
           <div class="build-top">
