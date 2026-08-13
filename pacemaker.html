@@ -42,6 +42,15 @@
   .study-spec{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:7px 11px; margin-top:26px; padding:15px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); opacity:0; animation:rise 0.6s ease 0.24s forwards;}
   .study-spec .d{opacity:0.4;}
   .study-spec .out{color:var(--a2);}
+  /* findings: pattern -> design change */
+  .findings{margin-top:20px; display:flex; flex-direction:column; gap:14px;}
+  .finding{background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:18px 20px;}
+  .finding .f-k{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px;}
+  .finding .f-k.out{color:var(--a2);}
+  .f-obs{font-size:14px; color:rgba(237,237,237,0.7); line-height:1.55;}
+  .f-chg{font-size:14.5px; color:rgba(237,237,237,0.92); font-weight:500; line-height:1.55;}
+  .f-arrow{margin:11px 0; color:var(--a2);}
+  .f-arrow svg{width:14px; height:16px; display:block;}
 
   section{padding:52px 0; border-top:1px solid var(--line);}
   .label{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a2); margin-bottom:16px; display:block;}
@@ -125,6 +134,11 @@
   </section>
 
   <section class="reveal">
+    <span class="label">Why 100 Days</span>
+    <p class="body-text" data-en="100 days is a long enough cycle for behavioral patterns and rhythms to surface — and it's also exactly the length of the career pivot I set for myself. The study window and the goal were one and the same.">100일은 행동의 패턴과 흐름이 드러날 만큼 충분히 긴 사이클이면서, 동시에 제가 목표한 커리어 피보팅 자체가 100일이었어요. 실험 기간과 삶의 목표가 같았던 셈이죠.</p>
+  </section>
+
+  <section class="reveal">
     <span class="label">The Experiment</span>
     <p class="body-text" data-en="The agent was the instrument, not the point. The real work was a 100-day field study: build it, live with it, and mine the interaction data for how an agent should be designed.">에이전트는 목적이 아니라 도구였어요. 진짜 과제는 100일짜리 필드 스터디였습니다 — 직접 만들어 실제로 살아보고, 그 상호작용 데이터에서 '에이전트를 어떻게 설계해야 하는가'를 캐내는 것.</p>
     <div class="method">
@@ -133,6 +147,34 @@
       <div class="mstep"><div class="mnum">03</div><div><div class="mt" data-en="Collect raw data">raw 데이터 수집</div><div class="md" data-en="Accumulated raw interaction data — the words said and the words swallowed">발화·침묵 등 상호작용 raw 데이터를 축적</div></div></div>
       <div class="mstep"><div class="mnum">04</div><div><div class="mt" data-en="Find patterns">패턴 추출</div><div class="md" data-en="Pulled recurring judgment / empathy patterns out of the logs">로그에서 반복되는 판단·공감 패턴을 추출</div></div></div>
       <div class="mstep"><div class="mnum">05</div><div><div class="mt" data-en="Derive insights">인사이트 도출</div><div class="md" data-en="Distilled it into reusable agent-design insights — below">재사용 가능한 에이전트 설계 인사이트로 정리 — 아래</div></div></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Pattern → Design</span>
+    <p class="body-text" data-en="From 100 days of logs — messages and silences, button taps and free-text replies — I pulled recurring patterns and turned each into an actual design change.">100일치 로그 — 발화·침묵, 버튼 탭, 텍스트 답장 — 에서 반복되는 패턴을 뽑아, 각각을 실제 설계 변경으로 옮겼어요.</p>
+    <div class="findings">
+      <div class="finding">
+        <span class="f-k" data-en="Observed">관찰</span>
+        <p class="f-obs" data-en="An agent's messages split into judgment/critique and greeting/empathy — a caring check-in like &quot;Did you book the dentist?&quot; isn't something to grade.">발화가 '판단·지적'과 '안부·공감'으로 갈린다. "치과 예약 잡혔어요?"처럼 안부를 묻는 말은 채점 대상이 아니다.</p>
+        <div class="f-arrow"><svg viewBox="0 0 14 16" fill="none" aria-hidden="true"><path d="M7 1 V14 M2.5 9.5 L7 14 L11.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="f-k out" data-en="Design change">설계 변경</span>
+        <p class="f-chg" data-en="Stopped attaching a scoring button to greeting-type messages — the rating UI now appears only on judgment ones.">안부성 메시지에는 채점 버튼을 붙이지 않도록 바꿈 — 판단성 발화에만 평가 UI를 노출.</p>
+      </div>
+      <div class="finding">
+        <span class="f-k" data-en="Observed">관찰</span>
+        <p class="f-obs" data-en="Users don't only tap buttons — they answer in free text too.">사용자는 버튼만 누르지 않고 자연어 텍스트로도 답한다.</p>
+        <div class="f-arrow"><svg viewBox="0 0 14 16" fill="none" aria-hidden="true"><path d="M7 1 V14 M2.5 9.5 L7 14 L11.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="f-k out" data-en="Design change">설계 변경</span>
+        <p class="f-chg" data-en="Scoring is now inferred from text replies as well as button taps — but never when it's ambiguous, to avoid mis-scoring.">버튼 탭뿐 아니라 텍스트 답장에서도 채점을 자동 추론 — 단, 애매하면 추론하지 않음(오채점 방지).</p>
+      </div>
+      <div class="finding">
+        <span class="f-k" data-en="Observed">관찰</span>
+        <p class="f-obs" data-en="A direct &quot;Why?&quot; reads as nagging and puts you on the defensive.">"왜?"라고 직접 캐물으면 다그침처럼 느껴져 방어적이 된다.</p>
+        <div class="f-arrow"><svg viewBox="0 0 14 16" fill="none" aria-hidden="true"><path d="M7 1 V14 M2.5 9.5 L7 14 L11.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span class="f-k out" data-en="Design change">설계 변경</span>
+        <p class="f-chg" data-en="Added a third speech type — a &quot;reflection&quot; that mirrors the observed pattern and asks only an open question, instead of asking why.">관찰한 패턴을 비추고 열린 질문만 던지는 제3의 발화 유형 '성찰 질문'을 신설.</p>
+      </div>
     </div>
   </section>
 
