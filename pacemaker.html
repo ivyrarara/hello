@@ -39,9 +39,6 @@
   h1{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:clamp(34px,6.5vw,50px); line-height:1.12; letter-spacing:-0.02em; opacity:0; animation:rise 0.6s ease 0.08s forwards;}
   .hero-sub{margin-top:16px; font-size:16.5px; color:var(--muted); max-width:50ch; opacity:0; animation:rise 0.6s ease 0.16s forwards;}
   @keyframes rise{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
-  .study-spec{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:7px 11px; margin-top:26px; padding:15px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); opacity:0; animation:rise 0.6s ease 0.24s forwards;}
-  .study-spec .d{opacity:0.4;}
-  .study-spec .out{color:var(--a2);}
   /* findings: pattern -> design change */
   .findings{margin-top:20px; display:flex; flex-direction:column; gap:14px;}
   .finding{background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:18px 20px;}
@@ -115,22 +112,11 @@
     <div class="eyebrow">100-Day Field Study · Telegram AI Agent</div>
     <h1>Pacemaker Agent</h1>
     <p class="hero-sub" data-en="A self-experiment: I built my own AI agent, lived with it for 100 days, and mined the raw interaction data for patterns — and for how an agent should actually be designed.">직접 만든 AI 에이전트를 100일간 실생활에서 쓰며 상호작용 데이터를 모으고, 거기서 패턴과 '에이전트를 어떻게 설계해야 하는가'를 캐낸 자기 실험입니다.</p>
-    <div class="study-spec">
-      <span data-en="100 Days">100일</span>
-      <span class="d">·</span>
-      <span data-en="One Agent">단일 에이전트</span>
-      <span class="d">·</span>
-      <span data-en="Real-life Use">실사용</span>
-      <span class="d">·</span>
-      <span data-en="Raw Logs">원시 로그</span>
-      <span class="d">→</span>
-      <span class="out" data-en="Design Principles">설계 원칙</span>
-    </div>
   </header>
 
   <section class="reveal">
     <span class="label">Why I Built It</span>
-    <p class="body-text" data-en="Running a 100-day career-transition project alone, I needed a pacemaker. So I built something that quietly organizes what I did each evening without nagging, logs it, and suggests the next step — not a coach that pushes, but a presence that watches from a distance.">100일짜리 커리어 전환 프로젝트를 혼자 끌고 가려니 페이스메이커가 필요했어요. 매일 저녁 오늘 뭘 했는지 묻지 않고 정리하고, 그걸 기록해서 다음 걸음을 제안해주는 존재를 직접 만들었습니다. 자꾸 다그치는 코치가 아니라, 거리를 두고 지켜봐주는 존재여야 했어요.</p>
+    <p class="body-text" data-en="Running a career-transition project alone, I needed a pacemaker. So I built something that quietly organizes what I did each evening without nagging, logs it, and suggests the next step — not a coach that pushes, but a presence that watches from a distance.">커리어 전환 프로젝트를 혼자 끌고 가려니 페이스메이커가 필요했어요. 매일 저녁 오늘 뭘 했는지 묻지 않고 정리하고, 그걸 기록해서 다음 걸음을 제안해주는 존재를 직접 만들었습니다. 자꾸 다그치는 코치가 아니라, 거리를 두고 지켜봐주는 존재여야 했어요.</p>
   </section>
 
   <section class="reveal">
