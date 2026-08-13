@@ -203,17 +203,13 @@
   .about p{font-size:16px; max-width:56ch; color:rgba(237,237,237,0.62);}
   .about strong{color:#fff; font-weight:600;}
 
-  /* key insights auto-slider */
-  .islider{position:relative; margin-top:6px; transition:height 0.5s cubic-bezier(.4,0,.2,1); touch-action:pan-y; -webkit-user-select:none; user-select:none;}
-  .islide{position:absolute; left:0; right:0; top:0; opacity:0; transform:translateX(34px); transition:opacity 0.5s ease, transform 0.5s cubic-bezier(.4,0,.2,1); pointer-events:none;}
-  .islide.on{opacity:1; transform:translateX(0);}
-  .islide.left{opacity:0; transform:translateX(-34px);}
-  .islide.right{opacity:0; transform:translateX(34px);}
-  .ifrom{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a1); display:block; margin-bottom:12px;}
-  .islide p{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-size:17px; font-weight:500; line-height:1.44; color:var(--text); max-width:54ch;}
-  .idots{display:flex; gap:7px; margin-top:26px;}
-  .idot{width:6px; height:6px; border-radius:99px; background:rgba(237,237,237,0.2); transition:background 0.3s ease, width 0.3s ease; cursor:pointer;}
-  .idot.on{background:var(--a2); width:18px;}
+  /* key insights — one thesis, three tagged observations */
+  .ins-thesis{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-size:19px; font-weight:500; line-height:1.42; color:var(--text); max-width:42ch; margin:2px 0 28px;}
+  .ins-list{display:flex; flex-direction:column; gap:22px;}
+  .ins-head{display:flex; align-items:baseline; gap:10px; margin-bottom:7px;}
+  .ins-tag{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a2);}
+  .ins-from{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10px; letter-spacing:0.04em; color:var(--muted);}
+  .ins-p{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-size:16px; font-weight:500; line-height:1.45; color:rgba(237,237,237,0.9); max-width:52ch;}
 
   /* build cards (accordion) */
   .build-grid{display:grid; grid-template-columns:1fr; gap:11px;}
@@ -436,12 +432,21 @@
 
   <section class="insights reveal">
     <span class="label">Key Insights</span>
-    <div class="islider" id="islider">
-      <div class="islide"><span class="ifrom">Agent</span><p data-en="Users don't train an agent built by someone else — the real task is surfacing what they already know, and when to do so">사용자는 자기가 직접 만들지 않은 에이전트를 훈련시키지 않는다 — 진짜 과제는 이미 알고 있는 걸 드러내는 것, 그리고 그 타이밍</p></div>
-      <div class="islide"><span class="ifrom">AI Content Pipeline</span><p data-en="What keeps a brand consistent is a tightly woven web of principles">브랜드 일관성을 유지하는 것은 담당자가 아니라 촘촘한 원칙망이다</p></div>
-      <div class="islide"><span class="ifrom">Scheduler</span><p data-en="Telling when automatic is better from when manual is better is where real UX begins">자동이 편할 때와 수동이 편할 때의 구분이 진정한 UX의 시작</p></div>
+    <p class="ins-thesis" data-en="The core of AI product UX, to me, isn't making AI do more — it's designing where human judgment stays inside the product.">AI가 더 많은 일을 하게 만드는 게 아니라, 인간의 판단을 제품 안 어디에 남겨둘지를 설계하는 것 — 그게 AI 프로덕트 UX의 핵심이라고 봅니다.</p>
+    <div class="ins-list">
+      <div class="ins-item">
+        <div class="ins-head"><span class="ins-tag">Judgment</span><span class="ins-from">Agent</span></div>
+        <p class="ins-p" data-en="Users don't train an agent built by someone else — the real task is surfacing what they already know, and when to do so">사용자는 자기가 직접 만들지 않은 에이전트를 훈련시키지 않는다 — 진짜 과제는 이미 알고 있는 걸 드러내는 것, 그리고 그 타이밍</p>
+      </div>
+      <div class="ins-item">
+        <div class="ins-head"><span class="ins-tag">Constraints</span><span class="ins-from">AI Content Pipeline</span></div>
+        <p class="ins-p" data-en="What keeps a brand consistent is a tightly woven web of principles">브랜드 일관성을 유지하는 것은 담당자가 아니라 촘촘한 원칙망이다</p>
+      </div>
+      <div class="ins-item">
+        <div class="ins-head"><span class="ins-tag">Control</span><span class="ins-from">Scheduler</span></div>
+        <p class="ins-p" data-en="Telling when automatic is better from when manual is better is where real UX begins">자동이 편할 때와 수동이 편할 때의 구분이 진정한 UX의 시작</p>
+      </div>
     </div>
-    <div class="idots" id="idots"></div>
   </section>
 
   <section class="about reveal">
@@ -530,7 +535,6 @@
     try{ localStorage.setItem(I18N_KEY, lang); }catch(e){}
     if(window.__splitTitle) window.__splitTitle();
     if(typeof setPos === 'function') setPos(pos);   // re-render the dynamic caption
-    if(window.__reflowInsights) setTimeout(window.__reflowInsights, 0);   // recompute slider height for new text
     if(window.__syncBuildVideos) window.__syncBuildVideos();              // swap open-card preview videos to this language
   }
   const langToggleBtn = document.getElementById('langToggle');
@@ -666,50 +670,6 @@
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, {threshold:0.15});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-  // auto-sliding Key Insights (every 5s)
-  const islider = document.getElementById('islider');
-  if(islider){
-    const islides = [...islider.querySelectorAll('.islide')];
-    const idots = document.getElementById('idots');
-    islides.forEach(()=>{ const d=document.createElement('span'); d.className='idot'; idots.appendChild(d); });
-    const dots = [...idots.children];
-    let ii = 0;
-    function showInsight(n, dir){
-      dir = dir || 1;                       // 1 = forward (enter from right), -1 = back (enter from left)
-      islides.forEach((s,i)=>{
-        s.classList.remove('on','left','right');
-        if(i===n) s.classList.add('on');
-        else if(i===ii && i!==n) s.classList.add(dir>0 ? 'left' : 'right');  // outgoing slide
-        else s.classList.add(dir>0 ? 'right' : 'left');                       // parked off-screen
-      });
-      dots.forEach((d,i)=> d.classList.toggle('on', i===n));
-      ii = n;
-    }
-    function fitHeight(){ islider.style.height = Math.max(...islides.map(s=> s.offsetHeight)) + 'px'; }
-    let timer = null;
-    function restart(){ if(reduceMotion) return; clearInterval(timer); timer = setInterval(()=> go(1), 10000); }
-    function go(dir){ showInsight((ii + dir + islides.length) % islides.length, dir); restart(); }
-    function jumpTo(i){ if(i===ii) return; showInsight(i, i>ii ? 1 : -1); restart(); }
-    dots.forEach((d,i)=> d.addEventListener('click', ()=> jumpTo(i)));
-    // swipe left/right (pointer covers touch + mouse-drag); touch-action:pan-y keeps vertical scroll
-    let px=0, py=0, down=false;
-    islider.addEventListener('pointerdown', e=>{ px=e.clientX; py=e.clientY; down=true; });
-    islider.style.cursor='pointer';
-    islider.addEventListener('pointerup', e=>{
-      if(!down) return; down=false;
-      const dx=e.clientX-px, dy=e.clientY-py;
-      if(Math.abs(dx)>36 && Math.abs(dx)>Math.abs(dy)*1.2) go(dx<0 ? 1 : -1);
-      else if(Math.abs(dx)<10 && Math.abs(dy)<10) go(1);   // tap → next
-    });
-    islider.addEventListener('pointercancel', ()=>{ down=false; });
-    window.__reflowInsights = ()=>{ fitHeight(); showInsight(ii, 1); };   // recompute max height on language switch
-    fitHeight();
-    showInsight(0, 1);
-    if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeight);
-    window.addEventListener('resize', ()=>{ fitHeight(); showInsight(ii, 1); });
-    restart();
-  }
 
   // live Toronto clock
   function tick(){
