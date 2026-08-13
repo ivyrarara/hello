@@ -228,6 +228,7 @@
     transition:border-color 0.25s ease;
   }
   .build-card:hover, .build-card[data-open]{border-color:rgba(124,245,208,0.4);}
+  .build-card[data-open]{cursor:pointer;}
   .build-head{cursor:pointer; outline:none;}
   .build-head:focus-visible{outline:2px solid var(--a2); outline-offset:4px; border-radius:6px;}
   .build-top{display:flex; align-items:center; justify-content:space-between; gap:12px;}
@@ -367,22 +368,7 @@
     <span class="label">Recently Built</span>
     <div class="build-grid" id="buildGrid">
       <article class="build-card" data-open>
-        <div class="build-head" role="button" tabindex="0" aria-expanded="true" aria-controls="bp-mohsh">
-          <div class="build-top">
-            <span class="build-name">AI Content Pipeline</span>
-            <svg class="build-chev" viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M1.5 2 L8 8 L14.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <p class="build-desc" data-en="A pipeline that regularly auto-publishes a brand's Instagram feed">브랜드 인스타그램 피드 정기 자동 발행 파이프라인</p>
-          <span class="build-tag">NANO BANANA 2 · HOOTL</span>
-        </div>
-        <div class="build-panel" id="bp-mohsh"><div class="build-panel-inner"><div class="bp-pad">
-          <img class="bp-media" src="./mohsh-ig-profile.jpg" alt="Live @mohsh_official Instagram profile" loading="lazy">
-          <p class="bp-text" data-en="Can a brand stay consistent on social with nobody running it? The identity is pinned as a photo filter, S/H persona diaries become the prompts for each image and caption, and only what passes Claude's check auto-posts to Instagram — no human in the loop (HOOTL).">브랜드 담당자 없이도 SNS를 일관되게 유지할 수 있을까? 아이덴티티를 '사진 필터'로 고정하고, S·H 페르소나의 일기를 이미지·캡션 프롬프트로 바꿔 생성 — Claude 검수를 통과한 것만 사람 손 없이 Instagram에 자동 게시(HOOTL).</p>
-          <a class="bp-link" href="./mohsh.html" data-en="View the case study →">자세히 보기 →</a>
-        </div></div></div>
-      </article>
-      <article class="build-card">
-        <div class="build-head" role="button" tabindex="0" aria-expanded="false" aria-controls="bp-agent">
+        <div class="build-head" role="button" tabindex="0" aria-expanded="true" aria-controls="bp-agent">
           <div class="build-top">
             <span class="build-name">Agent</span>
             <svg class="build-chev" viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M1.5 2 L8 8 L14.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -397,6 +383,21 @@
         </div></div></div>
       </article>
       <article class="build-card">
+        <div class="build-head" role="button" tabindex="0" aria-expanded="false" aria-controls="bp-mohsh">
+          <div class="build-top">
+            <span class="build-name">AI Content Pipeline</span>
+            <svg class="build-chev" viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M1.5 2 L8 8 L14.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <p class="build-desc" data-en="A pipeline that regularly auto-publishes a brand's Instagram feed">브랜드 인스타그램 피드 정기 자동 발행 파이프라인</p>
+          <span class="build-tag">NANO BANANA 2 · HOOTL</span>
+        </div>
+        <div class="build-panel" id="bp-mohsh"><div class="build-panel-inner"><div class="bp-pad">
+          <img class="bp-media" src="./mohsh-ig-profile.jpg" alt="Live @mohsh_official Instagram profile" loading="lazy">
+          <p class="bp-text" data-en="Can a brand stay consistent on social with nobody running it? The identity is pinned as a photo filter and the S/H persona diaries become the prompts for each image and caption — a HOOTL system that auto-posts to Instagram only what passes Claude's check.">브랜드 담당자 없이도 SNS를 일관되게 유지할 수 있을까? 아이덴티티를 '사진 필터'로 고정하고, S·H 페르소나의 일기를 이미지·캡션 프롬프트로 바꿔 생성 — Claude 검수를 통과한 것만 Instagram에 자동 게시하는 HOOTL 시스템</p>
+          <a class="bp-link" href="./mohsh.html" data-en="View the case study →">자세히 보기 →</a>
+        </div></div></div>
+      </article>
+      <article class="build-card">
         <div class="build-head" role="button" tabindex="0" aria-expanded="false" aria-controls="bp-scheduler">
           <div class="build-top">
             <span class="build-name">Scheduler</span>
@@ -407,7 +408,7 @@
         </div>
         <div class="build-panel" id="bp-scheduler"><div class="build-panel-inner"><div class="bp-pad">
           <video class="bp-media" data-src="./scheduler-demo.webm" muted loop playsinline preload="none"></video>
-          <p class="bp-text" data-en="A family web app that ends the loop of re-checking the schedule. At-a-glance info is separated from info that needs sorting; weekly/monthly views, per-date supplies and market-split shopping all sync in real time via Firebase.">일정을 반복해서 확인하는 피로를 없애려고 만든 가족용 웹앱. 한 눈에 볼 정보와 구분이 필요한 정보를 나눠 배치하고, 주간/월간 뷰·날짜별 준비물·마트별 장보기를 Firebase로 실시간 동기화.</p>
+          <p class="bp-text" data-en="A web app that ends the fatigue of re-checking your schedule. At-a-glance info is separated from info that needs sorting — weekly/monthly views, per-date supplies and market-split shopping, all in one view.">일정을 반복해서 확인하는 피로를 없애는 웹앱. 한 눈에 볼 정보와 구분이 필요한 정보를 나눠 배치하고, 주간/월간 뷰·날짜별 준비물·마트별 장보기를 한눈에.</p>
           <a class="bp-link" href="./scheduler.html" data-en="View the case study →">자세히 보기 →</a>
         </div></div></div>
       </article>
@@ -422,7 +423,7 @@
         </div>
         <div class="build-panel" id="bp-recipe"><div class="build-panel-inner"><div class="bp-pad">
           <video class="bp-media" data-src="./recipe-demo.webm" muted loop playsinline preload="none"></video>
-          <p class="bp-text" data-en="Recipes I saved on Instagram were hard to find again at cooking time. Drop in a few screenshots and AI parses the ingredients and steps; adjust one ingredient and the rest scale by ratio — a PWA.">인스타에서 저장한 레시피를 막상 요리할 때 다시 찾기 어려웠다. 캡처 몇 장을 넣으면 AI가 재료·순서를 파싱해 정리하고, 재료 하나만 조절하면 나머지가 비율대로 자동 계산되는 PWA.</p>
+          <p class="bp-text" data-en="From just a few screenshots or photos of handwritten recipes, AI parses the ingredients and steps; adjust one ingredient and the rest scale by ratio — a PWA.">캡처나 손글씨 사진 몇 장만으로 AI가 재료·순서를 파싱해 정리하고, 재료 하나만 조절하면 나머지가 비율대로 자동 계산되는 PWA.</p>
           <a class="bp-link" href="./recipebook.html" data-en="View the case study →">자세히 보기 →</a>
         </div></div></div>
       </article>
@@ -432,14 +433,9 @@
   <section class="insights reveal">
     <span class="label">Key Insights</span>
     <div class="islider" id="islider">
-      <div class="islide"><span class="ifrom">Agent</span><p data-en="An agent's speech splits into Judgment and Empathy — mixing the two is the most common design mistake">에이전트의 발화는 판단(Judgment)과 공감(Empathy)으로 나뉜다 — 둘이 섞인 설계가 가장 흔한 실수</p></div>
       <div class="islide"><span class="ifrom">Agent</span><p data-en="Users don't train an agent they didn't build themselves — the real task is surfacing what they already know, and the timing of it">사용자는 자기가 직접 만들지 않은 에이전트를 훈련시키지 않는다 — 진짜 과제는 이미 알고 있는 걸 드러내는 것, 그리고 그 타이밍</p></div>
-      <div class="islide"><span class="ifrom">Agent</span><p data-en="Progress is measured by depth, not by commit count — not how much you did, but how deep you went">진행은 커밋 수가 아니라 깊이로 측정된다 — 얼마나 많이 했나가 아니라, 얼마나 깊이 들어갔나</p></div>
-      <div class="islide"><span class="ifrom">AI Content Pipeline</span><p data-en="Keeping a brand consistent doesn't take dedicated staff — it takes a pillar of tight constraints">일관된 브랜드 유지를 위해 필요한 것은 담당 인력이 아닌, 촘촘한 제약이라는 pillar</p></div>
-      <div class="islide"><span class="ifrom">AI Content Pipeline</span><p data-en="A world where you hire an SNS Contents Designer for the price of a cup of coffee">커피 한 잔 값으로 SNS Contents Designer를 고용하는 세상</p></div>
-      <div class="islide"><span class="ifrom">Scheduler</span><p data-en="Information you can't pull up when you need it is as good as no information">필요할 때 꺼내 쓸 수 없는 정보는, 없는 정보나 마찬가지</p></div>
+      <div class="islide"><span class="ifrom">AI Content Pipeline</span><p data-en="Keeping a brand consistent doesn't take dedicated staff — it takes a tightly woven web of principles">브랜드 일관성을 유지하는 것은 담당자가 아니라 촘촘한 원칙망이다</p></div>
       <div class="islide"><span class="ifrom">Scheduler</span><p data-en="Telling when automatic is better from when manual is better is where real UX begins">자동이 편할 때와 수동이 편할 때의 구분이 진정한 UX의 시작</p></div>
-      <div class="islide"><span class="ifrom">Recipe Book</span><p data-en="Recipe Book's success metric isn't whether you never need the original, but whether you can get back to the original video faster">레시피북의 성공 지표는 원본을 안 찾아도 되는가가 아니라, 원본 영상으로 더 빠르게 돌아갈 수 있는가</p></div>
     </div>
     <div class="idots" id="idots"></div>
   </section>
@@ -447,7 +443,7 @@
   <section class="about reveal">
     <span class="label">Background</span>
     <div class="about-grid">
-      <p data-en="I spent 13 years in cosmetics and retail doing <strong>branding</strong> and <strong>packaging</strong>, and now I work on <strong>home-appliance UX</strong> at <strong>Samsung Electronics</strong>. I am usability-testing an AI agent I built myself to draw insights, and prototyping apps — to see how a designer's judgment scales inside AI products.">코스메틱과 리테일에서 <strong>브랜딩</strong>, <strong>패키징</strong>으로 13년을 쌓았고, 지금은 <strong>삼성전자</strong>에서 <strong>가전 UX</strong>를 다룹니다. 100일 동안 직접 만든 AI 에이전트를 사용 테스트하며 인사이트를 뽑고 앱을 프로토타이핑하여 디자이너의 판단이 AI 제품에서 어떻게 확장되는지 실험하고 있습니다.</p>
+      <p data-en="13 years of <strong>branding</strong> and <strong>packaging</strong> in cosmetics and retail, now <strong>home-appliance UX</strong> at <strong>Samsung Electronics</strong>. From brand to physical product to digital UX, and now <strong>AI products</strong> — I've kept designing how people relate to what they use.">코스메틱·리테일에서 <strong>브랜딩</strong>·<strong>패키징</strong>으로 13년, 지금은 <strong>삼성전자</strong>에서 <strong>가전 UX</strong>를 다룹니다. 브랜드에서 물리적 제품, 디지털 UX를 거쳐 이제 <strong>AI 프로덕트</strong>로 — 사용자가 제품과 관계 맺는 방식을 계속 디자인해왔습니다.</p>
     </div>
   </section>
 
@@ -642,9 +638,12 @@
       if(willOpen) buildCards.forEach(other=>{ if(other!==card && other.hasAttribute('data-open')) setCard(other, false); });
       setCard(card, willOpen);
     }
-    head.addEventListener('click', toggle);
+    // click anywhere on the card toggles it — but let real links (자세히 보기) navigate
+    card.addEventListener('click', e=>{ if(e.target.closest('a')) return; toggle(); });
     head.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); } });
   });
+  // kick off any card that starts open (so its preview video plays on load)
+  buildCards.forEach(card=>{ if(card.hasAttribute('data-open')) setCard(card, true); });
 
   // scroll reveal
   const io = new IntersectionObserver((entries)=>{
