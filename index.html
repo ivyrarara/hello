@@ -228,6 +228,7 @@
     transition:border-color 0.25s ease;
   }
   .build-card:hover, .build-card[data-open]{border-color:rgba(124,245,208,0.4);}
+  .build-card[data-open]{cursor:pointer;}
   .build-head{cursor:pointer; outline:none;}
   .build-head:focus-visible{outline:2px solid var(--a2); outline-offset:4px; border-radius:6px;}
   .build-top{display:flex; align-items:center; justify-content:space-between; gap:12px;}
@@ -637,7 +638,8 @@
       if(willOpen) buildCards.forEach(other=>{ if(other!==card && other.hasAttribute('data-open')) setCard(other, false); });
       setCard(card, willOpen);
     }
-    head.addEventListener('click', toggle);
+    // click anywhere on the card toggles it — but let real links (자세히 보기) navigate
+    card.addEventListener('click', e=>{ if(e.target.closest('a')) return; toggle(); });
     head.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); } });
   });
   // kick off any card that starts open (so its preview video plays on load)
