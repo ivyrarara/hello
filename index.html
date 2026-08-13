@@ -197,6 +197,7 @@
     margin-bottom:16px;
     display:block;
   }
+  .label.secondary{color:var(--muted); margin-top:34px;}
 
   .about-grid{display:grid; grid-template-columns:1fr; gap:16px;}
   .about p{font-size:16px; max-width:56ch; color:rgba(237,237,237,0.62);}
@@ -365,15 +366,15 @@
   </header>
 
   <section class="builds reveal">
-    <span class="label">Recently Built</span>
-    <div class="build-grid" id="buildGrid">
+    <span class="label">Featured Studies</span>
+    <div class="build-grid">
       <article class="build-card" data-open>
         <div class="build-head" role="button" tabindex="0" aria-expanded="true" aria-controls="bp-agent">
           <div class="build-top">
-            <span class="build-name">Agent</span>
+            <span class="build-name">100-Day Agent</span>
             <svg class="build-chev" viewBox="0 0 16 10" fill="none" aria-hidden="true"><path d="M1.5 2 L8 8 L14.5 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <p class="build-desc" data-en="A 100-day field study that mined agent-design insights from real use">100일간 직접 쓰며 에이전트 설계 인사이트를 캐낸 필드 스터디</p>
+          <p class="build-desc" data-en="One agent, 100 days of continuous real-life use — raw interaction data, then design principles">하나의 에이전트를 100일간 실사용하며 raw 데이터를 축적한 필드 스터디</p>
           <span class="build-tag">FIELD STUDY · AI AGENT</span>
         </div>
         <div class="build-panel" id="bp-agent"><div class="build-panel-inner"><div class="bp-pad">
@@ -393,10 +394,13 @@
         </div>
         <div class="build-panel" id="bp-mohsh"><div class="build-panel-inner"><div class="bp-pad">
           <img class="bp-media" src="./mohsh-ig-profile.jpg" alt="Live @mohsh_official Instagram profile" loading="lazy">
-          <p class="bp-text" data-en="Can a brand stay consistent on SNS with nobody running it? The identity is pinned as a photo filter and the S/H persona diaries become the image prompts, then it auto-posts to Instagram only when it passes Claude's check — a true HOOTL.">브랜드 담당자 없이도 SNS를 일관되게 유지할 수 있을까? 아이덴티티를 '사진 필터'로 고정하고, S·H 페르소나의 일기를 이미지·캡션 프롬프트로 바꿔 생성 — Claude 검수를 통과한 것만 Instagram에 자동 게시하는 HOOTL 시스템</p>
+          <p class="bp-text" data-en="The brand identity is pinned as a photo filter and the S/H persona diaries become the image prompts, then it auto-posts to Instagram only when it passes Claude's check — a true HOOTL system.">브랜드 아이덴티티를 '사진 필터'로 고정하고, S·H 페르소나의 일기를 이미지·캡션 프롬프트로 바꿔 생성 — Claude 검수를 통과한 것만 Instagram에 자동 게시하는 HOOTL 시스템</p>
           <a class="bp-link" href="./mohsh.html" data-en="View the case study →">자세히 보기 →</a>
         </div></div></div>
       </article>
+    </div>
+    <span class="label secondary">Product Experiments</span>
+    <div class="build-grid">
       <article class="build-card">
         <div class="build-head" role="button" tabindex="0" aria-expanded="false" aria-controls="bp-scheduler">
           <div class="build-top">
@@ -408,7 +412,7 @@
         </div>
         <div class="build-panel" id="bp-scheduler"><div class="build-panel-inner"><div class="bp-pad">
           <video class="bp-media" data-vko="./scheduler-demo.webm" data-ven="./scheduler-demo-en.webm" autoplay muted loop playsinline preload="none"></video>
-          <p class="bp-text" data-en="A web app that ends the fatigue of repeatedly checking your schedule. At-a-glance info is separated from info that needs sorting — weekly/monthly views, per-date supplies and market-split shopping, all in one view.">일정을 반복해서 확인하는 피로를 없애는 웹앱. 한 눈에 볼 정보와 구분이 필요한 정보를 나눠 배치하고, 주간/월간 뷰·날짜별 준비물·마트별 장보기를 한눈에.</p>
+          <p class="bp-text" data-en="A web app that ends the fatigue of repeatedly checking your schedule. At-a-glance info is separated from info that needs sorting — weekly/monthly views, per-date supplies and market-split shopping, all in one app.">일정을 반복해서 확인하는 피로를 없애는 웹앱. 한 눈에 볼 정보와 구분이 필요한 정보를 나눠 배치하고, 주간/월간 뷰·날짜별 준비물·마트별 장보기를 한 앱으로 해결.</p>
           <a class="bp-link" href="./scheduler.html" data-en="View the case study →">자세히 보기 →</a>
         </div></div></div>
       </article>
