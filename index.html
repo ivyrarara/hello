@@ -127,7 +127,7 @@
     position:relative;
     height:44px;
     display:flex; align-items:center;
-    touch-action:none;
+    pointer-events:none;
   }
   .spectrum-track::before{
     content:"";
@@ -207,7 +207,7 @@
   .ins-thesis{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-size:18px; font-weight:500; line-height:1.4; color:var(--text); max-width:40ch; margin:2px 0 26px;}
   .ins-list{display:flex; flex-direction:column; gap:16px;}
   .ins-head{display:flex; align-items:baseline; gap:9px; margin-bottom:5px;}
-  .ins-tag{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a2);}
+  .ins-tag{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a1);}
   .ins-from{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10px; letter-spacing:0.04em; color:var(--muted);}
   .ins-p{font-family:'Inter','Noto Sans KR', sans-serif; font-size:14px; font-weight:400; line-height:1.5; color:rgba(237,237,237,0.7); max-width:52ch;}
 
@@ -355,7 +355,7 @@
     <div class="spectrum-block">
       <div class="spectrum-labels"><span id="labelJ">Judgment</span><span id="labelE">Empathy</span></div>
       <div class="spectrum-track" id="track">
-        <div class="spectrum-handle" id="handle" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="58" tabindex="0"></div>
+        <div class="spectrum-handle" id="handle" aria-hidden="true"></div>
       </div>
       <div class="spectrum-caption" id="caption">이 지점에서 대부분의 프로덕트가 만들어집니다</div>
     </div>
@@ -606,25 +606,6 @@
   }
   startAuto();
 
-  function updateFromEvent(e){
-    const rect = track.getBoundingClientRect();
-    const x = (e.clientX ?? (e.touches && e.touches[0].clientX)) - rect.left;
-    setPos((x/rect.width)*100);
-  }
-  handle.addEventListener('pointerdown', e=>{
-    dragging=true; stopAuto(); handle.classList.add('no-transition'); handle.setPointerCapture(e.pointerId);
-  });
-  track.addEventListener('pointerdown', e=>{
-    dragging=true; stopAuto(); handle.classList.add('no-transition'); updateFromEvent(e);
-  });
-  window.addEventListener('pointermove', e=>{ if(dragging) updateFromEvent(e); });
-  window.addEventListener('pointerup', ()=>{
-    if(dragging){ dragging=false; handle.classList.remove('no-transition'); startAuto(); }
-  });
-  handle.addEventListener('keydown', e=>{
-    if(e.key==='ArrowLeft'){ stopAuto(); setPos(pos-4); }
-    if(e.key==='ArrowRight'){ stopAuto(); setPos(pos+4); }
-  });
 
   // build-card accordion — tap header to expand; the first card is open by default
   const buildCards = [...document.querySelectorAll('.build-card')];
