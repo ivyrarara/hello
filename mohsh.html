@@ -49,6 +49,8 @@
   figure{margin-top:18px;}
   figure img{display:block; width:100%; height:auto; border-radius:12px; border:1px solid var(--line);}
   figcaption{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:12px; color:var(--muted); text-align:center; margin-top:12px;}
+  .ig-shot{border-radius:12px; border:1px solid var(--line); overflow:hidden;}
+  .ig-shot img{display:block; width:100%; height:auto; border-radius:0; border:none; margin:0;}
 
   /* pipeline flow diagram */
   .pipe{margin-top:8px;}
@@ -267,8 +269,10 @@
     <span class="label">Generated Output</span>
     <p class="body-text" data-en="A month of posts generated to the brand pillars, piling up on the Instagram account">브랜드 pillar에 맞추어 생성된 피드들이 한달동안 인스타그램 계정에 쌓여가는 모습</p>
     <figure>
-      <img src="./mohsh-ig-header.jpg" alt="Live @mohsh_official Instagram header" loading="lazy">
-      <img src="./mohsh-ig-feed.jpg" alt="Live @mohsh_official Instagram feed" loading="lazy" style="margin-top:10px;">
+      <div class="ig-shot">
+        <img src="./mohsh-ig-header.jpg" alt="Live @mohsh_official Instagram header" loading="lazy">
+        <img src="./mohsh-ig-feed.jpg" alt="Live @mohsh_official Instagram feed" loading="lazy">
+      </div>
       <figcaption data-en="The @mohsh_official profile">실제 @mohsh_official 프로필</figcaption>
     </figure>
   </section>
