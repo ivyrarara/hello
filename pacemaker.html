@@ -77,8 +77,10 @@
   .mstep .md{font-size:13.5px; color:rgba(237,237,237,0.62); margin-top:3px; line-height:1.5;}
 
   .contact-links{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:20px;}
-  .magnetic a{position:relative; display:inline-flex; align-items:center; justify-content:center; line-height:1; font-size:14.5px; padding:11px 20px 10px; color:rgba(255,255,255,0.95); border:1px solid rgba(255,255,255,0.16); border-radius:99px; background:linear-gradient(180deg, #3d4046 0%, #202226 55%, #0a0b0c 100%); box-shadow:inset 0 2px 2px rgba(255,255,255,0.3), inset 0 -7px 12px rgba(0,0,0,0.75), 0 6px 18px rgba(0,0,0,0.65), 0 0 30px rgba(0,0,0,0.55); transition:background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;}
-  .magnetic a:hover{border-color:rgba(124,245,208,0.5); background:linear-gradient(180deg, #454850 0%, #24262a 55%, #0c0d0e 100%); box-shadow:inset 0 2px 2px rgba(255,255,255,0.35), inset 0 -7px 12px rgba(0,0,0,0.75), 0 6px 18px rgba(0,0,0,0.65), 0 0 32px rgba(124,245,208,0.30);}
+  .magnetic a{position:relative; display:inline-flex; align-items:center; justify-content:center; line-height:1; font-size:14.5px; padding:11px 20px 10px; border:1px solid rgba(255,255,255,0.24); border-radius:99px; background-image:linear-gradient(180deg, #ffffff 0%, #dedede 50%, #a8a8a8 100%); -webkit-background-clip:text; background-clip:text; color:transparent; box-shadow:inset 0 2px 2px rgba(255,255,255,0.3), inset 0 0 20px rgba(255,255,255,0.06), inset 0 -5px 8px rgba(0,0,0,0.5), 0 6px 18px rgba(0,0,0,0.55), 0 0 26px rgba(0,0,0,0.45); transition:box-shadow 0.25s ease, border-color 0.25s ease;}
+  .magnetic a::before{content:""; position:absolute; inset:0; z-index:-1; border-radius:inherit; background:linear-gradient(180deg, #34373c 0%, #1e2024 55%, #121315 100%); transition:background 0.25s ease;}
+  .magnetic a:hover{border-color:rgba(124,245,208,0.5); box-shadow:inset 0 2px 2px rgba(255,255,255,0.35), inset 0 0 22px rgba(255,255,255,0.08), inset 0 -5px 8px rgba(0,0,0,0.5), 0 6px 18px rgba(0,0,0,0.55), 0 0 28px rgba(124,245,208,0.28);}
+  .magnetic a:hover::before{background:linear-gradient(180deg, #3a3d43 0%, #222428 55%, #141516 100%);}
 
   footer{padding:30px 0 60px; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted);}
 
