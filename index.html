@@ -260,59 +260,57 @@
     font-family:'IBM Plex Mono','Noto Sans KR', monospace;
     font-weight:700;
     font-size:13px; letter-spacing:0.03em;
+    border:1px solid transparent;
+    border-radius:99px;
+    background:linear-gradient(180deg, rgba(180,255,230,0.28) 0%, rgba(124,245,208,0.14) 35%, rgba(124,245,208,0.08) 100%);
+    backdrop-filter:blur(10px) saturate(170%);
+    -webkit-backdrop-filter:blur(10px) saturate(170%);
+    box-shadow:
+      inset 0 1px 1px rgba(255,255,255,0.3),
+      0 4px 14px rgba(0,0,0,0.25);
+    transition:background 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+  }
+  .bp-label{
     background-image:linear-gradient(180deg, #baffe8 0%, var(--a2) 45%, #4c9f83 100%);
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
-    border:1px solid transparent;
-    border-radius:99px;
-    box-shadow:
-      inset 0 1px 1px rgba(255,255,255,0.3),
-      0 4px 14px rgba(0,0,0,0.25);
-    transition:box-shadow 0.25s ease, transform 0.15s ease;
-  }
-  .bp-link::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    z-index:-2;
-    border-radius:inherit;
-    background:linear-gradient(180deg, rgba(180,255,230,0.28) 0%, rgba(124,245,208,0.14) 35%, rgba(124,245,208,0.08) 100%);
-    backdrop-filter:blur(10px) saturate(170%);
-    -webkit-backdrop-filter:blur(10px) saturate(170%);
-    transition:background 0.25s ease;
-    pointer-events:none;
   }
   .bp-link::before{
     content:"";
     position:absolute;
     inset:0;
-    z-index:-1;
     border-radius:inherit;
     padding:1.5px;
     background:conic-gradient(from 0deg,
-      rgba(124,245,208,0.14) 0deg, rgba(124,245,208,0.14) 60deg,
-      rgba(124,245,208,0.08) 78deg,
-      rgba(124,245,208,0.5) 85deg,
-      rgba(170,255,225,0.75) 95deg,
-      rgba(124,245,208,0.4) 112deg,
-      rgba(124,245,208,0.15) 128deg, rgba(124,245,208,0.15) 258deg,
-      rgba(124,245,208,0.32) 264deg,
-      rgba(124,245,208,0.75) 272deg,
-      rgba(200,255,235,1) 283deg,
-      rgba(124,245,208,0.6) 293deg,
-      rgba(124,245,208,0.2) 305deg,
-      rgba(124,245,208,0.14) 320deg, rgba(124,245,208,0.14) 360deg);
+      rgba(124,245,208,0.14) 0deg, rgba(124,245,208,0.14) 55deg,
+      rgba(124,245,208,0.11) 65deg,
+      rgba(124,245,208,0.1) 75deg,
+      rgba(124,245,208,0.16) 85deg,
+      rgba(124,245,208,0.26) 92deg,
+      rgba(170,255,225,0.4) 100deg,
+      rgba(124,245,208,0.3) 108deg,
+      rgba(124,245,208,0.2) 118deg,
+      rgba(124,245,208,0.16) 128deg,
+      rgba(124,245,208,0.14) 140deg, rgba(124,245,208,0.14) 248deg,
+      rgba(124,245,208,0.18) 258deg,
+      rgba(124,245,208,0.3) 265deg,
+      rgba(124,245,208,0.45) 271deg,
+      rgba(124,245,208,0.65) 277deg,
+      rgba(200,255,235,0.85) 283deg,
+      rgba(124,245,208,0.6) 289deg,
+      rgba(124,245,208,0.4) 295deg,
+      rgba(124,245,208,0.25) 302deg,
+      rgba(124,245,208,0.17) 310deg,
+      rgba(124,245,208,0.14) 322deg, rgba(124,245,208,0.14) 360deg);
     -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite:xor;
     mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite:exclude;
     pointer-events:none;
   }
-  .bp-link:hover::after{
-    background:linear-gradient(180deg, rgba(190,255,235,0.36) 0%, rgba(124,245,208,0.22) 35%, rgba(124,245,208,0.12) 100%);
-  }
   .bp-link:hover{
+    background:linear-gradient(180deg, rgba(190,255,235,0.36) 0%, rgba(124,245,208,0.22) 35%, rgba(124,245,208,0.12) 100%);
     box-shadow:
       inset 0 1px 1px rgba(255,255,255,0.35),
       0 6px 18px rgba(124,245,208,0.25);
@@ -475,7 +473,7 @@
         <div class="build-panel" id="bp-agent"><div class="build-panel-inner"><div class="bp-pad">
           <video class="bp-media" data-vko="./agent-demo.webm" data-ven="./agent-demo-en.webm" autoplay muted loop playsinline preload="none"></video>
           <p class="bp-text" data-en="A field study: I lived with my own Telegram agent for 100 days, collected its speech-and-silence logs, and drew out agent-design principles — Judgment vs. Empathy.">직접 만든 텔레그램 에이전트를 100일간 쓰며 발화·침묵 로그를 모으고, 거기서 판단(Judgment)과 공감(Empathy)이라는 에이전트 설계 원칙을 뽑아낸 필드 스터디.</p>
-          <a class="bp-link" href="./pacemaker.html" data-en="Read more">자세히보기</a>
+          <a class="bp-link" href="./pacemaker.html"><span class="bp-label" data-en="Read more">자세히보기</span></a>
         </div></div></div>
       </article>
       <article class="build-card">
@@ -490,7 +488,7 @@
         <div class="build-panel" id="bp-mohsh"><div class="build-panel-inner"><div class="bp-pad">
           <img class="bp-media" src="./mohsh-ig-profile.jpg" alt="Live @mohsh_official Instagram profile" loading="lazy">
           <p class="bp-text" data-en="Built on a locked brand spec and S/H personas, the system judges fresh trend signals every cycle, generates and verifies the content itself, and auto-posts to Instagram only when it passes — a HOOTL system implementation test.">고정된 브랜드 스펙과 S·H 페르소나를 기반으로, 매 주기 트렌드 신호까지 스스로 판단해 콘텐츠를 생성·검증하고, 통과한 것만 Instagram에 자동 게시하는 HOOTL 시스템 구현테스트.</p>
-          <a class="bp-link" href="./mohsh.html" data-en="Read more">자세히보기</a>
+          <a class="bp-link" href="./mohsh.html"><span class="bp-label" data-en="Read more">자세히보기</span></a>
         </div></div></div>
       </article>
     </div>
@@ -508,7 +506,7 @@
         <div class="build-panel" id="bp-scheduler"><div class="build-panel-inner"><div class="bp-pad">
           <video class="bp-media" data-vko="./scheduler-demo.webm" data-ven="./scheduler-demo-en.webm" autoplay muted loop playsinline preload="none"></video>
           <p class="bp-text" data-en="A web app that ends the fatigue of repeatedly checking your schedule. At-a-glance info is separated from info that needs sorting — weekly/monthly views, per-date supplies and market-split shopping, all in one app.">일정을 반복해서 확인하는 피로를 없애는 웹앱. 한 눈에 볼 정보와 구분이 필요한 정보를 나눠 배치하고, 주간/월간 뷰·날짜별 준비물·마트별 장보기를 한 앱으로 해결.</p>
-          <a class="bp-link" href="./scheduler.html" data-en="Read more">자세히보기</a>
+          <a class="bp-link" href="./scheduler.html"><span class="bp-label" data-en="Read more">자세히보기</span></a>
         </div></div></div>
       </article>
       <article class="build-card">
@@ -523,7 +521,7 @@
         <div class="build-panel" id="bp-recipe"><div class="build-panel-inner"><div class="bp-pad">
           <video class="bp-media" data-vko="./recipe-demo.webm" data-ven="./recipe-demo-en.webm" autoplay muted loop playsinline preload="none"></video>
           <p class="bp-text" data-en="From just a few screenshots or photos of handwritten recipes, AI parses the ingredients and steps; adjust one ingredient and the rest scale by ratio — a PWA.">캡처나 손글씨 사진 몇 장만으로 AI가 재료·순서를 파싱해 정리하고, 재료 하나만 조절하면 나머지가 비율대로 자동 계산되는 PWA.</p>
-          <a class="bp-link" href="./recipebook.html" data-en="Read more">자세히보기</a>
+          <a class="bp-link" href="./recipebook.html"><span class="bp-label" data-en="Read more">자세히보기</span></a>
         </div></div></div>
       </article>
     </div>
