@@ -250,8 +250,20 @@
   .bp-pad{margin-top:14px; padding-top:14px; border-top:1px solid var(--line);}
   .bp-media{display:block; margin:0 auto 14px; max-width:100%; max-height:420px; border-radius:12px; border:1px solid var(--line); background:#000;}
   .bp-text{font-size:13.5px; color:rgba(237,237,237,0.74); line-height:1.6;}
-  .bp-link{display:inline-block; margin-top:13px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:12px; letter-spacing:0.03em; color:var(--a2);}
-  .bp-link:hover{text-decoration:underline;}
+  .bp-link{
+    display:inline-flex; align-items:center; gap:6px;
+    margin-top:14px;
+    padding:8px 16px 7px;
+    font-family:'IBM Plex Mono','Noto Sans KR', monospace;
+    font-size:12.5px; letter-spacing:0.03em;
+    color:var(--a2);
+    border:1px solid rgba(124,245,208,0.45);
+    border-radius:99px;
+    background:rgba(124,245,208,0.06);
+    transition:background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+  }
+  .bp-link:hover{background:rgba(124,245,208,0.16); border-color:var(--a2); box-shadow:0 4px 14px rgba(124,245,208,0.18);}
+  .bp-link:active{transform:scale(0.97);}
 
   /* case */
   .case{
