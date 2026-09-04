@@ -281,6 +281,23 @@
     border:1px solid rgba(255,255,255,0.28);
     pointer-events:none;
   }
+  .bp-link::after{
+    content:"";
+    position:absolute;
+    inset:-4px;
+    border-radius:inherit;
+    background:conic-gradient(from 0deg,
+      transparent 0%, transparent 62%,
+      rgba(124,245,208,0.7) 72%,
+      #fff 80%,
+      rgba(124,245,208,0.7) 88%,
+      transparent 96%, transparent 100%);
+    filter:blur(4px);
+    opacity:0.85;
+    z-index:-1;
+    animation:bp-glow 4.5s linear infinite;
+  }
+  @keyframes bp-glow{ to{ transform:rotate(360deg); } }
   .bp-link:hover{
     border-color:rgba(124,245,208,0.7);
     background:linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.02) 50%, rgba(124,245,208,0.16) 100%);
@@ -361,20 +378,19 @@
   }
   .magnetic a.primary{
     overflow:hidden; isolation:isolate;
-    border-width:1px; border-color:rgba(255,255,255,0.65); color:var(--a2);
+    border-width:1px; border-color:rgba(255,255,255,0.6); color:var(--a2);
     background:transparent;
     backdrop-filter:none; -webkit-backdrop-filter:none;
     box-shadow:
-      inset -2px -2px 2px rgba(255,255,255,0.9),
-      inset 2px 2px 3px rgba(255,255,255,0.4),
-      inset 4px 5px 12px rgba(0,0,0,0.6),
-      inset -6px -6px 12px rgba(124,245,208,0.18),
+      inset -2px -2px 2px rgba(255,255,255,0.75),
+      inset 2px 2px 2px rgba(255,255,255,0.25),
+      inset -4px -4px 8px rgba(124,245,208,0.14),
       0 6px 20px rgba(0,0,0,0.3);
   }
   /* actual blurred copy of the .case backdrop, clipped to the pill — real frosted glass */
   .magnetic a.primary .frost{
     position:absolute; z-index:-2; pointer-events:none;
-    background-image:linear-gradient(rgba(11,12,14,0.62), rgba(11,12,14,0.62)), url('./rabbit-jump.jpg');
+    background-image:linear-gradient(rgba(11,12,14,0.5), rgba(11,12,14,0.5)), url('./rabbit-jump.jpg');
     background-size:cover; background-position:center;
     filter:blur(2px) saturate(45%) brightness(1.0);
   }
