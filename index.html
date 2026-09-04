@@ -271,6 +271,24 @@
       0 4px 14px rgba(0,0,0,0.25);
     transition:background 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
   }
+  .bp-link::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:inherit;
+    padding:1.5px;
+    background:conic-gradient(from 45deg,
+      transparent 0deg, transparent 80deg,
+      rgba(124,245,208,0.9) 95deg, #fff 100deg, rgba(124,245,208,0.7) 108deg,
+      transparent 125deg, transparent 260deg,
+      rgba(124,245,208,0.9) 275deg, #fff 280deg, rgba(124,245,208,0.7) 288deg,
+      transparent 305deg, transparent 360deg);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite:exclude;
+    pointer-events:none;
+  }
   .bp-link:hover{
     background:rgba(124,245,208,0.2);
     box-shadow:
