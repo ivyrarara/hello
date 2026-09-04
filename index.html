@@ -251,6 +251,7 @@
   .bp-media{display:block; margin:0 auto 14px; max-width:100%; max-height:420px; border-radius:12px; border:1px solid var(--line); background:#000;}
   .bp-text{font-size:13.5px; color:rgba(237,237,237,0.74); line-height:1.6;}
   .bp-link{
+    position:relative;
     display:flex; align-items:center; justify-content:center;
     width:fit-content;
     margin:18px auto 0;
@@ -267,6 +268,16 @@
     box-shadow:inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -1px 1px rgba(0,0,0,0.15), 0 4px 14px rgba(0,0,0,0.25);
     transition:background 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
   }
+  .bp-link::before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    border-radius:inherit;
+    background:conic-gradient(from 0deg, transparent 0deg, transparent 265deg, rgba(255,255,255,0.95) 300deg, var(--a2) 328deg, transparent 355deg);
+    z-index:-1;
+    animation:bp-sweep 3.2s linear infinite;
+  }
+  @keyframes bp-sweep{ to{ transform:rotate(360deg); } }
   .bp-link:hover{
     background:linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04) 62%), rgba(124,245,208,0.34);
     box-shadow:inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 1px rgba(0,0,0,0.15), 0 6px 18px rgba(124,245,208,0.28);
