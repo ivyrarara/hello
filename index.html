@@ -6,7 +6,7 @@
 <title>안녕하세요</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;800&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#0b0c0e;
@@ -255,18 +255,15 @@
     width:fit-content;
     margin:18px auto 0;
     padding:7px 18px 6px;
-    font-family:'IBM Plex Mono','Noto Sans KR', monospace;
-    font-weight:700;
-    font-size:13px; letter-spacing:0.03em;
+    font-family:'Inter','Noto Sans KR', sans-serif;
+    font-weight:800;
+    font-size:13px; letter-spacing:0.01em;
     border:1px solid transparent;
     border-radius:99px;
-    background:linear-gradient(180deg, rgba(180,255,230,0.28) 0%, rgba(124,245,208,0.14) 35%, rgba(124,245,208,0.08) 100%);
-    backdrop-filter:blur(10px) saturate(170%);
-    -webkit-backdrop-filter:blur(10px) saturate(170%);
     box-shadow:
       inset 0 1px 1px rgba(255,255,255,0.3),
       0 4px 14px rgba(0,0,0,0.25);
-    transition:background 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+    transition:box-shadow 0.25s ease, transform 0.15s ease;
   }
   .bp-label{
     background-image:linear-gradient(180deg, #baffe8 0%, var(--a2) 45%, #4c9f83 100%);
@@ -279,7 +276,6 @@
     position:absolute;
     inset:0;
     border-radius:inherit;
-    padding:1.5px;
     background:conic-gradient(from 0deg,
       rgba(124,245,208,0.14) 0deg, rgba(124,245,208,0.14) 55deg,
       rgba(124,245,208,0.11) 65deg,
@@ -301,14 +297,23 @@
       rgba(124,245,208,0.25) 302deg,
       rgba(124,245,208,0.17) 310deg,
       rgba(124,245,208,0.14) 322deg, rgba(124,245,208,0.14) 360deg);
-    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite:xor;
-    mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite:exclude;
     pointer-events:none;
   }
-  .bp-link:hover{
+  .bp-link::after{
+    content:"";
+    position:absolute;
+    inset:1.5px;
+    border-radius:inherit;
+    background:linear-gradient(180deg, rgba(180,255,230,0.28) 0%, rgba(124,245,208,0.14) 35%, rgba(124,245,208,0.08) 100%);
+    backdrop-filter:blur(10px) saturate(170%);
+    -webkit-backdrop-filter:blur(10px) saturate(170%);
+    transition:background 0.25s ease;
+    pointer-events:none;
+  }
+  .bp-link:hover::after{
     background:linear-gradient(180deg, rgba(190,255,235,0.36) 0%, rgba(124,245,208,0.22) 35%, rgba(124,245,208,0.12) 100%);
+  }
+  .bp-link:hover{
     box-shadow:
       inset 0 1px 1px rgba(255,255,255,0.35),
       0 6px 18px rgba(124,245,208,0.25);
@@ -384,7 +389,7 @@
   }
   .magnetic a.primary{
     overflow:hidden; isolation:isolate;
-    border-width:1px; border-color:rgba(124,245,208,0.7);
+    border-width:1px; border-color:transparent;
     background-image:none;
     -webkit-background-clip:border-box; background-clip:border-box;
     color:var(--a2);
@@ -396,16 +401,45 @@
       inset -4px -4px 8px rgba(124,245,208,0.14),
       0 6px 20px rgba(0,0,0,0.3);
   }
-  .magnetic a.primary::before{ content:none; }
   /* actual blurred copy of the .case backdrop, clipped to the pill — real frosted glass */
   .magnetic a.primary .frost{
-    position:absolute; z-index:-2; pointer-events:none;
+    position:absolute; z-index:-3; pointer-events:none;
     background-image:linear-gradient(rgba(11,12,14,0.5), rgba(11,12,14,0.5)), url('./rabbit-jump.jpg');
     background-size:cover; background-position:center;
     filter:blur(2px) saturate(45%) brightness(1.0);
   }
+  /* same border-light ring as the card CTA, for a consistent button style */
+  .magnetic a.primary::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-2;
+    border-radius:inherit;
+    pointer-events:none;
+    background:conic-gradient(from 0deg,
+      rgba(124,245,208,0.14) 0deg, rgba(124,245,208,0.14) 55deg,
+      rgba(124,245,208,0.11) 65deg,
+      rgba(124,245,208,0.1) 75deg,
+      rgba(124,245,208,0.16) 85deg,
+      rgba(124,245,208,0.26) 92deg,
+      rgba(170,255,225,0.4) 100deg,
+      rgba(124,245,208,0.3) 108deg,
+      rgba(124,245,208,0.2) 118deg,
+      rgba(124,245,208,0.16) 128deg,
+      rgba(124,245,208,0.14) 140deg, rgba(124,245,208,0.14) 248deg,
+      rgba(124,245,208,0.18) 258deg,
+      rgba(124,245,208,0.3) 265deg,
+      rgba(124,245,208,0.45) 271deg,
+      rgba(124,245,208,0.65) 277deg,
+      rgba(200,255,235,0.85) 283deg,
+      rgba(124,245,208,0.6) 289deg,
+      rgba(124,245,208,0.4) 295deg,
+      rgba(124,245,208,0.25) 302deg,
+      rgba(124,245,208,0.17) 310deg,
+      rgba(124,245,208,0.14) 322deg, rgba(124,245,208,0.14) 360deg);
+  }
   .magnetic a.primary::after{
-    content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+    content:""; position:absolute; inset:1.5px; z-index:-1; border-radius:inherit; pointer-events:none;
     background:linear-gradient(135deg, rgba(124,245,208,0.22), rgba(124,245,208,0.07) 62%);
   }
   .magnetic a.primary:hover::after{background:linear-gradient(135deg, rgba(124,245,208,0.30), rgba(124,245,208,0.12) 62%);}
