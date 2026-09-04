@@ -260,21 +260,34 @@
     font-family:'IBM Plex Mono','Noto Sans KR', monospace;
     font-weight:700;
     font-size:13px; letter-spacing:0.03em;
-    color:var(--a2);
+    background-image:linear-gradient(180deg, #baffe8 0%, var(--a2) 45%, #4c9f83 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
     border:1px solid transparent;
     border-radius:99px;
-    background:rgba(124,245,208,0.12);
-    backdrop-filter:blur(10px) saturate(170%);
-    -webkit-backdrop-filter:blur(10px) saturate(170%);
     box-shadow:
       inset 0 1px 1px rgba(255,255,255,0.3),
       0 4px 14px rgba(0,0,0,0.25);
-    transition:background 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+    transition:box-shadow 0.25s ease, transform 0.15s ease;
+  }
+  .bp-link::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:-2;
+    border-radius:inherit;
+    background:linear-gradient(180deg, rgba(180,255,230,0.28) 0%, rgba(124,245,208,0.14) 35%, rgba(124,245,208,0.08) 100%);
+    backdrop-filter:blur(10px) saturate(170%);
+    -webkit-backdrop-filter:blur(10px) saturate(170%);
+    transition:background 0.25s ease;
+    pointer-events:none;
   }
   .bp-link::before{
     content:"";
     position:absolute;
     inset:0;
+    z-index:-1;
     border-radius:inherit;
     padding:1.5px;
     background:conic-gradient(from 0deg,
@@ -296,8 +309,10 @@
     mask-composite:exclude;
     pointer-events:none;
   }
+  .bp-link:hover::after{
+    background:linear-gradient(180deg, rgba(190,255,235,0.36) 0%, rgba(124,245,208,0.22) 35%, rgba(124,245,208,0.12) 100%);
+  }
   .bp-link:hover{
-    background:rgba(124,245,208,0.2);
     box-shadow:
       inset 0 1px 1px rgba(255,255,255,0.35),
       0 6px 18px rgba(124,245,208,0.25);
