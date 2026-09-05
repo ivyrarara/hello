@@ -57,15 +57,16 @@
   .pstep{display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:center; background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:15px 18px; position:relative; transition:border-color .5s ease, box-shadow .5s ease;}
   .ploop .pstep.cycle{border-color:var(--a2); box-shadow:0 0 0 1px rgba(124,245,208,0.55), 0 0 18px rgba(124,245,208,0.26);}
   .ploop .pstep.cycle .picon{border-color:rgba(124,245,208,0.5);}
+  .picon-wrap{display:flex; flex-direction:column; align-items:center; gap:6px; flex:none;}
   .picon{width:46px; height:46px; border-radius:12px; background:#0e1012; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; gap:3px; flex:none;}
   .picon svg{width:25px; height:25px; display:block;}
   .picon.duo svg{width:19px; height:19px;}
+  .pstep .pnum{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10px; font-weight:400; color:var(--muted); letter-spacing:0.08em;}
   .pstep .pt{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-weight:600; font-size:16px; line-height:1.25;}
-  .pstep .pt .pnum{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10px; font-weight:400; color:var(--muted); letter-spacing:0.08em; margin-right:8px;}
   .pstep .pt .tag{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10px; font-weight:400; letter-spacing:0.06em; color:var(--a1); border:1px solid rgba(110,123,255,0.4); border-radius:99px; padding:2px 8px; margin-left:8px; vertical-align:middle; white-space:nowrap;}
   .pstep .pd{font-size:13px; color:rgba(237,237,237,0.66); margin-top:4px; line-height:1.5;}
   .parrow{display:flex; justify-content:center; align-items:center; color:var(--a2); opacity:0.5; height:20px; font-size:15px;}
-  .pstep.final{border-color:rgba(124,245,208,1); background:rgba(124,245,208,0.05);}
+  .pstep.final{border-color:rgba(124,245,208,1); background:rgba(124,245,208,0.09);}
   .pgroup-label{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin:0 0 12px 3px;}
   .ploop{border:1px dashed rgba(124,245,208,0.32); border-radius:14px; padding:14px 12px; background:rgba(124,245,208,0.02);}
   .ploop-head{display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--a2); margin-bottom:12px; padding-left:2px;}
@@ -225,41 +226,56 @@
           <span data-en="Right before every generation · same cadence as the daily loop">생성 직전마다 · 데일리 루프와 같은 캐던스</span>
         </div>
         <div class="pstep">
-          <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l5.5 5.5"/><path d="M10 6.7v3.6l2.4 1.8"/></svg></div>
+          <div class="picon-wrap">
+            <span class="pnum">01</span>
+            <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l5.5 5.5"/><path d="M10 6.7v3.6l2.4 1.8"/></svg></div>
+          </div>
           <div>
-            <div class="pt"><span class="pnum">01</span><span data-en="Signal Agent">시그널 에이전트</span><span class="tag">signals.py</span></div>
+            <div class="pt"><span data-en="Signal Agent">시그널 에이전트</span><span class="tag">signals.py</span></div>
             <div class="pd" data-en="Pulls search interest from Google Trends + Naver DataLab, consumer language from Reddit, and a hand-kept context calendar — any source that's unavailable just contributes nothing, never a fabricated signal">Google 트렌드·Naver 데이터랩 검색 관심도, Reddit 소비자 언어, 수동 관리 컨텍스트 캘린더에서 신호를 모음 — 소스 하나가 죽어도 신호를 지어내지 않고 그냥 빠짐</div>
           </div>
         </div>
         <div class="parrow">↓</div>
         <div class="pstep">
-          <div class="picon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.7 5.7L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.3z"/></svg></div>
+          <div class="picon-wrap">
+            <span class="pnum">02</span>
+            <div class="picon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.7 5.7L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.3z"/></svg></div>
+          </div>
           <div>
-            <div class="pt"><span class="pnum">02</span><span data-en="Strategy Agent">전략 에이전트</span><span class="tag">Claude</span></div>
+            <div class="pt"><span data-en="Strategy Agent">전략 에이전트</span><span class="tag">Claude</span></div>
             <div class="pd" data-en="Turns the raw signals into 5 brand-filtered content candidates">원시 신호를 브랜드에 맞게 필터링한 컨텐츠 후보 5개로 전환</div>
           </div>
         </div>
         <div class="parrow">↓</div>
         <div class="pstep">
-          <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 18v-5"/><path d="M12 18V9"/><path d="M18 18V6"/></svg></div>
+          <div class="picon-wrap">
+            <span class="pnum">03</span>
+            <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 18v-5"/><path d="M12 18V9"/><path d="M18 18V6"/></svg></div>
+          </div>
           <div>
-            <div class="pt"><span class="pnum">03</span><span data-en="Independent Reviewer">독립 리뷰어</span><span class="tag">Gemini</span></div>
+            <div class="pt"><span data-en="Independent Reviewer">독립 리뷰어</span><span class="tag">Gemini</span></div>
             <div class="pd" data-en="A different provider scores each candidate on brand fit, signal strength, novelty and feasibility — without seeing the Strategy Agent's own reasoning">전략 에이전트와 다른 프로바이더가 브랜드 적합도·신호 강도·참신성·실현 가능성으로 각 후보를 채점 — 서로의 판단은 보지 않음</div>
           </div>
         </div>
         <div class="parrow">↓</div>
         <div class="pstep">
-          <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l9 9-9 9-9-9z"/></svg></div>
+          <div class="picon-wrap">
+            <span class="pnum">04</span>
+            <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l9 9-9 9-9-9z"/></svg></div>
+          </div>
           <div>
-            <div class="pt"><span class="pnum">04</span><span data-en="Decision Layer">결정 레이어</span></div>
+            <div class="pt"><span data-en="Decision Layer">결정 레이어</span></div>
             <div class="pd" data-en="Ranks the scored candidates against a hard threshold — no candidate clears it, and that run quietly ends in NO_RECOMMENDATION">채점된 후보를 임계값과 비교 — 기준을 넘는 후보가 없으면 그 실행은 조용히 NO_RECOMMENDATION으로 종료</div>
           </div>
         </div>
         <div class="parrow">↓</div>
         <div class="pstep final">
-          <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h9l3 3V20a.5.5 0 0 1-.5.5h-11A.5.5 0 0 1 6 20z"/><path d="M9 10h6M9 13.5h6M9 17h4"/></svg></div>
+          <div class="picon-wrap">
+            <span class="pnum">05</span>
+            <div class="picon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h9l3 3V20a.5.5 0 0 1-.5.5h-11A.5.5 0 0 1 6 20z"/><path d="M9 10h6M9 13.5h6M9 17h4"/></svg></div>
+          </div>
           <div>
-            <div class="pt"><span class="pnum">05</span><span data-en="Creative Brief">크리에이티브 브리프</span><span class="tag">Claude</span></div>
+            <div class="pt"><span data-en="Creative Brief">크리에이티브 브리프</span><span class="tag">Claude</span></div>
             <div class="pd" data-en="If selected, it's queued and consumed exactly once on that persona's next turn — feeding straight into step 03 (Prompt &amp; Caption) of the daily loop above">채택되면 큐에 저장되고, 해당 페르소나의 다음 차례에 정확히 한 번 소비됨 — 위 데일리 루프의 03(프롬프트·캡션 조립)으로 바로 합류</div>
           </div>
         </div>
