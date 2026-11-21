@@ -757,9 +757,15 @@
       if(willOpen) buildCards.forEach(other=>{ if(other!==card && other.hasAttribute('data-open')) setCard(other, false); });
       setCard(card, willOpen);
     }
-    // click anywhere on the card toggles it — but let real links (자세히 보기) navigate
-    card.addEventListener('click', e=>{ if(e.target.closest('a')) return; toggle(); });
+    // header toggles the card; clicking the expanded panel opens the detail page
+    head.addEventListener('click', toggle);
     head.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); } });
+    const panel = card.querySelector('.build-panel');
+    const link = card.querySelector('.bp-link');
+    const href = link ? link.getAttribute('href') : null;
+    if(panel && href){
+      panel.addEventListener('click', e=>{ if(e.target.closest('a')) return; window.location.href = href; });
+    }
   });
   // kick off any card that starts open (so its preview video plays on load)
   buildCards.forEach(card=>{ if(card.hasAttribute('data-open')) setCard(card, true); });
