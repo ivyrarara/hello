@@ -63,7 +63,8 @@
   .run-stats{display:flex; flex-wrap:wrap; gap:12px; margin-top:18px;}
   .stat{flex:1 1 140px; background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:18px 20px;}
   .stat .n{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:34px; line-height:1; letter-spacing:-0.02em;}
-  .stat .l{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-top:10px; display:block;}
+  .stat .n .u{font-family:'IBM Plex Mono', monospace; font-size:12.5px; font-weight:400; color:var(--muted); letter-spacing:0; margin-left:4px;}
+  .stat .l{font-family:'Inter','Noto Sans KR', sans-serif; font-size:12px; letter-spacing:0; color:var(--muted); margin-top:9px; display:block;}
   .stat.hl .n{color:var(--a2);}
 
   /* feature list */
@@ -146,13 +147,6 @@
         <span class="f-k out" data-en="Design change">설계 변경</span>
         <p class="f-chg" data-en="Scoring is now inferred from text replies as well as button taps — but never when it's ambiguous, to avoid mis-scoring.">버튼 탭뿐 아니라 텍스트 답장에서도 채점을 자동 추론 — 단, 애매하면 추론하지 않음(오채점 방지).</p>
       </div>
-      <div class="finding">
-        <span class="f-k" data-en="Observed">관찰</span>
-        <p class="f-obs" data-en="A direct &quot;Why?&quot; reads as nagging and puts you on the defensive.">"왜?"라고 직접 캐물으면 다그침처럼 느껴져 방어적이 된다.</p>
-        <div class="f-arrow"><svg viewBox="0 0 14 16" fill="none" aria-hidden="true"><path d="M7 1 V14 M2.5 9.5 L7 14 L11.5 9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <span class="f-k out" data-en="Design change">설계 변경</span>
-        <p class="f-chg" data-en="Added a third speech type — a &quot;reflection&quot; that mirrors the observed pattern and asks only an open question, instead of asking why.">관찰한 패턴을 비추고 열린 질문만 던지는 제3의 발화 유형 '성찰 질문'을 신설.</p>
-      </div>
     </div>
   </section>
 
@@ -160,9 +154,9 @@
     <span class="label">After 100 Days</span>
     <p class="body-text" data-en="The run is done. Over 100 days the agent weighed whether to speak 109 times and actually spoke first just 25 of them — it stayed silent the other 84. Restraint, not output, was the whole point.">실험이 끝났어요. 100일 동안 에이전트는 '지금 말할까, 말까'를 109번 저울질했고, 실제로 먼저 말을 건 건 단 25번 — 나머지 84번은 침묵을 택했습니다. 많이 말하는 게 아니라 말을 아끼는 것이 핵심이었어요.</p>
     <div class="run-stats">
-      <div class="stat"><div class="n">100</div><span class="l" data-en="Days lived with it">일간 실사용</span></div>
-      <div class="stat"><div class="n">109</div><span class="l" data-en="Times it weighed speaking">말할지 판단한 횟수</span></div>
-      <div class="stat hl"><div class="n">25</div><span class="l" data-en="Times it chose to speak">먼저 건넨 말</span></div>
+      <div class="stat"><div class="n">100<span class="u">/days</span></div><span class="l" data-en="lived with it">실사용</span></div>
+      <div class="stat"><div class="n">109<span class="u">times</span></div><span class="l" data-en="weighed speaking">말할지 저울질</span></div>
+      <div class="stat hl"><div class="n">25<span class="u">times</span></div><span class="l" data-en="spoke first">먼저 발화</span></div>
     </div>
   </section>
 
@@ -175,6 +169,10 @@
     <div class="insight">
       <span class="num">02</span>
       <p data-en="Progress is measured by depth, not by commit count — not how much you did, but how deep you went">진행은 커밋 수가 아니라 깊이로 측정된다 — 얼마나 많이 했나가 아니라, 얼마나 깊이 들어갔나</p>
+    </div>
+    <div class="insight">
+      <span class="num">03</span>
+      <p data-en="Rather than a nagging &quot;Why?&quot;, an agent should mirror the observed pattern and ask an open question — speech that invites reflection, not interrogation">다그치듯 '왜?'라고 묻기보다, 관찰한 패턴을 비추고 열린 질문을 던지는 편이 낫다 — 추궁이 아니라 성찰을 끌어내는 발화</p>
     </div>
   </section>
 
