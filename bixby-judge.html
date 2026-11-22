@@ -55,6 +55,7 @@
   .mnum{width:32px; height:32px; border-radius:50%; border:1px solid var(--line); background:#0e1012; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--a2); z-index:1;}
   .mstep .mt{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-weight:600; font-size:16px; line-height:1.3; padding-top:5px;}
   .mstep .md{font-size:13.5px; color:rgba(237,237,237,0.62); margin-top:3px; line-height:1.5;}
+  .hiw-shot{display:block; width:100%; max-width:280px; height:auto; margin:4px auto 26px; border-radius:14px; border:1px solid var(--line);}
 
   /* scenario input card */
   .scen{background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin-top:20px;}
@@ -130,6 +131,7 @@
 
   <section class="reveal">
     <span class="label">How it works</span>
+    <img class="hiw-shot" src="./assets/bj-describe.jpg" alt="Speak-or-silence Judge — pick a household persona and describe a situation" loading="lazy">
     <div class="method">
       <div class="mstep"><div class="mnum">01</div><div><div class="mt" data-en="Describe">Describe · 상황 묘사</div><div class="md" data-en="Pick a household persona and enter a scenario">가정 페르소나를 고르고 시나리오 입력</div></div></div>
       <div class="mstep"><div class="mnum">02</div><div><div class="mt" data-en="Judge">Judge · 판정</div><div class="md" data-en="The engine judges the situation against the explicit UX rules — in what form it should speak to the user">엔진이 그 상황을 명시된 UX 룰에 비춰 어떤 형태로 유저에게 발화할지 판정</div></div></div>
