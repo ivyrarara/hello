@@ -78,7 +78,7 @@
   .vgrid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:18px 0 4px;}
   .vcell{background:#0e1012; border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
   .vcell .k{font-family:'IBM Plex Mono', monospace; font-size:9.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px;}
-  .vcell .v{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-size:15px; font-weight:600; color:var(--text);}
+  .vcell .v{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-size:15px; font-weight:600; color:var(--text); word-break:keep-all;}
   .vcell.now .v{color:var(--a2);}
   .vcell.mute .v{color:var(--muted); font-weight:500;}
 
@@ -144,35 +144,36 @@
     <p class="body-text" data-en="One real run. Not notify-or-not — every scenario resolves into four decisions (Action · Channel · To · Timing), each shown with the rules it fired and what would flip it.">실제 판정 하나. '알릴까 말까'가 아니라, 하나의 시나리오는 네 결정으로 떨어져요(Action · Channel · To · Timing) — 각 판정엔 발동한 룰과 '무엇이 바뀌면 뒤집히는지'가 붙어요.</p>
 
     <div class="scen">
-      <span class="persona" data-en="Young single + cat">젊은 1인 + 펫</span>
-      <p class="sit" data-en="After work the user cooks dinner, switches the induction burner off by hand, then settles on the sofa to eat while watching TV. The cat keeps crossing the kitchen counter. A still-warm empty pan sits on the induction top.">퇴근한 사용자가 저녁을 만들고 인덕션 화력을 직접 끈 뒤 거실 소파로 와서 TV로 예능을 보며 밥을 먹고 있다. 고양이는 주방 조리대 위를 오가고 있다. 인덕션 위에는 아직 따뜻한 빈 팬이 놓여 있다.</p>
+      <span class="persona" data-en="Family with a teen">청소년 3인 가정</span>
+      <p class="sit" data-en="Saturday, 3 p.m. — the combo washer-dryer Mom started from the machine finished its wash 30 minutes ago. Mom is in the living room watching a TV drama and hasn't taken the laundry out. Dad is out grocery shopping and their son is out with friends.">토요일 오후 3시, 엄마가 기기에서 시작한 콤보 세탁건조기의 세탁이 끝난 지 30분이 지났다. 엄마는 거실에서 TV로 드라마를 보고 있고 빨래는 아직 꺼내지 않았다. 아빠는 집 밖에서 장을 보고 있고 아들은 친구들과 놀러 나갔다.</p>
     </div>
 
     <div class="arrowdown"><svg viewBox="0 0 14 20" fill="none" aria-hidden="true"><path d="M7 1 V17 M2 12 L7 17 L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
 
     <div class="verdict">
-      <div class="vh" data-en="Scenario 13 · Always-on induction child lock, during TV">Scenario 13 · TV 시청 중 인덕션 상시 차일드락</div>
+      <div class="vh" data-en="Laundry done 30 min ago · watching a drama">세탁 종료 30분 · 드라마 시청 중</div>
       <div class="vbody">
-        <div class="wrow wo"><span class="wk">Without it</span><span class="wv" data-en="While the user eats, the cat roams the counter and could switch the induction on by accident — a risk that stays open.">사용자가 식사 중인데 고양이가 조리대를 오가다 인덕션을 실수로 켤 수 있는 상태가 계속 열려 있다.</span></div>
-        <div class="wrow wb"><span class="wk">With Bixby</span><span class="wv" data-en="Without the user lifting a finger, the child lock quietly turns on, stops an accidental start by the cat, and the TV isn't interrupted.">사용자가 아무것도 하지 않아도 인덕션 차일드락이 조용히 켜져 고양이가 실수로 켜는 일을 막고, TV 시청도 방해받지 않는다.</span></div>
+        <div class="wrow wo"><span class="wk">Without it</span><span class="wv" data-en="If Mom stays absorbed in her drama, the wet laundry sits in the machine, and Dad — out shopping — has no way to know.">엄마가 드라마에 빠져 있으면 젖은 빨래가 세탁기 안에 계속 방치되고, 장을 보는 아빠도 이를 알 수 없다.</span></div>
+        <div class="wrow wb"><span class="wk">With Bixby</span><span class="wv" data-en="30 minutes after the wash ends, an alert reaches the TV, the washer, and Mom's and Dad's phones so the wet laundry gets taken out right away; if it isn't, it re-alerts every 30 minutes.">세탁 종료 30분 뒤 TV와 세탁기, 엄마·아빠 폰으로 알림이 와서 젖은 빨래를 바로 꺼낼 수 있고, 꺼내지 않으면 30분마다 다시 알려 준다.</span></div>
 
         <div class="vgrid">
-          <div class="vcell"><span class="k">Action</span><span class="v" data-en="Act silently">말 없이 실행</span></div>
-          <div class="vcell mute"><span class="k">Channel</span><span class="v" data-en="none">없음</span></div>
-          <div class="vcell mute"><span class="k">To</span><span class="v">(none)</span></div>
+          <div class="vcell"><span class="k">Action</span><span class="v" data-en="Alert">알림</span></div>
+          <div class="vcell"><span class="k">Channel</span><span class="v" data-en="TV · phone · the device">TV · 폰 · 해당 기기</span></div>
+          <div class="vcell"><span class="k">To</span><span class="v" data-en="Mom · Dad · everyone home">엄마 · 아빠 · 집 안 모두</span></div>
           <div class="vcell now"><span class="k">Timing</span><span class="v" data-en="now">지금</span></div>
         </div>
 
-        <div class="vsec"><span class="vlbl">Why</span><p data-en="<span class='rtag'>R21</span> auto-enables the child lock: it's a pet household, always-on child lock is on, the last manual induction action was 7 min ago (over 5), and the lock is off — so the device enables it with no alert. <span class='rtag'>R19</span> doesn't fire: no hazard is detected (sensors: none), and a warm empty pan alone isn't assumed to be an empty-pot heat-up (<span class='rtag'>R4</span>). With no alert, the user watching TV doesn't affect the verdict."><span class="rtag">R21</span> 상시 차일드락 자동 켜짐: 반려동물 가정이고 상시 차일드락이 '사용중'이며, 인덕션 마지막 수동 조작이 7분 전(5분 이상)인데 차일드락이 꺼져 있어 기기가 차일드락을 알림 없이 켠다. <span class="rtag">R19</span>는 발동하지 않는다 — 위험 감지가 없고(기기 센서: 없음) 따뜻한 빈 팬이 있다는 것만으로는 빈 냄비 가열로 추정하지 않는다(<span class="rtag">R4</span>). 알림도 없으므로 TV 시청 중이라는 사실은 판정에 영향이 없다.</p></div>
+        <div class="vsec"><span class="vlbl">Why</span><p data-en="<span class='rtag'>R20</span> flags a major issue: 30 minutes after the wash ended, the washer door still hasn't been opened (device state). The device can't fix it alone and wet laundry only degrades the longer it sits, so it's major. R20 says to surface it on an active screen — Mom is watching TV, so it goes to the TV; alert settings were confirmed from the input. It isn't a bundling case for <span class='rtag'>R9</span> (R20 doesn't bundle). The job was started directly on the machine, so the starter can't be pinned down — so under <span class='rtag'>R16</span> it goes to the phones of both registered users (the couple). Both have app alerts on, so <span class='rtag'>R18</span> doesn't apply. The son hasn't registered a phone and is out, so he isn't a phone-alert target, and his app-alert setting doesn't affect this. Do Not Disturb is off. Missing input: whether the fridge screen is on is unknown, so it was left out of the channels. After this, until the washer door is opened and closed, it re-alerts every 30 minutes."><span class="rtag">R20</span> 중요 이슈: 세탁 종료 후 30분이 지나도록 세탁기 문을 열지 않았다(기기 상태). 기기가 스스로 해결할 수 없고 방치할수록 젖은 빨래 손실이 커지므로 중요 이슈다. R20은 활동 중인 스크린에 띄우라고 하며, 엄마가 TV를 보고 있어 TV에 낸다. 알림 설정 상태는 입력으로 확인했다. <span class="rtag">R9</span>의 묶음 대상이 아니다(R20은 묶지 않는다). 작업 시작이 '기기에서 직접 조작'이라 시작한 사람을 확정할 수 없다. 그래서 <span class="rtag">R16</span>에 따라 등록 사용자인 부부 모두의 폰에 낸다. 둘 다 앱 알림이 켜져 있어 <span class="rtag">R18</span>에 걸리지 않는다. 아들은 폰을 등록하지 않았고 집 밖이라 폰 알림 대상이 아니다. 아들의 앱 알림 꺼짐은 이 판정에 영향이 없다. 방해금지는 꺼져 있다. 입력 부족: 냉장고 화면이 켜져 있는지 알 수 없어 냉장고 화면은 채널에서 뺐다. 이후 세탁기 문을 열었다 닫을 때까지 30분 간격으로 다시 알린다.</p></div>
 
-        <div class="vsec"><span class="vlbl">Flips if</span><p data-en="If the last manual action becomes under 5 min ago, or the lock is already on, or always-on child lock is set to off, it won't auto-enable. And if sensors detect empty-pan heating or boil-over, <span class='rtag'>R19</span> instead turns the induction off and acts-then-reports via that device and the phone.">인덕션 마지막 수동 조작이 5분 미만으로 바뀌거나, 차일드락이 이미 켜져 있거나, 상시 차일드락이 '사용 안 함'이면 자동 켜기를 하지 않는다. 또 기기 센서가 빈 냄비 가열이나 끓어넘침을 감지하면 <span class="rtag">R19</span>에 따라 인덕션을 끄고 해당 기기와 폰으로 실행 후 보고한다.</p></div>
+        <div class="vsec"><span class="vlbl">Flips if</span><p data-en="If the device state confirms the washer door was opened and closed, under <span class='rtag'>R14</span> the alert is pulled from every channel and it stops re-alerting (the action becomes pulling the alert). If under 30 minutes had passed since the wash ended, it isn't a major issue and there's no alert. If Mom had app alerts off, no alert would reach her phone. If the input says the fridge screen is on, the fridge screen joins the channels.">세탁기 문을 열었다 닫은 것이 기기 상태로 확인되면 <span class="rtag">R14</span>에 따라 낸 알림을 모든 채널에서 거두고 다시 알리지 않는다(행동은 알림 거두기). 세탁 종료 후 경과가 30분 미만이었다면 중요 이슈가 아니어서 알림이 없다. 엄마가 앱 알림을 꺼 둔 상태였다면 엄마 폰에는 알림이 가지 않는다. 냉장고 화면이 켜져 있다고 입력되면 냉장고 화면도 채널에 들어간다.</p></div>
 
         <div class="vclash" data-en="✓ no rule clash">✓ 룰 충돌 없음</div>
 
         <div class="vrules">
-          <div class="vrule"><b>Rule 21</b> · <span data-en="A household using always-on child lock auto-enables the lock when there's no manual operation">상시 차일드락을 쓰는 가정은 수동 조작이 없으면 차일드락이 자동으로 켜진다</span></div>
-          <div class="vrule"><b>Rule 19</b> · <span data-en="Device-detected hazards are acted on first, then announced">기기가 감지한 위험은 먼저 조치하고 알린다</span></div>
-          <div class="vrule"><b>Rule 4</b> · <span data-en="If the user hasn't stated a state for a known reason, don't assume it">사용자가 알려진 이유 없이 상태를 말하지 않았으면 추정하지 않는다</span></div>
+          <div class="vrule"><b>Rule 20</b> · <span data-en="An issue that needs a person to resolve and grows costlier the longer it's left is treated as a major issue">사람이 개입해야 해결되고 방치할수록 손실이 커지는 이슈는 중요 이슈로 본다</span></div>
+          <div class="vrule"><b>Rule 9</b> · <span data-en="If it's not urgent and the user is busy, hold it and bundle it">긴급하지 않고 사용자가 작업 중이면 보류 후 묶음</span></div>
+          <div class="vrule"><b>Rule 16</b> · <span data-en="A device-specific alert goes only to that device and the phone">기기 한정 알림은 그 기기와 폰에만 낸다</span></div>
+          <div class="vrule"><b>Rule 18</b> · <span data-en="Don't send non-urgent alerts to the phone of a user who has app alerts off">앱 알림을 꺼 둔 사용자의 폰에는 긴급하지 않은 알림을 내지 않는다</span></div>
         </div>
       </div>
     </div>
