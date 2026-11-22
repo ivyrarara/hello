@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speak-or-silence Judge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0c0e; --bg-2:#16181c; --text:#ededed;
+    --muted: rgba(237,237,237,0.55); --line: rgba(237,237,237,0.12);
+    --a1:#6e7bff; --a2:#7cf5d0; --grad: linear-gradient(90deg, var(--a1), var(--a2)); --dim: rgba(237,237,237,0.28);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--text); font-family:'Inter','Noto Sans KR', sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;} }
+  a{color:inherit; text-decoration:none;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--a2); outline-offset:3px;}
+  .wrap{max-width:760px; margin:0 auto; padding:0 28px;}
+
+  .back{display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.05em; color:var(--muted); padding:24px 0 0;}
+  .back:hover{color:var(--a2);}
+
+  header.hero{padding:64px 0 40px;}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.08em; color:var(--a2); text-transform:uppercase; margin-bottom:18px; opacity:0; animation:rise 0.6s ease forwards;}
+  h1{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:clamp(32px,6vw,48px); line-height:1.12; letter-spacing:-0.02em; opacity:0; animation:rise 0.6s ease 0.08s forwards;}
+  .hero-sub{margin-top:16px; font-size:16.5px; color:var(--muted); max-width:52ch; opacity:0; animation:rise 0.6s ease 0.16s forwards;}
+  @keyframes rise{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+
+  section{padding:52px 0; border-top:1px solid var(--line);}
+  .label{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a2); margin-bottom:16px; display:block;}
+  p.body-text{font-size:16px; color:rgba(237,237,237,0.85); max-width:58ch;}
+  p.body-text + p.body-text{margin-top:12px;}
+  strong{color:#fff; font-weight:600;}
+  .mint{color:var(--a2);}
+
+  .insight{background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin-top:16px;}
+  .insight .num{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--a1);}
+  .insight p{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-size:15.5px; font-weight:500; margin-top:5px; line-height:1.45;}
+
+  .run-stats{display:flex; flex-wrap:wrap; gap:12px; margin-top:18px;}
+  .stat{flex:1 1 150px; background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:18px 20px;}
+  .stat .n{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:32px; line-height:1; letter-spacing:-0.02em;}
+  .stat .l{font-family:'Inter','Noto Sans KR', sans-serif; font-size:12px; letter-spacing:0; color:var(--muted); margin-top:9px; display:block;}
+  .stat.hl .n{color:var(--a2);}
+
+  .method{margin-top:22px; position:relative;}
+  .mstep{position:relative; display:grid; grid-template-columns:34px 1fr; gap:14px; padding-bottom:20px;}
+  .mstep:last-child{padding-bottom:0;}
+  .mstep::before{content:''; position:absolute; left:16px; top:34px; bottom:-2px; width:1.5px; background:var(--line);}
+  .mstep:last-child::before{display:none;}
+  .mnum{width:32px; height:32px; border-radius:50%; border:1px solid var(--line); background:#0e1012; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--a2); z-index:1;}
+  .mstep .mt{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-weight:600; font-size:16px; line-height:1.3; padding-top:5px;}
+  .mstep .md{font-size:13.5px; color:rgba(237,237,237,0.62); margin-top:3px; line-height:1.5;}
+
+  /* scenario input card */
+  .scen{background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin-top:20px;}
+  .scen .persona{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:11px; letter-spacing:0.03em; color:var(--a1); margin-bottom:11px; display:inline-block; border:1px solid var(--line); border-radius:99px; padding:4px 11px;}
+  .scen .sit{font-size:14.5px; color:rgba(237,237,237,0.9); line-height:1.6;}
+  .scen .cond{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted); margin-top:12px; display:block;}
+
+  .arrowdown{display:flex; justify-content:center; color:var(--a2); margin:14px 0;}
+  .arrowdown svg{width:16px; height:20px;}
+
+  /* verdict card (native rebuild) */
+  .verdict{border:1px solid var(--line); border-radius:16px; overflow:hidden;}
+  .verdict .vh{font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:12px; letter-spacing:0.02em; color:var(--a2); padding:14px 20px; border-bottom:1px solid var(--line); background:rgba(124,245,208,0.045);}
+  .vbody{padding:20px;}
+  .wrow{display:grid; grid-template-columns:84px 1fr; gap:12px; font-size:13px; line-height:1.55; margin-bottom:11px;}
+  .wrow .wk{font-family:'IBM Plex Mono', monospace; font-size:9.5px; letter-spacing:0.07em; text-transform:uppercase; color:var(--muted); padding-top:3px;}
+  .wrow.wo .wv{color:rgba(237,237,237,0.58);}
+  .wrow.wb .wv{color:rgba(237,237,237,0.92);}
+
+  .vgrid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:18px 0 4px;}
+  .vcell{background:#0e1012; border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
+  .vcell .k{font-family:'IBM Plex Mono', monospace; font-size:9.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px;}
+  .vcell .v{font-family:'Space Grotesk','Noto Sans KR', sans-serif; font-size:15px; font-weight:600; color:var(--text);}
+  .vcell.now .v{color:var(--a2);}
+  .vcell.mute .v{color:var(--muted); font-weight:500;}
+
+  .vsec{margin-top:17px;}
+  .vsec .vlbl{font-family:'IBM Plex Mono', monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--a2); display:block; margin-bottom:6px;}
+  .vsec p{font-size:12.5px; color:rgba(237,237,237,0.6); line-height:1.65;}
+  .rtag{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--a1); font-weight:500;}
+
+  .vclash{display:inline-flex; align-items:center; gap:7px; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--a2); margin-top:17px;}
+  .vrules{margin-top:13px; display:flex; flex-direction:column; gap:9px;}
+  .vrule{font-size:12.5px; color:rgba(237,237,237,0.7); line-height:1.5;}
+  .vrule b{font-family:'IBM Plex Mono', monospace; color:var(--a1); font-weight:500; font-size:11.5px;}
+  .vdis{margin-top:20px; display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono','Noto Sans KR', monospace; font-size:12px; color:var(--text); background:none; border:1px solid var(--line); border-radius:99px; padding:9px 16px;}
+  .vdis .x{color:var(--a1); font-size:13px;}
+  .vcap{font-size:12.5px; color:var(--muted); margin-top:11px; line-height:1.55;}
+
+  .contact-links{display:flex; flex-wrap:wrap; align-items:center; gap:12px 22px; margin-top:20px;}
+  .magnetic a{position:relative; display:inline-flex; align-items:center; justify-content:center; line-height:1; font-size:12.5px; padding:11px 20px 10px; border:1px solid rgba(255,255,255,0.24); border-radius:99px; background-image:linear-gradient(180deg, #ffffff 0%, #dedede 50%, #a8a8a8 100%); -webkit-background-clip:text; background-clip:text; color:transparent; box-shadow:inset 0 2px 2px rgba(255,255,255,0.3), inset 0 0 20px rgba(255,255,255,0.06), inset 0 -5px 8px rgba(0,0,0,0.5), 0 6px 18px rgba(0,0,0,0.55), 0 0 26px rgba(0,0,0,0.45); transition:box-shadow 0.25s ease, border-color 0.25s ease;}
+  .magnetic a::before{content:""; position:absolute; inset:0; z-index:-1; border-radius:inherit; background:linear-gradient(180deg, #34373c 0%, #1e2024 55%, #121315 100%); transition:background 0.25s ease;}
+  .magnetic a:hover{border-color:rgba(124,245,208,0.5); box-shadow:inset 0 2px 2px rgba(255,255,255,0.35), inset 0 0 22px rgba(255,255,255,0.08), inset 0 -5px 8px rgba(0,0,0,0.5), 0 6px 18px rgba(0,0,0,0.55), 0 0 28px rgba(124,245,208,0.28);}
+  .magnetic a:hover::before{background:linear-gradient(180deg, #3a3d43 0%, #222428 55%, #141516 100%);}
+  .cta-note{font-size:12.5px; color:var(--muted);}
+  .disc{font-size:12px; color:var(--dim); margin-top:18px; line-height:1.6; max-width:56ch;}
+
+  footer{padding:30px 0 60px; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted);}
+
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <a class="back" href="./index.html">← Home</a>
+
+  <header class="hero">
+    <div class="eyebrow">Derived from the 100-Day Agent · Judgment Engine</div>
+    <h1>Speak-or-silence Judge</h1>
+    <p class="hero-sub" data-en="An engine that judges whether Bixby should speak — or stay silent. Give it a household persona and a situation at home, and against 21 UX rules it returns a verdict: what to do, through which device, to whom, and when — and you can push back ('I disagree') when it's wrong.">빅스비가 '말할까, 말까'를 판정하는 엔진. 가정 페르소나와 집 안 상황을 넣으면 21개 UX 룰에 근거해 — 무엇을·어느 기기로·누구에게·언제 할지 verdict를 내린다. 그리고 틀렸다 싶으면 바로 반박('I disagree')할 수 있다.</p>
+  </header>
+
+  <section class="reveal">
+    <span class="label">From the 100-Day Agent</span>
+    <p class="body-text" data-en="마늘 (the 100-Day Agent) was 100 days of living one judgment — when to speak, when to stay silent. It spoke first only 25 of 109 times, but once I graded the calls, its own confidence knew nothing: it logged <strong>72 every time it spoke</strong>, and silences it got right scored the same confidence (<strong>83</strong>) as the ones it got wrong (<strong>83</strong>). An opaque gut call can't tell when it's wrong.">마늘(100-Day Agent)은 '언제 말하고 언제 침묵할지'를 100일간 직접 산 기록이에요. 109번의 판단 중 먼저 말을 건 건 25번. 그런데 직접 채점해보니 자기 확신은 정답을 전혀 몰랐어요 — <strong>발화할 땐 확신도가 늘 72로 고정</strong>이었고, 침묵이 맞았을 때(<strong>83</strong>)와 틀렸을 때(<strong>83</strong>)의 확신도가 똑같았죠. 불투명한 gut call은 자기가 틀린 걸 알 수 없어요.</p>
+    <div class="run-stats">
+      <div class="stat"><div class="n">72</div><span class="l" data-en="confidence, every time it spoke — fixed">발화할 때 확신도 — 늘 고정</span></div>
+      <div class="stat hl"><div class="n">83 = 83</div><span class="l" data-en="same confidence whether the call was right or wrong">맞아도 틀려도 같은 확신도</span></div>
+    </div>
+    <div class="insight">
+      <span class="num">↳</span>
+      <p data-en="So this tool puts the judgment on explicit rules — and lets a human overrule it. 마늘's grading (should-have-spoken / correct-silence) becomes one button: I disagree.">그래서 이 툴은 판단을 명시적 룰 위에 올리고, 사람이 뒤집을 수 있게 했어요. 마늘의 채점(말했어야 함/침묵이 맞음)이 여기선 버튼 하나가 됩니다 — <span class="mint">I disagree</span>.</p>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">How it works</span>
+    <div class="method">
+      <div class="mstep"><div class="mnum">01</div><div><div class="mt" data-en="Describe">Describe · 상황 묘사</div><div class="md" data-en="Pick a household persona (family with a teen, newlyweds, baby & toddler, single + cat, senior alone) and describe a situation at home">가정 페르소나(청소년 가정·신혼·영유아·1인+펫·노인 1인)를 고르고, 집 안 상황을 적는다</div></div></div>
+      <div class="mstep"><div class="mnum">02</div><div><div class="mt" data-en="Judge">Judge · 판정</div><div class="md" data-en="The engine weighs the situation against 21 UX rules (v0.31, and growing)">엔진이 그 상황을 21개 UX 룰(v0.31, 증가 중)에 비춰 판정</div></div></div>
+      <div class="mstep"><div class="mnum">03</div><div><div class="mt" data-en="Review">Review · 검토</div><div class="md" data-en="Read the verdict with its reasoning — and tap I disagree to log a human verdict against it">근거와 함께 verdict를 확인하고 — I disagree로 사람 판정을 남긴다</div></div></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">A real verdict</span>
+    <p class="body-text" data-en="One real run. Not notify-or-not — every scenario resolves into four decisions (Action · Channel · To · Timing), each shown with the rules it fired and what would flip it.">실제 판정 하나. '알릴까 말까'가 아니라, 하나의 시나리오는 네 결정으로 떨어져요(Action · Channel · To · Timing) — 각 판정엔 발동한 룰과 '무엇이 바뀌면 뒤집히는지'가 붙어요.</p>
+
+    <div class="scen">
+      <span class="persona" data-en="Young single + cat">젊은 1인 + 펫</span>
+      <p class="sit" data-en="After work the user cooks dinner, switches the induction burner off by hand, then settles on the sofa to eat while watching TV. The cat keeps crossing the kitchen counter. A still-warm empty pan sits on the induction top.">퇴근한 사용자가 저녁을 만들고 인덕션 화력을 직접 끈 뒤 거실 소파로 와서 TV로 예능을 보며 밥을 먹고 있다. 고양이는 주방 조리대 위를 오가고 있다. 인덕션 위에는 아직 따뜻한 빈 팬이 놓여 있다.</p>
+      <span class="cond" data-en="Conditions · 2">Conditions · 2</span>
+    </div>
+
+    <div class="arrowdown"><svg viewBox="0 0 14 20" fill="none" aria-hidden="true"><path d="M7 1 V17 M2 12 L7 17 L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+    <div class="verdict">
+      <div class="vh" data-en="Scenario 13 · Always-on induction child lock, during TV">Scenario 13 · TV 시청 중 인덕션 상시 차일드락</div>
+      <div class="vbody">
+        <div class="wrow wo"><span class="wk">Without it</span><span class="wv" data-en="While the user eats, the cat roams the counter and could switch the induction on by accident — a risk that stays open.">사용자가 식사 중인데 고양이가 조리대를 오가다 인덕션을 실수로 켤 수 있는 상태가 계속 열려 있다.</span></div>
+        <div class="wrow wb"><span class="wk">With Bixby</span><span class="wv" data-en="Without the user lifting a finger, the child lock quietly turns on, stops an accidental start by the cat, and the TV isn't interrupted.">사용자가 아무것도 하지 않아도 인덕션 차일드락이 조용히 켜져 고양이가 실수로 켜는 일을 막고, TV 시청도 방해받지 않는다.</span></div>
+
+        <div class="vgrid">
+          <div class="vcell"><span class="k">Action</span><span class="v" data-en="Act silently">말 없이 실행</span></div>
+          <div class="vcell mute"><span class="k">Channel</span><span class="v" data-en="none">없음</span></div>
+          <div class="vcell mute"><span class="k">To</span><span class="v">(none)</span></div>
+          <div class="vcell now"><span class="k">Timing</span><span class="v" data-en="now">지금</span></div>
+        </div>
+
+        <div class="vsec"><span class="vlbl">Why</span><p data-en="<span class='rtag'>R21</span> auto-enables the child lock: it's a pet household, always-on child lock is on, the last manual induction action was 7 min ago (over 5), and the lock is off — so the device enables it with no alert. <span class='rtag'>R19</span> doesn't fire: no hazard is detected (sensors: none), and a warm empty pan alone isn't assumed to be an empty-pot heat-up (<span class='rtag'>R4</span>). With no alert, the user watching TV doesn't affect the verdict."><span class="rtag">R21</span> 상시 차일드락 자동 켜짐: 반려동물 가정이고 상시 차일드락이 '사용중'이며, 인덕션 마지막 수동 조작이 7분 전(5분 이상)인데 차일드락이 꺼져 있어 기기가 차일드락을 알림 없이 켠다. <span class="rtag">R19</span>는 발동하지 않는다 — 위험 감지가 없고(기기 센서: 없음) 따뜻한 빈 팬이 있다는 것만으로는 빈 냄비 가열로 추정하지 않는다(<span class="rtag">R4</span>). 알림도 없으므로 TV 시청 중이라는 사실은 판정에 영향이 없다.</p></div>
+
+        <div class="vsec"><span class="vlbl">Flips if</span><p data-en="If the last manual action becomes under 5 min ago, or the lock is already on, or always-on child lock is set to off, it won't auto-enable. And if sensors detect empty-pan heating or boil-over, <span class='rtag'>R19</span> instead turns the induction off and acts-then-reports via that device and the phone.">인덕션 마지막 수동 조작이 5분 미만으로 바뀌거나, 차일드락이 이미 켜져 있거나, 상시 차일드락이 '사용 안 함'이면 자동 켜기를 하지 않는다. 또 기기 센서가 빈 냄비 가열이나 끓어넘침을 감지하면 <span class="rtag">R19</span>에 따라 인덕션을 끄고 해당 기기와 폰으로 실행 후 보고한다.</p></div>
+
+        <div class="vclash" data-en="✓ no rule clash">✓ 룰 충돌 없음</div>
+
+        <div class="vrules">
+          <div class="vrule"><b>Rule 21</b> · <span data-en="A household using always-on child lock auto-enables the lock when there's no manual operation">상시 차일드락을 쓰는 가정은 수동 조작이 없으면 차일드락이 자동으로 켜진다</span></div>
+          <div class="vrule"><b>Rule 19</b> · <span data-en="Device-detected hazards are acted on first, then announced">기기가 감지한 위험은 먼저 조치하고 알린다</span></div>
+          <div class="vrule"><b>Rule 4</b> · <span data-en="If the user hasn't stated a state for a known reason, don't assume it">사용자가 알려진 이유 없이 상태를 말하지 않았으면 추정하지 않는다</span></div>
+        </div>
+
+        <button class="vdis" type="button" tabindex="-1"><span class="x">✕</span> I disagree</button>
+        <p class="vcap" data-en="This button is the human verdict — the same grading 마늘 proved was the missing piece.">이 버튼이 사람의 verdict — 마늘이 '빠져 있다'고 증명한 바로 그 채점이에요.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Explicit, and growing</span>
+    <p class="body-text" data-en="마늘's judgment was opaque, and its prompt froze early — so it never fixed its bias toward over-silence. Here the judgment is laid out as a versioned rule set (v0.31), and every new edge case adds a rule. Not a frozen gut, but a judgment open to correction — auditable, clash-checked, reversible.">마늘의 판단은 불투명했고 프롬프트가 일찍 고정돼, 과묵이라는 편향을 끝까지 못 고쳤어요. 여기선 판단이 버전 있는 룰셋(v0.31)으로 드러나 있고, 새 엣지 케이스가 나올 때마다 룰이 하나씩 쌓입니다. 얼어붙은 gut이 아니라 <strong>교정에 열린 판단</strong> — 감사 가능하고, 충돌을 검사하고, 되돌릴 수 있는.</p>
+  </section>
+
+  <section class="reveal">
+    <span class="label">Live</span>
+    <p class="body-text" data-en="The tool runs live, built on Claude (Sonnet 5.5). Because it reasons with a model, opening it asks for your own Anthropic API key.">툴은 실제로 동작하고, Claude(Sonnet 5.5) 기반이에요. 모델로 판정하기 때문에, 열어보려면 본인 Anthropic API 키가 필요합니다.</p>
+    <div class="contact-links">
+      <div class="magnetic"><a href="https://bixby-judge-production.up.railway.app/" target="_blank" rel="noopener">Open the live tool →</a></div>
+      <span class="cta-note" data-en="needs your own Anthropic API key">본인 Anthropic API 키 필요</span>
+    </div>
+    <p class="disc" data-en="A personal project — not Samsung's official position or actual Bixby behavior. The device features inside the scenarios are assumptions.">개인 프로젝트이며, 삼성의 공식 입장이나 실제 빅스비 동작이 아닙니다. 시나리오 속 기기 기능은 가정(假定)입니다.</p>
+  </section>
+
+  <footer>© 2026</footer>
+</div>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<script>
+(function(){
+  var KEY='site-lang';
+  var els=[].slice.call(document.querySelectorAll('[data-en]'));
+  els.forEach(function(el){ el.dataset.ko = el.innerHTML; });
+  var lang = localStorage.getItem(KEY) || (((navigator.language||'').toLowerCase().indexOf('ko')===0)?'ko':'en');
+  function apply(l){
+    window.__lang=l; document.documentElement.lang=l;
+    els.forEach(function(el){ el.innerHTML=(l==='en')?el.dataset.en:el.dataset.ko; });
+    document.querySelectorAll('.lang-toggle button').forEach(function(b){ b.classList.toggle('on', b.dataset.lang===l); });
+    try{localStorage.setItem(KEY,l);}catch(e){}
+  }
+  window.applyLang=apply;
+  document.querySelectorAll('.lang-toggle button').forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.lang); }); });
+  apply(lang);
+})();
+</script>
+</body>
+</html>
